@@ -24,9 +24,21 @@
     <ClCompile Include="Usart.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PowerTakeOff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Powertrain.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Usart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Powertrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerTakeOff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
