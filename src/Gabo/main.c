@@ -5,10 +5,18 @@
 //	4. Upload .hex & .eep file
 
 #include "Usart.h"
+#include "Utility.h"
 #include "Powertrain.h"
 #include "PowerTakeOff.h"
 
 int main(void)
 {
+	PowertrainTurnPowerOn();
+
+	while (1)
+	{
+		PowertrainLoop();
+	}
+
 	return 0;
 }

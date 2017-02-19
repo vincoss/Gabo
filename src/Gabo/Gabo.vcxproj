@@ -87,11 +87,13 @@
     <ClCompile Include="PowerTakeOff.c" />
     <ClCompile Include="Powertrain.c" />
     <ClCompile Include="Usart.c" />
+    <ClCompile Include="Utility.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PowerTakeOff.h" />
     <ClInclude Include="Powertrain.h" />
     <ClInclude Include="Usart.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
