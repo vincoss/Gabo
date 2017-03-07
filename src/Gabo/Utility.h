@@ -7,9 +7,9 @@
 #define OFF 0
 #define ON	1
 
-uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex);
-void UtilitySetBitAsUsed(uint8_t * value, uint8_t bitIndex);
-void UtilitySetBitAsUnUsed(uint8_t * value, uint8_t bitIndex);
-void UtilityFlipBit(uint8_t * value, uint8_t bitIndex);
+uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex); // TODO: Also by ref maybe
+void UtilitySetBitAsUsed(volatile uint8_t * value, uint8_t bitIndex);
+void UtilitySetBitAsUnUsed(volatile uint8_t * value, uint8_t bitIndex);
+void UtilityFlipBit(volatile uint8_t * value, uint8_t bitIndex);
 
 #endif

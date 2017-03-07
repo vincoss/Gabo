@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{984365cf-9ed9-41dd-bc72-6db5c907d4e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -21,17 +24,20 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Usart.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utility.c">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="PowerTakeOff.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Usart.c">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="Powertrain.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PowerTakeOff.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Adc.c">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Adc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
-#include <avr/io.h>				
-#include <stdlib.h>
+#include <avr/io.h>			
 #include "Usart.h"
+
 
 void UsartInitialize(void)
 {
@@ -24,7 +24,7 @@ unsigned char UsartReadChar(void)
 	return UDR0;
 }
 
-void UsartWriteCharString(char* stringPtr)
+void UsartWriteCharString(unsigned char* stringPtr)
 {
 	// Here we check if there is still more chars to send, this is done checking the actual char and see if it is different from the null '\n' char
 	while (*stringPtr != 0x00)

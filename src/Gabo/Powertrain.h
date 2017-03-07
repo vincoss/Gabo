@@ -17,6 +17,8 @@ volatile uint8_t _powertrainState;
 
 // PORTD
 #define POWERTRAIN_POWER_ON_OFF_PIND2	2
+#define POWERTRAIN_L_MOTOR_SPEED_PINA0	0
+#define POWERTRAIN_R_MOTOR_SPEED_PINA1	1
 
 void PowertrainSetup(void);
 

@@ -1,8 +1,31 @@
 #include "Utility.h"
 #include "Powertrain.h"
+#include "Adc.h"
+#include <stdlib.h>
 
 
 #pragma region Public methods
+
+
+
+
+void PowertrainSetup(void)
+{
+	DDRD |= (1 << POWERTRAIN_POWER_ON_OFF_PIND2);		// Output
+	DDRB |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5));		// Output
+	DDRB |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);
+	DDRB |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1));
+
+	// TODO: Ground this is issue if power is not not???
+
+	// Ground
+	PORTB |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0); // High
+	DDRB |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0);
+
+	// Speed
+	/*DDRA &= ~(1 << POWERTRAIN_L_MOTOR_SPEED_PINA0);
+	DDRA &= ~(1 << POWERTRAIN_R_MOTOR_SPEED_PINA1);*/
+}
 
 void PowertrainTurnPowerOn(void)
 {
@@ -24,14 +47,24 @@ void PowertrainStop(void)
 	UtilitySetBitAsUnUsed(&_powertrainState, PowertrainStateStartStopBit1);
 }
 
-void PowertrainBrake(void)
+void PowertrainRun(void)
 {
 	UtilitySetBitAsUsed(&_powertrainState, PowertrainStateRunBrakeBit2);
 }
 
-void PowertrainRun(void)
+void PowertrainBrake(void)
 {
 	UtilitySetBitAsUnUsed(&_powertrainState, PowertrainStateRunBrakeBit2);
+}
+
+void PowertrainCw(void)
+{
+	UtilitySetBitAsUsed(&_powertrainState, PowertrainStateCwCcwBit3);
+}
+
+void PowertrainCcw(void)
+{
+	UtilitySetBitAsUnUsed(&_powertrainState, PowertrainStateCwCcwBit3);
 }
 
 void PowertrainLoop(void)
@@ -80,9 +113,13 @@ void PowertrainLoop(void)
 	{
 		InternalCcw();
 	}
+
+	InternalSpeed();
 }
 
 #pragma endregion
+
+#pragma region Internal methods
 
 void InternalPowertrainOn(void)
 {
@@ -127,19 +164,21 @@ void InternalCcw(void)
 	PORTB |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1)); // TODO: comment find what direction is this
 }
 
+char adcSamplesThree_Buffer[5];
 
-void PowertrainSetup(void)
+void InternalSpeed(void)
 {
+	uint16_t value = AdcRead(5);
 
-	// TODO: this is issue if power is not not???
-
-	// Ground
-	PORTD |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0); // High
-	DDRD |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0);
-
-
-	DDRD |= (1 << POWERTRAIN_POWER_ON_OFF_PIND2);		// Output
-	DDRB |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5));		// Output
-	DDRB |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);
-	DDRB |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1));
+	itoa(value, adcSamplesThree_Buffer, 10);
+	UsartWriteCharString(adcSamplesThree_Buffer);
+	
+	UsartWriteChar('\n');
 }
+
+#pragma endregion
+
+// TODO:
+// R4 zajiš?uje, že b?hem programování mikrokontrolér nep?ijímá potenciometr data. 
+// When programming writing into chip must not reset the relay and other
+

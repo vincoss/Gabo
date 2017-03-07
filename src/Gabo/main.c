@@ -8,14 +8,24 @@
 #include "Utility.h"
 #include "Powertrain.h"
 #include "PowerTakeOff.h"
+#include <util/delay.h>		
 
 int main(void)
 {
+	PowertrainSetup();
 	PowertrainTurnPowerOn();
+	PowertrainStart();
+	PowertrainRun();
+	PowertrainCw();
+
+	AdcInitialize();
+	UsartInitialize();
 
 	while (1)
 	{
 		PowertrainLoop();
+
+		_delay_ms(1000);
 	}
 
 	return 0;
