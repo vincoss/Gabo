@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClCompile Include="Adc.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Mcp4xxx.c" />
     <ClCompile Include="PowerTakeOff.c" />
     <ClCompile Include="Powertrain.c" />
     <ClCompile Include="Usart.c" />
@@ -92,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adc.h" />
+    <ClInclude Include="Mcp4xxx.h" />
     <ClInclude Include="PowerTakeOff.h" />
     <ClInclude Include="Powertrain.h" />
     <ClInclude Include="Usart.h" />

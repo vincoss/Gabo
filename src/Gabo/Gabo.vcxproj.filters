@@ -39,6 +39,9 @@
     <ClCompile Include="Adc.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="Mcp4xxx.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Usart.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Adc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mcp4xxx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

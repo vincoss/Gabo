@@ -7,7 +7,10 @@
 #pragma region Public methods
 
 
+void PowertrainSpiSetup(void)
+{
 
+}
 
 void PowertrainSetup(void)
 {
