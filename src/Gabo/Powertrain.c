@@ -1,6 +1,7 @@
 #include "Utility.h"
 #include "Powertrain.h"
 #include "Adc.h"
+#include "Mcp4xxx.h"
 #include <stdlib.h>
 
 
@@ -9,23 +10,26 @@
 
 void PowertrainSpiSetup(void)
 {
-
+	DDRB = (1 << 2) | (1 << 3) | (1 << 5);
+	Mcp4xxxInitialize(&PORTB, 2);
 }
 
 void PowertrainSetup(void)
 {
+	PowertrainSpiSetup();
+
 	DDRD |= (1 << POWERTRAIN_POWER_ON_OFF_PIND2);		// Output
-	DDRB |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5));		// Output
-	DDRB |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);
-	DDRB |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1));
+	DDRD |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5));		// Output
+	DDRD |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);
+	DDRD |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1));
 
 	// TODO: Ground this is issue if power is not not???
 
 	// Ground
-	PORTB |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0); // High
-	DDRB |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0);
+	PORTD |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0); // High
+	DDRD |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0);
 
-	// Speed
+	// Speed // TODO: temp remove
 	/*DDRA &= ~(1 << POWERTRAIN_L_MOTOR_SPEED_PINA0);
 	DDRA &= ~(1 << POWERTRAIN_R_MOTOR_SPEED_PINA1);*/
 }
@@ -75,7 +79,7 @@ void PowertrainLoop(void)
 	// NOTE: order is important
 
 	// Power on/off
-	if (UtilityIsBitSet(_powertrainState, PowertrainStateOnOffBit0) == ON)
+	if (UtilityIsBitSet(_powertrainState, PowertrainStateOnOffBit0) == UTILITY_ON)
 	{
 		InternalPowertrainOn();
 	}
@@ -88,7 +92,7 @@ void PowertrainLoop(void)
 	}
 
 	// Motor run/brake
-	if (UtilityIsBitSet(_powertrainState, PowertrainStateRunBrakeBit2) == ON)
+	if (UtilityIsBitSet(_powertrainState, PowertrainStateRunBrakeBit2) == UTILITY_ON)
 	{
 		InternalPowertrainRun();
 	}
@@ -98,7 +102,7 @@ void PowertrainLoop(void)
 	}
 
 	// Motor start/stop
-	if (UtilityIsBitSet(_powertrainState, PowertrainStateStartStopBit1) == ON)
+	if (UtilityIsBitSet(_powertrainState, PowertrainStateStartStopBit1) == UTILITY_ON)
 	{
 		InternalPowertrainStart();
 	}
@@ -108,7 +112,7 @@ void PowertrainLoop(void)
 	}
 
 	// Motor Cw/Ccw
-	if (UtilityIsBitSet(_powertrainState, PowertrainStateCwCcwBit3) == ON)
+	if (UtilityIsBitSet(_powertrainState, PowertrainStateCwCcwBit3) == UTILITY_ON)
 	{
 		InternalCw();
 	}
@@ -133,40 +137,47 @@ void InternalPowertrainOn(void)
 void InternalPowertrainOff(void)
 {
 	// NOTE: Order is important
-	PORTB |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);	// High - brake on
+	PORTD |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3);	// High - brake on
 	PORTD |= (1 << POWERTRAIN_POWER_ON_OFF_PIND2);			// High - turn powertrain power off
 }
 
 void InternalPowertrainStart(void)
 {
-	PORTB &= ~((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) & (1 << POWERTRAIN_R_MOTOR_START_STOP_PINB4));	// Low - start
+	PORTD &= ~((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) & (1 << POWERTRAIN_R_MOTOR_START_STOP_PINB4));	// Low - start
 }
 
 void InternalPowertrainStop(void)
 {
-	PORTB |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_R_MOTOR_START_STOP_PINB4));		// High - stop
+	PORTD |= ((1 << POWERTRAIN_L_MOTOR_START_STOP_PINB5) | (1 << POWERTRAIN_R_MOTOR_START_STOP_PINB4));		// High - stop
 }
 
 void InternalPowertrainRun(void)
 {
-	PORTB &= ~(1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3); // Low - brake off
+	PORTD &= ~(1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3); // Low - brake off
 }
 
 void InternalPowertrainBrake(void)
 {
-	PORTB |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3); // High - brake on
+	PORTD |= (1 << POWERTRAIN_LR_MOTOR_RUN_BRAKE_PINB3); // High - brake on
 }
 
 void InternalCw(void)
 {
-	PORTB &= ~((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) & (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1)); // TODO: comment find what direction is this
+	PORTD &= ~((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) & (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1)); // TODO: comment find what direction is this
 }
 
 void InternalCcw(void)
 {
-	PORTB |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1)); // TODO: comment find what direction is this
+	PORTD |= ((1 << POWERTRAIN_L_MOTOR_CW_CCW_PINB2) | (1 << POWERTRAIN_R_MOTOR_CW_CCW_PINB1)); // TODO: comment find what direction is this
 }
 
+void PowertrainSpeed(uint8_t percent)
+{
+	// TODO: must reverse this since higher percent more resistance LOL
+	Mcp4xxxSetBothWiperByPercent(percent);
+}
+
+// TODO: temp only
 char adcSamplesThree_Buffer[5];
 
 void InternalSpeed(void)

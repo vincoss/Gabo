@@ -9,14 +9,17 @@
 #include "Powertrain.h"
 #include "PowerTakeOff.h"
 #include <util/delay.h>		
+#include "Mcp4xxx.h"
 
 int main(void)
 {
 	PowertrainSetup();
-	PowertrainTurnPowerOn();
+	//PowertrainTurnPowerOn();
 	PowertrainStart();
 	PowertrainRun();
 	PowertrainCw();
+
+	PowertrainSpeed(50);
 
 	AdcInitialize();
 	UsartInitialize();

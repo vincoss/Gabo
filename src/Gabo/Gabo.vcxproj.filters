@@ -16,6 +16,12 @@
     <Filter Include="Source Files\src">
       <UniqueIdentifier>{984365cf-9ed9-41dd-bc72-6db5c907d4e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Infrastructure">
+      <UniqueIdentifier>{a1abec0d-5769-4806-bc7e-d1eeb1374cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Infrastructure">
+      <UniqueIdentifier>{ea658bff-48d6-4a37-b481-c6f9be883365}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -24,12 +30,6 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.c">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="Usart.c">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
     <ClCompile Include="Powertrain.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
@@ -37,30 +37,36 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="Adc.c">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files\src\Infrastructure</Filter>
     </ClCompile>
     <ClCompile Include="Mcp4xxx.c">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files\src\Infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Usart.c">
+      <Filter>Source Files\src\Infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.c">
+      <Filter>Source Files\src\Infrastructure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Usart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Powertrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PowerTakeOff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Adc.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="Mcp4xxx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Usart.h">
+      <Filter>Header Files\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files\Infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

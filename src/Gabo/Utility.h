@@ -4,8 +4,8 @@
 
 #include <avr/io.h>
 
-#define OFF 0
-#define ON	1
+#define UTILITY_OFF 0
+#define UTILITY_ON	1
 
 uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex); // TODO: Also by ref maybe
 void UtilitySetBitAsUsed(volatile uint8_t * value, uint8_t bitIndex);
