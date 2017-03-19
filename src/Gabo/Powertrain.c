@@ -10,6 +10,7 @@
 
 void PowertrainSpiSetup(void)
 {
+	// TODO: refactor this
 	DDRB = (1 << 2) | (1 << 3) | (1 << 5);
 	Mcp4xxxInitialize(&PORTB, 2);
 }
@@ -30,8 +31,8 @@ void PowertrainSetup(void)
 	DDRD |= (1 << POWERTRAIN_LR_MOTOR_GROUND_PINB0);
 
 	// Speed // TODO: temp remove
-	/*DDRA &= ~(1 << POWERTRAIN_L_MOTOR_SPEED_PINA0);
-	DDRA &= ~(1 << POWERTRAIN_R_MOTOR_SPEED_PINA1);*/
+	//DDRA &= ~(1 << POWERTRAIN_L_MOTOR_SPEED_PINA0);
+	//DDRA &= ~(1 << POWERTRAIN_R_MOTOR_SPEED_PINA1);
 }
 
 void PowertrainTurnPowerOn(void)
@@ -120,8 +121,6 @@ void PowertrainLoop(void)
 	{
 		InternalCcw();
 	}
-
-	InternalSpeed();
 }
 
 #pragma endregion
@@ -176,23 +175,4 @@ void PowertrainSpeed(uint8_t percent)
 	// TODO: must reverse this since higher percent more resistance LOL
 	Mcp4xxxSetBothWiperByPercent(percent);
 }
-
-// TODO: temp only
-char adcSamplesThree_Buffer[5];
-
-void InternalSpeed(void)
-{
-	uint16_t value = AdcRead(5);
-
-	itoa(value, adcSamplesThree_Buffer, 10);
-	UsartWriteCharString(adcSamplesThree_Buffer);
-	
-	UsartWriteChar('\n');
-}
-
-#pragma endregion
-
-// TODO:
-// R4 zajiš?uje, že b?hem programování mikrokontrolér nep?ijímá potenciometr data. 
-// When programming writing into chip must not reset the relay and other
 
