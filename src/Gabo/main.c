@@ -31,9 +31,6 @@ int main(void)
 	DDRD &= ~(1 << PD6);
 	PORTD |= (1 << PD6);
 
-	volatile long _speedCounter;
-	char binary[9];
-
 	while (1)
 	{
 		PowertrainLoop();
