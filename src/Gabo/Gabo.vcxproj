@@ -93,9 +93,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adc.h" />
+    <ClInclude Include="GaboIo.h" />
     <ClInclude Include="Mcp4xxx.h" />
     <ClInclude Include="PowerTakeOff.h" />
     <ClInclude Include="Powertrain.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="Usart.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>

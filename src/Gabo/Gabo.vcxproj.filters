@@ -68,6 +68,12 @@
     <ClInclude Include="Utility.h">
       <Filter>Header Files\Infrastructure</Filter>
     </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GaboIo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile">
