@@ -502,6 +502,16 @@ Need two shift registers or one 16 bit one.
 		#Command groups
 		powertrain			0
 		powertrain speed	1
+
+		#Command example, use all characters A-Z upper case
+		A={command}
+		? for query
+		: for response
+		= to set 
+		Then read into a variable until /n
+
+		#Example
+		A=SomeCommand\n (usart reads two bytes
 */
 
 #define PowertrainCommand		0
