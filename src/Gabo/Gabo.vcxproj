@@ -89,6 +89,7 @@
     <ClCompile Include="Mcp4xxx.c" />
     <ClCompile Include="PowerTakeOff.c" />
     <ClCompile Include="Powertrain.c" />
+    <ClCompile Include="uart_e3xample.c" />
     <ClCompile Include="Usart.c" />
     <ClCompile Include="Utility.c" />
   </ItemGroup>

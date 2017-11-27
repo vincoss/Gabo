@@ -512,6 +512,17 @@ Need two shift registers or one 16 bit one.
 
 		#Example
 		A=SomeCommand\n (usart reads two bytes
+
+		POWERTRAIN 8 bits
+		L START/STOP
+		L RUN/BRAKE
+		L CW/CCW
+		R
+		R
+		R
+		LR ALERT ON/OFF
+		?
+
 */
 
 #define PowertrainCommand		0

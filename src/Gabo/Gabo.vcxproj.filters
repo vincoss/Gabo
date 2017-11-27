@@ -48,6 +48,9 @@
     <ClCompile Include="Utility.c">
       <Filter>Source Files\src\Infrastructure</Filter>
     </ClCompile>
+    <ClCompile Include="uart_e3xample.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Powertrain.h">
