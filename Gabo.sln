@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gabo", "src\Gabo\Gabo.vcxproj", "{14AF6B45-4ED9-457D-A68C-F216B0C978BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GaboConsole", "src\GaboConsole\GaboConsole.vcxproj", "{B43829E4-D094-45FC-B00B-DBF762BF26DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{14AF6B45-4ED9-457D-A68C-F216B0C978BE}.Release|x64.Build.0 = Release|x64
 		{14AF6B45-4ED9-457D-A68C-F216B0C978BE}.Release|x86.ActiveCfg = Release|Win32
 		{14AF6B45-4ED9-457D-A68C-F216B0C978BE}.Release|x86.Build.0 = Release|Win32
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Debug|x64.ActiveCfg = Debug|x64
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Debug|x64.Build.0 = Debug|x64
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Debug|x86.ActiveCfg = Debug|Win32
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Debug|x86.Build.0 = Debug|Win32
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Release|x64.ActiveCfg = Release|x64
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Release|x64.Build.0 = Release|x64
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Release|x86.ActiveCfg = Release|Win32
+		{B43829E4-D094-45FC-B00B-DBF762BF26DE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
