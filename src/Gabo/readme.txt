@@ -58,3 +58,11 @@
 	
 	0,1,2,4,8,16,32,64,128
 */
+
+
+// 8 Bits (TODO: looks that speed needs 16 bits or pass individual command
+// add activateCommand (last command when all comand were already input in)
+// Left		0-100
+// Right	0-100
+//  128 64 32 16 8421			
+//	0    0  0  0 0000
