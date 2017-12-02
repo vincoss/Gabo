@@ -44,14 +44,10 @@
 
 
 	#Obsolete
-	Power OFF	0
-	Power ON	1
-	Start		2
-	Stop		3
-	Run			4
-	Brake		5
-	Cw			6
-	Ccw			7
+	Power ON/OFF	0
+	Start/Stop		1
+	Run/Brake		2
+	Cw/Ccw			3
 	Speed		8	TODO: needs actual speed value in percent
 	Direction	9	TODO: needs degrees value to turn to 0-360
 	Clear Alert LR 10
