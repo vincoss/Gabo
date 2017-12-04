@@ -1,7 +1,28 @@
 
+void ProcessCommand(void);
+
 int main(void)
 {
+	while (1)
+	{
+
+	}
+
 	return 0;
+}
+
+
+void ProcessCommand(void) 
+{
+
+	if (command_ready == 1)
+	{
+		CopyCommand();
+		//process_command();
+
+		command_ready = 0;
+		//usart_ok();
+	}
 }
 
 ////	Copy main.hex into Arduino board use this command

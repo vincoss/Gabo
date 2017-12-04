@@ -98,6 +98,7 @@
     <ClInclude Include="Adc.h" />
     <ClInclude Include="GaboCommand.h" />
     <ClInclude Include="GaboIo.h" />
+    <ClInclude Include="GaboUsart.h" />
     <ClInclude Include="Mcp4xxx.h" />
     <ClInclude Include="PowerTakeOff.h" />
     <ClInclude Include="Powertrain.h" />
