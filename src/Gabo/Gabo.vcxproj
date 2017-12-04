@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Adc.c" />
+    <ClCompile Include="GaboCommand.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Mcp4xxx.c" />
     <ClCompile Include="PowerTakeOff.c" />
@@ -95,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adc.h" />
+    <ClInclude Include="GaboCommand.h" />
     <ClInclude Include="GaboIo.h" />
     <ClInclude Include="Mcp4xxx.h" />
     <ClInclude Include="PowerTakeOff.h" />
