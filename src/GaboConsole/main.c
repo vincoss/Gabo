@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 #include "CommandSample.h"
 
 int main()
