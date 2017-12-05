@@ -1,3 +1,7 @@
+
+#ifndef COMMANDSAMPLE_H
+#define COMMANDSAMPLE_H
+
 #include<stdio.h>
 #include<string.h>
 #include <inttypes.h>
@@ -90,25 +94,25 @@ void ProcessCommand(char * command_in)
 
 	switch (command_in[0])
 	{
-		case 'A': // Power command
+	case 'A': // Power command
+	{
+		if (command_in[1] == '?') // Send response back if '?'
 		{
-			if (command_in[1] == '?') // Send response back if '?'
-			{
-				// Do the query action for S
-				print_value('A', speedCommand);
-			}
-			else if (command_in[1] == '=')
-			{
-				speedCommand = ParseCommand(command_in, 0);
-			}
-			break;
+			// Do the query action for S
+			print_value('A', speedCommand);
 		}
-		default:
+		else if (command_in[1] == '=')
 		{
-			//usart_puts("NOT RECOGNISED\r\n");
-			break;
+			speedCommand = ParseCommand(command_in, 0);
+		}
+		break;
+	}
+	default:
+	{
+		//usart_puts("NOT RECOGNISED\r\n");
+		break;
 
-		}
+	}
 	}
 }
 
@@ -122,3 +126,5 @@ void print_value(char *id, int *value)
 	//usart_puts(buffer);
 	//usart_puts(RETURN_NEWLINE);
 }
+
+#endif
