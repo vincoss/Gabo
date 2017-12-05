@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "CommandSample.h"
 
-int main()
+
+int main(int argc, char *argv[])
 {
 	CommandSample_Main();
 
