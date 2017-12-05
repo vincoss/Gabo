@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="Adc.c" />
     <ClCompile Include="GaboCommand.c" />
+    <ClCompile Include="GaboUsart.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Mcp4xxx.c" />
     <ClCompile Include="PowerTakeOff.c" />

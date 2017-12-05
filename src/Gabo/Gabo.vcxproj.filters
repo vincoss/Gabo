@@ -54,6 +54,9 @@
     <ClCompile Include="GaboCommand.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="GaboUsart.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Powertrain.h">
