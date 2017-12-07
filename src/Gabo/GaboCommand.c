@@ -91,4 +91,21 @@ void GaboCommandCopy(char * data, char * command)
 	//}
 }
 
+void GaboCommandReadUsart(unsigned char data)
+{
+	data_in[data_count] = data; //UDR0;
+
+	if (data_in[data_count] == '\n')// End of line!
+	{
+		command_ready = 1;
+
+		// Reset to 0, ready to go again
+		data_count = 0;
+	}
+	else
+	{
+		data_count++;
+	}
+}
+
 #pragma endregion
