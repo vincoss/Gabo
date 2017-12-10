@@ -83,10 +83,10 @@
     <ClInclude Include="GaboIo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GaboCommand.h">
+    <ClInclude Include="GaboUsart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GaboUsart.h">
+    <ClInclude Include="..\include\GaboCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

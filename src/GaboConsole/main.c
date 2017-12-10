@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <GaboCommand.h>
 
 int main(int argc, char *argv[])
 {

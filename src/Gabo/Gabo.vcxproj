@@ -96,8 +96,8 @@
     <ClCompile Include="Utility.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\GaboCommand.h" />
     <ClInclude Include="Adc.h" />
-    <ClInclude Include="GaboCommand.h" />
     <ClInclude Include="GaboIo.h" />
     <ClInclude Include="GaboUsart.h" />
     <ClInclude Include="Mcp4xxx.h" />
