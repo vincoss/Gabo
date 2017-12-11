@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "GaboCommand.h"
 #include "GaboIo.h"
 

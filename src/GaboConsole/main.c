@@ -1,18 +1,14 @@
 #include <stdio.h>
-#include <GaboCommand.h>
+#include "GaboCommand.h"
+#include "GaboIo.h"
 
-int main(int argc, char *argv[])
+// A=255\nB=2\nA?\n
+int main(void)
 {
-	//A=1\nB=255\nB?\n
 
 	printf("\nDone...");
 	getchar();
 	getchar();
 
 	return 0;
-}
-
-void CommandTest()
-{
-	
 }
