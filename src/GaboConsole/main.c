@@ -10,7 +10,7 @@ void CommandLoopSample(void);
 // A=255\nB=2\nA?\n
 int main(void)
 {
-
+	GaboCommandPrint('A', 34);
 	printf("\nDone...");
 	getchar();
 	getchar();
