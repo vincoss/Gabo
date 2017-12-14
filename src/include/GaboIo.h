@@ -21,7 +21,7 @@ volatile unsigned char data_count;
 volatile unsigned char command_ready;
 
 volatile uint8_t powerCommand;
-
+volatile uint8_t commandPowertrain;
 
 
 #endif

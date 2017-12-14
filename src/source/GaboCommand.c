@@ -12,25 +12,38 @@ void GaboCommandProcess(char * command_in)
 
 	switch (command_in[0])
 	{
-	case 'A': // Power command
-	{
-		if (command_in[1] == '?') // Send response back if '?'
+		case 'A': // Power
 		{
-			// Do the query action for S
-			GaboCommandPrint('A', powerCommand);
+			if (command_in[1] == '?') // Send response back if '?'
+			{
+				// Do the query action for S
+				GaboCommandPrint('A', powerCommand);
+			}
+			else if (command_in[1] == '=')
+			{
+				powerCommand = GaboCommandParse(command_in, 0);
+			}
+			break;
 		}
-		else if (command_in[1] == '=')
+		case 'B': // Powertrain
 		{
-			powerCommand = GaboCommandParse(command_in, 0);
+			if (command_in[1] == '?') // Send response back if '?'
+			{
+				// Do the query action for S
+				GaboCommandPrint('B', commandPowertrain);
+			}
+			else if (command_in[1] == '=')
+			{
+				commandPowertrain = GaboCommandParse(command_in, 0);
+			}
+			break;
 		}
-		break;
-	}
-	default:
-	{
-		//usart_puts("NOT RECOGNISED\r\n");
-		break;
+		default:
+		{
+			//usart_puts("NOT RECOGNISED\r\n");
+			break;
 
-	}
+		}
 	}
 }
 
