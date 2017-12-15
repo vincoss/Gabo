@@ -66,6 +66,8 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 	{
 		return defaultValue;
 	}
+	
+	// TODO: chekc if contails = otherwise return default value
 
 	char *pch;
 	char cmdValue[8];
@@ -87,13 +89,13 @@ void GaboCommandCopy(char * data, char * command)
 		return;
 	}
 
-	// TODO: lock in here
-
 	// Copy the contents of data_in into command_in
 	memcpy(command, data, 8);
 
 	//// Now clear data_in, the USART can reuse it now
 	memset(data, 0, 8);
+
+	// TODO: lock in here
 
 	//// The USART might interrupt this - don't let that happen!
 	//ATOMIC_BLOCK(ATOMIC_FORCEON) {

@@ -8,7 +8,6 @@
 
 int main()
 {
-	GaboCommandPrint('a', 22);
 	UnitTestsRun();
 
 	printf("\nDone...");

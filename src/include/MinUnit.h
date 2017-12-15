@@ -1,6 +1,7 @@
 
+void MinUnitInitialize(void);
 #define MinUnitAssert(message, test) do { if (!(test)) return message; } while (0)
-#define MinUnitRun(test) do { char *message = test(); MinUnitTestsRun++;  if (message) { printf("%s\n", message); MinUnitTestsFail++; }else {MinUnitTestsSuccess++; }} while (0)
+#define MinUnitRun(test) do { MinUnitInitialize(); char *message = test(); MinUnitTestsRun++;  if (message) { printf("%s\n", message); MinUnitTestsFail++; }else {MinUnitTestsSuccess++; }} while (0)
 
 extern int MinUnitTestsRun;
 extern int MinUnitTestsSuccess;
