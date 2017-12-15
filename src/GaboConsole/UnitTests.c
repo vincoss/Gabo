@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include "UnitTests.h"
 #include "MinUnit.h"
-#include "GaboConsoleUnitTests.h"
 
 // These are required.
 int MinUnitTestsRun = 0;
@@ -18,7 +17,7 @@ static void UnitTestsRunAll()
 	MinUnitRun(SampleTest);
 }
 
-int GaboConsoleUnitTestsMain()
+int UnitTestsRun(void)
 {
 	UnitTestsRunAll();
 
