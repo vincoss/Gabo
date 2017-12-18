@@ -13,15 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\source">
+      <UniqueIdentifier>{5e582280-c61a-43c2-b07f-96219ef97a54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Adc.c">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Usart.c">
+      <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Adc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Usart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
