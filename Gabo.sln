@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GaboConsole", "src\GaboCons
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GaboSamplesConsole", "src\GaboSamplesConsole\GaboSamplesConsole.vcxproj", "{44647A53-78DF-43D2-A893-6E74819CB9AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GaboAvr", "src\GaboAvr\GaboAvr.vcxproj", "{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{44647A53-78DF-43D2-A893-6E74819CB9AC}.Release|x64.Build.0 = Release|x64
 		{44647A53-78DF-43D2-A893-6E74819CB9AC}.Release|x86.ActiveCfg = Release|Win32
 		{44647A53-78DF-43D2-A893-6E74819CB9AC}.Release|x86.Build.0 = Release|Win32
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Debug|x64.ActiveCfg = Debug|x64
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Debug|x64.Build.0 = Debug|x64
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Debug|x86.ActiveCfg = Debug|Win32
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Debug|x86.Build.0 = Debug|Win32
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Release|x64.ActiveCfg = Release|x64
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Release|x64.Build.0 = Release|x64
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Release|x86.ActiveCfg = Release|Win32
+		{C71466DF-2DAD-4206-8D87-ABDA1EEEDB63}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
