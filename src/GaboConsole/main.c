@@ -4,8 +4,6 @@
 #include "GaboIo.h"
 #include "UnitTests.h"
 
-
-
 int main()
 {
 	UnitTestsRun();
