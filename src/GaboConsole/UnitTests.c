@@ -17,14 +17,15 @@ void MinUnitInitialize(void)
 
 char * GaboCommandParseTest()
 {
-	uint8_t result = GaboCommandParse("A=255", -1);
+	uint8_t result = GaboCommandParse("A=255", 0);
 	MinUnitAssert("Error:, GaboCommandParse", result == 255);
 	return 0;
 }
 
 char * GaboCommandParseDefaultTest()
 {
-	uint8_t result = GaboCommandParse("", 0);
+	char *s = "A=255";
+	uint8_t result = GaboCommandParse(s, 0);
 	MinUnitAssert("Error:, GaboCommandParseDefaultTest", result == 0);
 	return 0;
 }
