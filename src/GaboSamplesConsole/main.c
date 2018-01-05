@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include "CommandSample.h"
 
+
 void PrintInputCommands(int argc, char *argv[]);
 void CommandSamples();
 
 
 int main(int argc, char *argv[])
 {
-	PrintInputCommands(argc, argv);
+	CommandSamples();
 
 	printf("\nDone...");
 	getchar();
