@@ -21,10 +21,7 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Adc.c">
-      <Filter>Source Files\source</Filter>
-    </ClCompile>
-    <ClCompile Include="Usart.c">
+    <ClCompile Include="GaboUsart.c">
       <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,10 +31,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Adc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Usart.h">
+    <ClInclude Include="GaboUsart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,7 +24,7 @@ char * GaboCommandParseTest()
 
 char * GaboCommandParseDefaultTest()
 {
-	char *s = "A=255";
+	char *s = "";
 	uint8_t result = GaboCommandParse(s, 0);
 	MinUnitAssert("Error:, GaboCommandParseDefaultTest", result == 0);
 	return 0;
