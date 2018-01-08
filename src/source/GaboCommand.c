@@ -2,8 +2,22 @@
 #include "GaboCommand.h"
 #include "GaboIo.h"
 
+void GaboCommandProcess(void)
+{
+	if (command_ready == 0)
+	{
+		// No command to process
+		return;
+	}
 
-void GaboCommandProcess(char * command_in)
+	GaboCommandCopy(data_in, command_in);
+	GaboCommandExecute(command_in);
+
+	command_ready = 0;
+	GaboCommandPrint("OK\r\n", 0); // TODO: does not need two parameters
+}
+
+void GaboCommandExecute(char * command_in)
 {
 	if (strlen(command_in) <= 0)
 	{

@@ -1,15 +1,6 @@
 
 void ProcessCommand(void);
 
-int main(void)
-{
-	while (1)
-	{
-
-	}
-
-	return 0;
-}
 
 
 void ProcessCommand(void) 
