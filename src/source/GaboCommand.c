@@ -2,7 +2,7 @@
 #include "GaboCommand.h"
 #include "GaboIo.h"
 
-void GaboCommandProcess(void)
+void GaboCommandRead(void)
 {
 	if (command_ready == 0)
 	{
@@ -11,13 +11,13 @@ void GaboCommandProcess(void)
 	}
 
 	GaboCommandCopy(data_in, command_in);
-	GaboCommandExecute(command_in);
+	GaboCommandProcess(command_in);
 
 	command_ready = 0;
 	GaboCommandPrint("OK\r\n", 0); // TODO: does not need two parameters
 }
 
-void GaboCommandExecute(char * command_in)
+void GaboCommandProcess(char * command_in)
 {
 	if (strlen(command_in) <= 0)
 	{
@@ -54,7 +54,7 @@ void GaboCommandExecute(char * command_in)
 		}
 		default:
 		{
-			//usart_puts("NOT RECOGNISED\r\n");
+			GaboCommandPrint("COMMAND NOT RECOGNISED\r\n", 0); // TODO: no need two parameters
 			break;
 
 		}
@@ -127,6 +127,7 @@ void GaboCommandReadUsart(unsigned char data)
 
 	if (data_in[data_count] == '\n')// End of line!
 	{
+		// Command ready to parse
 		command_ready = 1;
 
 		// Reset to 0, ready to go again

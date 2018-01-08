@@ -15,6 +15,20 @@ void MinUnitInitialize(void)
 	memset(data_in, 0, strlen(data_in));
 }
 
+char * GaboCommandReadHasCommandTest()
+{
+	command_ready = 1;
+	command_in = "A=128";
+	GaboCommandRead();
+}
+
+char * GaboCommandReadHasCommandTest()
+{
+	command_ready = 1;
+	command_in = "A=128";
+	GaboCommandRead();
+}
+
 char * GaboCommandParseTest()
 {
 	uint8_t result = GaboCommandParse("A=255", 0);
