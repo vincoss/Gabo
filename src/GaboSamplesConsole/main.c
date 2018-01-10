@@ -9,6 +9,7 @@ void CommandSamples();
 int main(int argc, char *argv[])
 {
 	CommandSamples();
+	//PrintInputCommands(argc, argv);
 
 	printf("\nDone...");
 	getchar();

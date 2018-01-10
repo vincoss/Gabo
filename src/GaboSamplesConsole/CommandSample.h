@@ -6,7 +6,7 @@
 #include<string.h>
 #include <inttypes.h>
 
-
+void CommandSample_Main(void);
 void CopyCommand(char * data, char * command);
 uint8_t ParseCommand(char * str, uint8_t defaultValue);
 void ProcessCommand(char * command_in);
@@ -17,7 +17,7 @@ uint8_t speedCommand = 95;
 void CommandSample_Main(void)
 {
 	// Show defaults
-	printf("Current speed %i", speedCommand);
+	printf("Initial speed: %i", speedCommand);
 
 	// Example put command
 	char dataInput[8] = "A=27";
@@ -28,17 +28,17 @@ void CommandSample_Main(void)
 	uint8_t value = ParseCommand(command, 0);
 	ProcessCommand(command);
 
+	printf("\nCurrent command value: %i", value);
 
-	printf("\Speed command: %i", value);
+	printf("\nCurrent speed: %i", speedCommand);
 
 	// Example push command value back
 
 	char dataInput2[8] = "A?";
 
-	CopyCommand(dataInput, command);
+	CopyCommand(dataInput2, command);
 	ProcessCommand(command);
 }
-
 
 void CopyCommand(char * data, char * command)
 {
@@ -94,31 +94,31 @@ void ProcessCommand(char * command_in)
 
 	switch (command_in[0])
 	{
-	case 'A': // Power command
-	{
-		if (command_in[1] == '?') // Send response back if '?'
+		case 'A': // Power command
 		{
-			// Do the query action for S
-			print_value('A', speedCommand);
+			if (command_in[1] == '?') // Send response back if '?'
+			{
+				// Do the query action for S
+				print_value('A', speedCommand);
+			}
+			else if (command_in[1] == '=')
+			{
+				speedCommand = ParseCommand(command_in, 0);
+			}
+			break;
 		}
-		else if (command_in[1] == '=')
+		default:
 		{
-			speedCommand = ParseCommand(command_in, 0);
-		}
-		break;
-	}
-	default:
-	{
-		//usart_puts("NOT RECOGNISED\r\n");
-		break;
+			print_value("NOT RECOGNISED\r\n", 0);
+			break;
 
-	}
+		}
 	}
 }
 
 void print_value(char *id, int *value)
 {
-	printf("%c %d", id, value);
+	printf("\nPrint: %c %d", id, value);
 	//char buffer[8];
 	//itoa(value, buffer, 10);
 	//usart_putc(id);
