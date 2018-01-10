@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include "Usart.h"
 #include "GaboUsart.h"
-#include "GaboCommand.h"
+//#include "GaboCommand.h"
 
 
 #define FRAMING_ERROR (1<<FE)
@@ -31,5 +31,5 @@ ISR(USART_RX_vect)
 		return;
 	};
 
-	GaboCommandReadUsart(data);	
+	//GaboCommandReadUsart(data);	
 }
