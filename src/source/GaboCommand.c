@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<string.h>
 #include "GaboCommand.h"
 #include "GaboIo.h"
 
@@ -81,9 +82,11 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 		return defaultValue;
 	}
 	
+	printf("%s, %d", str, strlen(str));
+
 	// TODO: chekc if contails = otherwise return default value
 
-	char *pch;
+	char *pch = NULL;
 	char cmdValue[8];
 	// Find the position the equals sign is
 	// in the string, keep a pointer to it

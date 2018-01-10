@@ -3,6 +3,7 @@
 #include "GaboCommand.h"
 #include "GaboIo.h"
 
+
 // These are required.
 int MinUnitTestsRun = 0;
 int MinUnitTestsSuccess = 0;
@@ -15,19 +16,19 @@ void MinUnitInitialize(void)
 	memset(data_in, 0, strlen(data_in));
 }
 
-char * GaboCommandReadHasCommandTest()
-{
-	command_ready = 1;
-	command_in = "A=128";
-	GaboCommandRead();
-}
+//char * GaboCommandReadHasCommandTest()
+//{
+//	command_ready = 1;
+//	command_in = "A=128";
+//	GaboCommandRead();
+//}
 
-char * GaboCommandReadHasCommandTest()
-{
-	command_ready = 1;
-	command_in = "A=128";
-	GaboCommandRead();
-}
+//char * GaboCommandReadHasCommandTest()
+//{
+//	command_ready = 1;
+//	command_in = "A=128";
+//	GaboCommandRead();
+//}
 
 char * GaboCommandParseTest()
 {
