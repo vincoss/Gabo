@@ -18,51 +18,48 @@ void GaboCommandRead(void)
 	GaboCommandPrint("OK\r\n", 0); // TODO: does not need two parameters
 }
 
-void GaboCommandProcess(char * command_in)
+void GaboCommandProcess(char * command)
 {
-	if (strlen(command_in) <= 0)
+	if (strlen(command) <= 0)
 	{
 		return;
 	}
 
-	switch (command_in[0])
+	switch (command[0])
 	{
 		case 'A': // Power
 		{
-			if (command_in[1] == '?') // Send response back if '?'
+			if (command[1] == '?') // Send response back if '?'
 			{
-				// Do the query action for S
 				GaboCommandPrint('A', powerCommand);
 			}
-			else if (command_in[1] == '=')
+			else if (command[1] == '=')
 			{
-				powerCommand = GaboCommandParse(command_in, 0);
+				powerCommand = GaboCommandParse(command, 0);
 			}
 			break;
 		}
 		case 'B': // Powertrain
 		{
-			if (command_in[1] == '?') // Send response back if '?'
+			if (command[1] == '?') // Send response back if '?'
 			{
-				// Do the query action for S
 				GaboCommandPrint('B', commandPowertrain);
 			}
-			else if (command_in[1] == '=')
+			else if (command[1] == '=')
 			{
-				commandPowertrain = GaboCommandParse(command_in, 0);
+				commandPowertrain = GaboCommandParse(command, 0);
 			}
 			break;
 		}
 		default:
 		{
-			GaboCommandPrint("COMMAND NOT RECOGNISED\r\n", 0); // TODO: no need two parameters
+			GaboCommandPrint("Command not recognised.\r\n", 0); // TODO: no need two parameters
 			break;
-
 		}
 	}
 }
 
-void GaboCommandPrint(char *id, int *value)
+void GaboCommandPrint(char *id, int *value) // TODO:
 {
 	printf("%c %d", id, value);
 	//char buffer[8];
@@ -82,9 +79,10 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 		return defaultValue;
 	}
 	
-	printf("%s, %d", str, strlen(str));
-
-	// TODO: chekc if contails = otherwise return default value
+	if (strchr(str, '=') == NULL)
+	{
+		return defaultValue;
+	}
 
 	char *pch = NULL;
 	char cmdValue[8];

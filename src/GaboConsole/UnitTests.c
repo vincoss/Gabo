@@ -16,24 +16,27 @@ void MinUnitInitialize(void)
 	memset(data_in, 0, strlen(data_in));
 }
 
-//char * GaboCommandReadHasCommandTest()
-//{
-//	command_ready = 1;
-//	command_in = "A=128";
-//	GaboCommandRead();
-//}
+char * GaboCommandReadReadyTest()
+{
+	command_ready = 1;
+	strncpy(data_in, "A=128", 8);
+	GaboCommandRead();
+	MinUnitAssert("Error: GaboCommandReadReadyTest", powerCommand == 128);
+	return 0;
+}
 
-//char * GaboCommandReadHasCommandTest()
-//{
-//	command_ready = 1;
-//	command_in = "A=128";
-//	GaboCommandRead();
-//}
+char * GaboCommandReadNotReadyCommandTest()
+{
+	command_ready = 0;
+	GaboCommandRead();
+	MinUnitAssert("Error: GaboCommandReadNotReadyCommandTest", strlen(data_in) == 0);
+	return 0;
+}
 
 char * GaboCommandParseTest()
 {
 	uint8_t result = GaboCommandParse("A=255", 0);
-	MinUnitAssert("Error:, GaboCommandParse", result == 255);
+	MinUnitAssert("Error:, GaboCommandParseTest", result == 255);
 	return 0;
 }
 
@@ -101,6 +104,8 @@ static void UnitTestsRunAll()
 	MinUnitRun(GaboCommandCopyEmptyTest);
 	MinUnitRun(GaboCommandReadUsartTest);
 	MinUnitRun(GaboCommandReadUsartNewLineTest);
+	MinUnitRun(GaboCommandReadReadyTest);
+	MinUnitRun(GaboCommandReadNotReadyCommandTest);
 }
 
 int UnitTestsRun(void)
