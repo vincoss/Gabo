@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include "Usart.h"
 #include "GaboUsart.h"
-#include "GaboCommand.h"
+//#include "GaboCommand.h"
 
 
 #define FRAMING_ERROR (1<<FE)
@@ -23,13 +23,14 @@ ISR(USART_RX_vect)
 {
 	char status, data;
 
-	status = UCSRA;
+	///status = UCSRA;
 	data = UDR0;
 
-	if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
+	// TODO:
+	/*if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
 	{
 		return;
 	};
-
-	GaboCommandReadUsart(data);	
+*/
+	//GaboCommandReadUsart(data);	
 }
