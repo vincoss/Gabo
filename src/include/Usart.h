@@ -13,6 +13,8 @@
 #define USART_BAUDRATE 9600   // The baudrate that we want to use
 #define USART_BAUD_PRESCALLER (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)    // The formula that does all the required maths
 
+void UsartInitialize(void);
+
 void UsartInitialize(void)
 {
 	// Load upper 8- bits of the baud rate value into the high byte of the UBRR register
@@ -23,29 +25,29 @@ void UsartInitialize(void)
 	UCSR0C = ((1 << UCSZ00) | (1 << UCSZ01));
 }
 
-void UsartWriteChar(unsigned char data)
-{
-	while (!(UCSR0A & (1 << UDRE0)));
-	UDR0 = data;
-}
-
-unsigned char UsartReadChar(void)
-{
-	while (!(UCSR0A & (1 << RXC0)));
-	return UDR0;
-}
-
-void UsartWriteCharString(unsigned char* stringPtr)
-{
-	// Here we check if there is still more chars to send, this is done checking the actual char and see if it is different from the null '\n' char
-	while (*stringPtr != 0x00)
-	{
-		// Using the simple send function we send one char at a time
-		UsartWriteChar(*stringPtr);
-
-		// We increment the pointer so we can read the next char
-		stringPtr++;
-	}
-}
+//void UsartWriteChar(unsigned char data)
+//{
+//	while (!(UCSR0A & (1 << UDRE0)));
+//	UDR0 = data;
+//}
+//
+//unsigned char UsartReadChar(void)
+//{
+//	while (!(UCSR0A & (1 << RXC0)));
+//	return UDR0;
+//}
+//
+//void UsartWriteCharString(unsigned char* stringPtr)
+//{
+//	// Here we check if there is still more chars to send, this is done checking the actual char and see if it is different from the null '\n' char
+//	while (*stringPtr != 0x00)
+//	{
+//		// Using the simple send function we send one char at a time
+//		UsartWriteChar(*stringPtr);
+//
+//		// We increment the pointer so we can read the next char
+//		stringPtr++;
+//	}
+//}
 
 #endif
