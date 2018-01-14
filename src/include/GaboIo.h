@@ -1,5 +1,5 @@
 #ifndef GaboIo_H
-#define GaboIo_H
+#define GaboIo_H 1
 
 #include <inttypes.h>
 
