@@ -100,6 +100,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\source\GaboCommand.c" />
+    <ClCompile Include="..\source\GaboUsart.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
