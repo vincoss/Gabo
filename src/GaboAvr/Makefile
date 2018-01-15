@@ -81,7 +81,7 @@ OBJDIR = .
 
 # List C source files here. (C dependencies are automatically generated.)
 #SRC = $(TARGET).c
-SRC=$(wildcard *.c)
+SRC=$(wildcard *.c) "..\source"
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
