@@ -99,6 +99,7 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\GaboCommand.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>

@@ -78,7 +78,7 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 	{
 		return defaultValue;
 	}
-	
+
 	if (strchr(str, '=') == NULL)
 	{
 		return defaultValue;
@@ -91,10 +91,26 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 	pch = strchr(str, '=');
 	// Copy everything after that point into
 	// the buffer variable
-	strcpy_s(cmdValue, strlen(str), pch + 1);
+	//strcpy_s(cmdValue, strlen(str), pch + 1); // TODO: fix this
+	CopyString(pch + 1, cmdValue);
 	// Now turn this value into an integer and
 	// return it to the caller.
 	return atoi(cmdValue);
+}
+
+void CopyString(char *source, char *destination)
+{
+	if (strlen(source) > strlen(destination))
+	{
+		return; // does not fit
+	}
+
+	while (*source != '\0')
+	{
+		*destination++ = *source++;
+	}
+	*destination = '\0';
+	return;
 }
 
 void GaboCommandCopy(char * data, char * command)

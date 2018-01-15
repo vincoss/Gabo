@@ -2,10 +2,15 @@
 #include <avr/delay.h>
 #include <Usart.h>
 #include <GaboIo.h>
+#include <GaboCommand.h>
+
+
 
 int main(int argc, char *argv[])
 {
 	UsartInitialize();
+
+	uint8_t result = GaboCommandParse("A=255", 0);
 
 	while (1)
 	{
@@ -19,7 +24,7 @@ int main(int argc, char *argv[])
 
 #include <inttypes.h>
 #include <string.h>
-
+//
 //void GaboCommandRead(void)
 //{
 //	if (command_ready == 0)
@@ -37,48 +42,48 @@ int main(int argc, char *argv[])
 //
 //void GaboCommandProcess(char * command)
 //{
-//	/*if (strlen(command) <= 0)
+//	if (strlen(command) <= 0)
 //	{
 //		return;
-//	}*/
+//	}
 //
 //	switch (command[0])
 //	{
-//	case 'A': // Power
-//	{
-//		if (command[1] == '?') // Send response back if '?'
+//		case 'A': // Power
 //		{
-//			GaboCommandPrint('A', powerCommand);
+//			if (command[1] == '?') // Send response back if '?'
+//			{
+//				GaboCommandPrint('A', powerCommand);
+//			}
+//			else if (command[1] == '=')
+//			{
+//				powerCommand = GaboCommandParse(command, 0);
+//			}
+//			break;
 //		}
-//		else if (command[1] == '=')
+//		case 'B': // Powertrain
 //		{
-//			powerCommand = GaboCommandParse(command, 0);
+//			if (command[1] == '?') // Send response back if '?'
+//			{
+//				GaboCommandPrint('B', commandPowertrain);
+//			}
+//			else if (command[1] == '=')
+//			{
+//				commandPowertrain = GaboCommandParse(command, 0);
+//			}
+//			break;
 //		}
-//		break;
-//	}
-//	case 'B': // Powertrain
-//	{
-//		if (command[1] == '?') // Send response back if '?'
+//		default:
 //		{
-//			GaboCommandPrint('B', commandPowertrain);
+//			GaboCommandPrint("Command not recognised.\r\n", 0); // TODO: no need two parameters
+//			break;
 //		}
-//		else if (command[1] == '=')
-//		{
-//			commandPowertrain = GaboCommandParse(command, 0);
-//		}
-//		break;
-//	}
-//	default:
-//	{
-//		GaboCommandPrint("Command not recognised.\r\n", 0); // TODO: no need two parameters
-//		break;
-//	}
 //	}
 //}
 //
 //void GaboCommandPrint(char *id, int *value) // TODO:
 //{
-//	//printf("%c %d", id, value);
+//	printf("%c %d", id, value);
 //	//char buffer[8];
 //	//itoa(value, buffer, 10);
 //	//usart_putc(id);
@@ -88,76 +93,89 @@ int main(int argc, char *argv[])
 //}
 //
 //#pragma region Command specific
-
-uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
-{
-	if (strlen(str) <= 0)
-	{
-		return defaultValue;
-	}
-
-	if (strchr(str, '=') == NULL)
-	{
-		return defaultValue;
-	}
-
-	char *pch = NULL;
-	char cmdValue[8];
-	// Find the position the equals sign is
-	// in the string, keep a pointer to it
-	pch = strchr(str, '=');
-	// Copy everything after that point into
-	// the buffer variable
-	//strcpy_s(cmdValue, strlen(str), pch + 1);
-	strcpy(cmdValue, strlen(str));
-	// Now turn this value into an integer and
-	// return it to the caller.
-	return atoi(cmdValue);
-
-	return 0;
-}
-
-void GaboCommandCopy(char * data, char * command)
-{
-	if (strlen(data) <= 0)
-	{
-		return;
-	}
-
-	// Copy the contents of data_in into command_in
-	memcpy(command, data, 8);
-
-	//// Now clear data_in, the USART can reuse it now
-	memset(data, 0, 8);
-
-	// TODO: lock in here
-
-	//// The USART might interrupt this - don't let that happen!
-	//ATOMIC_BLOCK(ATOMIC_FORCEON) {
-	//	// Copy the contents of data_in into command_in
-	//	memcpy(command_in, data_in, 8);
-
-	//	// Now clear data_in, the USART can reuse it now
-	//	memset(data_in[0], 0, 8);
-	//}
-}
-
-void GaboCommandReadUsart(unsigned char data)
-{
-	data_in[data_count] = data;
-
-	if (data_in[data_count] == '\n') // End of line!
-	{
-		// Command ready to parse
-		command_ready = 1;
-
-		// Reset to 0, ready to go again
-		data_count = 0;
-	}
-	else
-	{
-		data_count++;
-	}
-}
-
-#pragma endregion
+//
+//uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
+//{
+//	if (strlen(str) <= 0)
+//	{
+//		return defaultValue;
+//	}
+//
+//	if (strchr(str, '=') == NULL)
+//	{
+//		return defaultValue;
+//	}
+//
+//	char *pch = NULL;
+//	char cmdValue[8];
+//	// Find the position the equals sign is
+//	// in the string, keep a pointer to it
+//	pch = strchr(str, '=');
+//	// Copy everything after that point into
+//	// the buffer variable
+//	//strcpy_s(cmdValue, strlen(str), pch + 1); // TODO: fix this
+//	CopyString(pch + 1, cmdValue);
+//	// Now turn this value into an integer and
+//	// return it to the caller.
+//	return atoi(cmdValue);
+//}
+//
+//void CopyString(char *source, char *destination)
+//{
+//	if (strlen(source) > strlen(destination))
+//	{
+//		return; // does not fit
+//	}
+//
+//	while (*source != '\0')
+//	{
+//		*destination++ = *source++;
+//	}
+//	*destination = '\0';
+//	return;
+//}
+//
+//void GaboCommandCopy(char * data, char * command)
+//{
+//	if (strlen(data) <= 0)
+//	{
+//		return;
+//	}
+//
+//	// Copy the contents of data_in into command_in
+//	memcpy(command, data, 8);
+//
+//	//// Now clear data_in, the USART can reuse it now
+//	memset(data, 0, 8);
+//
+//	// TODO: lock in here
+//
+//	//// The USART might interrupt this - don't let that happen!
+//	//ATOMIC_BLOCK(ATOMIC_FORCEON) {
+//	//	// Copy the contents of data_in into command_in
+//	//	memcpy(command_in, data_in, 8);
+//
+//	//	// Now clear data_in, the USART can reuse it now
+//	//	memset(data_in[0], 0, 8);
+//	//}
+//}
+//
+//void GaboCommandReadUsart(unsigned char data)
+//{
+//	data_in[data_count] = data; //UDR0;
+//
+//	if (data_in[data_count] == '\n')// End of line!
+//	{
+//		// Command ready to parse
+//		command_ready = 1;
+//
+//		// Reset to 0, ready to go again
+//		data_count = 0;
+//	}
+//	else
+//	{
+//		data_count++;
+//	}
+//}
+//
+//#pragma endregion
