@@ -4,7 +4,7 @@
 #include "GaboUsart.h"
 #include "GaboCommand.h"
 
-
+// TODO: review these
 #define FRAMING_ERROR (1<<FE)
 #define PARITY_ERROR (1<<UPE)
 #define DATA_OVERRUN (1<<DOR)
@@ -25,10 +25,10 @@ ISR(USART_RX_vect)
 	data = UDR0;
 
 	// TODO:
-	/*if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
+	if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
 	{
 		return;
 	};
-*/
+
 	GaboCommandReadUsart(data);	
 }

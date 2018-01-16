@@ -43,11 +43,11 @@ void GaboCommandProcess(char * command)
 		{
 			if (command[1] == '?') // Send response back if '?'
 			{
-				GaboCommandPrint('B', commandPowertrain);
+				GaboCommandPrint('B', powertrainCommand);
 			}
 			else if (command[1] == '=')
 			{
-				commandPowertrain = GaboCommandParse(command, 0);
+				powertrainCommand = GaboCommandParse(command, 0);
 			}
 			break;
 		}
@@ -113,18 +113,18 @@ void CopyString(char *source, char *destination)
 	return;
 }
 
-void GaboCommandCopy(char * data, char * command)
+void GaboCommandCopy(char * srcData, char * destCommand)
 {
-	if (strlen(data) <= 0)
+	if (strlen(srcData) <= 0)
 	{
 		return;
 	}
 
 	// Copy the contents of data_in into command_in
-	memcpy(command, data, 8);
+	memcpy(destCommand, srcData, 8);
 
 	//// Now clear data_in, the USART can reuse it now
-	memset(data, 0, 8);
+	memset(srcData, 0, 8);
 
 	// TODO: lock in here
 

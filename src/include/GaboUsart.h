@@ -1,5 +1,5 @@
-#ifndef GaboUsart_H
-#define GaboUsart_H 1
+#ifndef GABO_USART_H
+#define GABO_USART_H 1
 
 void GaboUsartInterruptInitialize(void);
 

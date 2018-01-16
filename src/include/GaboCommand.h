@@ -1,5 +1,5 @@
-#ifndef GaboCommand_H
-#define GaboCommand_H 1
+#ifndef GABO_COMMAND_H
+#define GABO_COMMAND_H 1
 
 #include <inttypes.h>
 
