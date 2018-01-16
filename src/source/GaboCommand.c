@@ -113,6 +113,7 @@ void CopyString(char *source, char *destination)
 	return;
 }
 
+#ifndef _WIN32
 void GaboCommandCopy(char * srcData, char * destCommand)
 {
 	if (strlen(srcData) <= 0)
@@ -137,7 +138,28 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	//	memset(data_in[0], 0, 8);
 	//}
 }
+#endif
 
+#ifndef _AVR32
+//#include <util\atomic.h>
+void GaboCommandCopy(char * srcData, char * destCommand)
+{
+	if (strlen(srcData) <= 0)
+	{
+		return;
+	}
+
+	// The USART might interrupt this - don't let that happen!
+	//ATOMIC_BLOCK(ATOMIC_FORCEON) 
+	//{
+	//	// Copy the contents of data_in into command_in
+	//	memcpy(destCommand, srcData, 8);
+
+	//	//// Now clear data_in, the USART can reuse it now
+	//	memset(srcData, 0, 8);
+	//}
+}
+#endif
 void GaboCommandReadUsart(unsigned char data)
 {
 	data_in[data_count] = data; //UDR0;

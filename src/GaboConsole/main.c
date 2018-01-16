@@ -7,6 +7,11 @@
 #include "UnitTests.h"
 
 
+#ifndef _WIN32
+#define _WIN32
+#endif
+
+
 int main()
 {
 	UnitTestsRun();
