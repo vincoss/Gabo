@@ -113,7 +113,7 @@ void CopyString(char *source, char *destination)
 	return;
 }
 
-#ifndef _WIN32
+#if _WIN32
 void GaboCommandCopy(char * srcData, char * destCommand)
 {
 	if (strlen(srcData) <= 0)
@@ -140,7 +140,7 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 }
 #endif
 
-#ifndef _AVR32
+#if _AVR32
 //#include <util\atomic.h>
 void GaboCommandCopy(char * srcData, char * destCommand)
 {
