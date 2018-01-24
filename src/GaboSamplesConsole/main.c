@@ -5,10 +5,15 @@
 void PrintInputCommands(int argc, char *argv[]);
 void CommandSamples();
 
+void GaboCommandCopy(char * srcData, char * destCommand);
+
 
 int main(int argc, char *argv[])
 {
-	CommandSamples();
+	char f[8] = "A=128\n";
+	char d[8];
+
+	//CommandSamples();
 	//PrintInputCommands(argc, argv);
 
 	printf("\nDone...");

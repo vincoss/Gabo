@@ -21,9 +21,6 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\GaboCommand.c">
-      <Filter>Source Files\source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile">

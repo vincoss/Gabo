@@ -1,8 +1,7 @@
 #include "MinUnit.h"
+//#include <GaboCommand.h>
 #include "UnitTests.h"
-#include "GaboCommand.h"
 #include "GaboIo.h"
-
 
 // These are required.
 int MinUnitTestsRun = 0;
@@ -19,7 +18,9 @@ void MinUnitInitialize(void)
 char * GaboCommandReadReadyTest()
 {
 	command_ready = 1;
-	strncpy(data_in, "A=128", 8);
+
+	char data[8] = "A=128";
+	strcpy_s(data_in, 8, data);
 	GaboCommandRead();
 	MinUnitAssert("Error: GaboCommandReadReadyTest", powerCommand == 128);
 	return 0;
