@@ -1,3 +1,11 @@
+/*
+ * Adc.h
+ *
+ * Created: 29/01/2018 10:09:16 PM
+ *  Author: Ferdinand Lukasak
+ */ 
+
+
 #ifndef GABO_COMMAND_H
 #define GABO_COMMAND_H 1
 

@@ -2,7 +2,7 @@
  * Adc.h
  *
  * Created: 29/01/2018 10:09:16 PM
- *  Author: Ferdinand
+ *  Author: Ferdinand Lukasak
  */ 
 
 

@@ -136,19 +136,22 @@
     <Compile Include="Include\GaboUsart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Include\MinUnit.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Include\Usart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Include\Utility.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Src\Adc.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Src\GaboCommand.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Src\Usart.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
