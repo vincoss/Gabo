@@ -11,6 +11,13 @@ int main()
 	return 0;
 }
 
+
+#pragma region GaboCommand.h implementation
+
+/*
+	NOTE: Contains platform specific implementation only. 
+*/
+
 void GaboCommandCopy(char * srcData, char * destCommand)
 {
 	if (strlen(srcData) <= 0)
@@ -24,4 +31,7 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	//// Now clear data_in, the USART can reuse it now
 	memset(srcData, 0, 8);
 }
+
+#pragma endregion
+
 

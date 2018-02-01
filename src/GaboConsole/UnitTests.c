@@ -1,5 +1,5 @@
 #include "MinUnit.h"
-//#include <GaboCommand.h>
+#include <GaboCommand.h>
 #include "UnitTests.h"
 #include "GaboIo.h"
 
