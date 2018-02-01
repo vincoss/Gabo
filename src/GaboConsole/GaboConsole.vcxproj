@@ -19,13 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GaboAvr\Include\GaboCommand.h" />
     <ClInclude Include="UnitTests.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\GaboCommand.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\GaboAvr\Src\GaboCommand.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="UnitTests.c" />
   </ItemGroup>

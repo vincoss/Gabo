@@ -7,7 +7,7 @@
 #define UTILITY_OFF 0
 #define UTILITY_ON	1
 
-uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex) // TODO: Also by ref maybe
+uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex) // TODO: Also by ref 
 {
 	return ((value & (1 << bitindex)) != 0) ? 1 : 0;
 }

@@ -21,15 +21,18 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\GaboCommand.c">
+    <ClCompile Include="UnitTests.c">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="UnitTests.c">
+    <ClCompile Include="..\GaboAvr\Src\GaboCommand.c">
       <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GaboAvr\Include\GaboCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
