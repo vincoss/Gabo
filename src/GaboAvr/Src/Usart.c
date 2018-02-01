@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "Usart.h"
 
-
+// TODO: allow pass bauldrate
 void UsartInitialize(void)
 {
 	// Load upper 8- bits of the baud rate value into the high byte of the UBRR register

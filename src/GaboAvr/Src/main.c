@@ -10,7 +10,9 @@
 
 
 
-
+//Severity	Code	Description	Project	File	Line
+//Warning		ignoring #pragma region GaboCommand [-Wunknown-pragmas]	GaboAvr	C:\_Data\GitHub\Gabo\src\GaboAvr\Src\main.c	56
+// cardno
 
 
 int main(int argc, char *argv[])
@@ -53,6 +55,9 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+// cardno
+#pragma region GaboCommand implementation
+
 void GaboCommandCopy(char * srcData, char * destCommand)
 {
 	if (strlen(srcData) <= 0)
@@ -70,3 +75,5 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 		memset(srcData, 0, 8);
 	}
 }
+
+#pragma endregion GaboCommand implementation
