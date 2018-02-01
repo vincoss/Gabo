@@ -1,5 +1,13 @@
-#ifndef GABO_IO_H
-#define GABO_IO_H 1
+/*
+ * GaboIo.h
+ *
+ * Created: 29/01/2018 10:09:16 PM
+ *  Author: Ferdinand Lukasak
+ */ 
+
+
+#ifndef GABO_IO_H_
+#define GABO_IO_H_
 
 #include <inttypes.h>
 

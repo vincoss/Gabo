@@ -1,8 +1,13 @@
+/*
+ * Utility.h
+ *
+ * Created: 29/01/2018 10:09:16 PM
+ *  Author: Ferdinand Lukasak
+ */ 
 
-#ifndef UTILITY_H
-#define UTILITY_H 1
 
-#include <avr/io.h>
+#ifndef UTILITY_H_
+#define UTILITY_H_
 
 #define UTILITY_OFF 0
 #define UTILITY_ON	1

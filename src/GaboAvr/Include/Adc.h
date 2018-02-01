@@ -10,7 +10,6 @@
 #define ADC_H_
 
 
-#include <stdlib.h>
 #include <avr/io.h>
 
 /// Initialize Adc channel

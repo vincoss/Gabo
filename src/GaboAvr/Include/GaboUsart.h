@@ -1,5 +1,8 @@
-#ifndef GABO_USART_H
-#define GABO_USART_H 1
+
+
+
+#ifndef GABO_USART_H_
+#define GABO_USART_H_
 
 #include <avr/io.h>	
 #include <avr/interrupt.h>
@@ -7,7 +10,7 @@
 
 void GaboUsartInterruptInitialize(void);
 
-//// TODO: review these
+// TODO: review these
 //#define FRAMING_ERROR (1<<FE)
 //#define PARITY_ERROR (1<<UPE)
 //#define DATA_OVERRUN (1<<DOR)
@@ -30,11 +33,11 @@ ISR(USART_RX_vect)
 	///status = UCSRA;
 	data = UDR0;
 
-	// TODO:
-	/*if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
-	{
-		return;
-	};*/
+	 //TODO:
+	//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
+	//{
+		//return;
+	//};
 
 	GaboCommandReadUsart(data);
 }
