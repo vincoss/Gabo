@@ -1,3 +1,11 @@
+/*
+*	UnitTests.c
+*
+*	Created: 29/01/2018 10:09:16 PM
+*	Author: Ferdinand Lukasak
+*/
+
+
 #include "MinUnit.h"
 #include "UnitTests.h"
 #include "GaboCommand.h"
@@ -8,6 +16,17 @@ int MinUnitTestsRun = 0;
 int MinUnitTestsSuccess = 0;
 int MinUnitTestsFail = 0;
 
+// Call form main.c
+int UnitTestsRun(void)
+{
+	UnitTestsRunAll();
+
+	printf("Tests failed: %d, passed: %d, of tests: %d", 1, 1, 1);
+
+	return MinUnitTestsRun - MinUnitTestsSuccess;
+}
+
+// Initialize or reset values, called for each test
 void MinUnitInitialize(void)
 {
 	data_count = 0;
@@ -97,7 +116,8 @@ char * GaboCommandReadUsartNewLineTest()
 	return 0;
 }
 
-static void UnitTestsRunAll()
+// Register all tests in here
+void UnitTestsRunAll()
 {
 	MinUnitRun(GaboCommandParseTest);
 	MinUnitRun(GaboCommandParseDefaultTest);
@@ -107,13 +127,4 @@ static void UnitTestsRunAll()
 	MinUnitRun(GaboCommandReadUsartNewLineTest);
 	MinUnitRun(GaboCommandReadReadyTest);
 	MinUnitRun(GaboCommandReadNotReadyCommandTest);
-}
-
-int UnitTestsRun(void)
-{
-	UnitTestsRunAll();
-
-	printf("Tests failed: %d, passed: %d, of tests: %d", MinUnitTestsFail, MinUnitTestsSuccess, MinUnitTestsRun);
-
-	return MinUnitTestsRun - MinUnitTestsSuccess;
 }

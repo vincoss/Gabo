@@ -1,3 +1,11 @@
+/*
+*	GaboCommand.c
+*
+*	Created: 29/01/2018 10:09:16 PM
+*	Author: Ferdinand Lukasak
+*/
+
+
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
@@ -17,7 +25,7 @@ void GaboCommandRead(void)
 	GaboCommandProcess(command_in);
 
 	command_ready = 0;
-	GaboCommandPrint("OK\r\n", 0); // TODO: does not need two parameters
+	GaboCommandPrint("OK\r\n", 0); // TODO: does not work, prints some wrong chars
 }
 
 void GaboCommandProcess(char * command)

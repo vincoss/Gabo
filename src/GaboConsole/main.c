@@ -1,5 +1,14 @@
+/*
+*	main.c
+*
+*	Created: 29/01/2018 10:09:16 PM
+*	Author: Ferdinand Lukasak
+*/
+
+
 #include <stdio.h>
 #include "UnitTests.h"
+
 
 int main()
 {
@@ -11,7 +20,6 @@ int main()
 
 	return 0;
 }
-
 
 #pragma region GaboCommand.h implementation
 
@@ -29,10 +37,8 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	// Copy the contents of data_in into command_in
 	memcpy(destCommand, srcData, 8);
 
-	//// Now clear data_in, the USART can reuse it now
+	// Now clear data_in, the USART can reuse it now
 	memset(srcData, 0, 8);
 }
 
 #pragma endregion
-
-
