@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\source">
+    <Filter Include="Source Files\src">
       <UniqueIdentifier>{be0011ff-bfa9-4b14-95b4-b57b0ea84ab4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -22,17 +22,17 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UnitTests.c">
-      <Filter>Source Files\source</Filter>
+      <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\GaboAvr\Src\GaboCommand.c">
-      <Filter>Source Files\source</Filter>
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\GaboAvr\Include\GaboCommand.h">
+    <ClInclude Include="MinUnit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

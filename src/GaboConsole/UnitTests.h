@@ -1,6 +1,6 @@
 
-#ifndef UnitTests_h
-#define UnitTests_h
+#ifndef UNIT_TESTS_H_
+#define UNIT_TESTS_H_
 
 int UnitTestsRun(void);
 

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "UnitTests.h"
 
 int main()
 {

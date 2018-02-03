@@ -13,8 +13,6 @@ void GaboUsartInterruptInitialize(void);
 #define FRAMING_ERROR		(1 << FE0)
 #define PARITY_ERROR		(1 << UPE0)
 #define DATA_OVERRUN		(1 << DOR0)
-#define DATA_REGISTER_EMPTY (1 << UDRE0)// TODO: unused
-#define RX_COMPLETE			(1 << RXC0)	// TODO: unused
 
 // TODO: refactor into Usart.c one initialize just Usart no interrupt and second with interrupt
 void GaboUsartInterruptInitialize(void)

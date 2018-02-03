@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
-#include <GaboIo.h>
-#include <GaboCommand.h>
+#include "GaboCommand.h"
+#include "GaboIo.h"
 
 
 void GaboCommandRead(void)
@@ -170,5 +170,25 @@ void GaboCommandReadUsart(unsigned char data)
 		data_count++;
 	}
 }
+
+
+// TODO:
+//interrupt [USART_RXC] void usart_rx_isr(void)
+//{
+//char status,data;
+//status=UCSRA;
+//data=UDR;
+//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+//   {
+//   character_received=1;//enables parsing only if something is received
+//   rx_buffer[rx_wr_index]=data;
+//   if (++rx_wr_index == RX_BUFFER_SIZE) rx_wr_index=0;
+//   if (++rx_counter == RX_BUFFER_SIZE)
+//      {
+//      rx_counter=0;
+//      rx_buffer_overflow=1;
+//      };
+//   };
+//}
 
 #pragma endregion
