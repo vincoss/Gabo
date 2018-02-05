@@ -18,5 +18,6 @@ void GaboCommandCopy(char * data, char * command);
 void GaboCommandPrint(char *id, int *value);
 void GaboCommandReadUsart(unsigned char data);
 void CopyString(char *source, char *destination);
+void GaboCommandWriteLog(char * message);
 
 #endif

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GaboAvr\Include\GaboCommand.h" />
     <ClInclude Include="MinUnit.h" />
     <ClInclude Include="UnitTests.h" />
   </ItemGroup>

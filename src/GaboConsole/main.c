@@ -7,6 +7,7 @@
 
 
 #include <stdio.h>
+#include "GaboIo.h"
 #include "UnitTests.h"
 
 
@@ -35,10 +36,31 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	}
 
 	// Copy the contents of data_in into command_in
-	memcpy(destCommand, srcData, 8);
+	memcpy(destCommand, srcData, RX_BUFFER_SIZE);
 
 	// Now clear data_in, the USART can reuse it now
-	memset(srcData, 0, 8);
+	memset(srcData, 0, RX_BUFFER_SIZE);
+}
+
+// TODO: platform specific (move to main)
+void GaboCommandWriteLog(char * message)
+{
+	if (strlen(message) <= 0)
+	{
+		return 0;
+	}
+	printf("%s", message);
+}
+
+void GaboCommandPrint(char *id, int *value) // TODO:
+{
+	printf("%s %d", id, value);
+	//char buffer[8];
+	//itoa(value, buffer, 10);
+	//usart_putc(id);
+	//usart_putc(':');
+	//usart_puts(buffer);
+	//usart_puts(RETURN_NEWLINE);
 }
 
 #pragma endregion

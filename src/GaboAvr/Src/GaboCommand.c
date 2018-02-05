@@ -13,19 +13,45 @@
 #include "GaboIo.h"
 
 
+
+const unsigned char NULL_CHAR = '\0';
+const unsigned char NEW_LINE_CHAR = '\n';
+
+void GaboCommandPrintTelemetry(void);
+void GaboCommandHelp(void);
+void GaboCommandWriteLog(char * message);
+
+
+
+void SampleLoop()
+{
+	// Example, each cycle check for input command
+	while (1)
+	{
+		GaboCommandRead();
+	}
+}
+
 void GaboCommandRead(void)
 {
+	if (rx_buffer_overflow == 1)
+	{
+		GaboCommandWriteLog("Command overflow\r\n");
+		rx_buffer_overflow = 0;
+		return;
+	}
+
 	if (command_ready == 0)
 	{
 		// No command to process
 		return;
 	}
 
-	GaboCommandCopy(data_in, command_in);
+	GaboCommandCopy(rx_data_in, command_in);
 	GaboCommandProcess(command_in);
 
 	command_ready = 0;
-	GaboCommandPrint("OK\r\n", 0); // TODO: does not work, prints some wrong chars
+	GaboCommandWriteLog("OK\r\n"); // TODO: does not work, prints some wrong chars
 }
 
 void GaboCommandProcess(char * command)
@@ -61,26 +87,21 @@ void GaboCommandProcess(char * command)
 		}
 		break;
 	}
+	case 'T': // Telemetry out only
+	{
+		if (command[1] == '?')
+		{
+			GaboCommandPrintTelemetry();
+		}
+		break;
+	}
 	default:
 	{
-		GaboCommandPrint("Command not recognised.\r\n", 0); // TODO: no need two parameters
+		GaboCommandWriteLog("Command not recognised.\r\n"); // TODO: no need two parameters
 		break;
 	}
 	}
 }
-
-void GaboCommandPrint(char *id, int *value) // TODO:
-{
-	printf("%c %d", id, value);
-	//char buffer[8];
-	//itoa(value, buffer, 10);
-	//usart_putc(id);
-	//usart_putc(':');
-	//usart_puts(buffer);
-	//usart_puts(RETURN_NEWLINE);
-}
-
-#pragma region Command specific
 
 uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 {
@@ -115,88 +136,58 @@ void CopyString(char *source, char *destination)
 		return; // does not fit
 	}
 
-	while (*source != '\0')
+	while (*source != NULL_CHAR)
 	{
 		*destination++ = *source++;
 	}
-	*destination = '\0';
+	*destination = NULL_CHAR;
 	return;
 }
 
-//#ifdef _GABO_WIN32
-//
-//void GaboCommandCopy(char * srcData, char * destCommand)
-//{
-//	if (strlen(srcData) <= 0)
-//	{
-//		return;
-//	}
-//
-//	// Copy the contents of data_in into command_in
-//	memcpy(destCommand, srcData, 8);
-//
-//	//// Now clear data_in, the USART can reuse it now
-//	memset(srcData, 0, 8);
-//}
-//#endif
-//
-//#ifdef _GABO_AVR
-//<util\atomic.h>
-//void GaboCommandCopy(char * srcData, char * destCommand)
-//{
-//	if (strlen(srcData) <= 0)
-//	{
-//		return;
-//	}
-//
-//	// The USART might interrupt this - don't let that happen!
-//		ATOMIC_BLOCK(ATOMIC_FORCEON)
-//	{
-//		// Copy the contents of data_in into command_in
-//		memcpy(destCommand, srcData, 8);
-//
-//		//// Now clear data_in, the USART can reuse it now
-//		memset(srcData, 0, 8);
-//	}
-//}
-//#endif
-
-void GaboCommandReadUsart(unsigned char data)
+void GaboCommandReadUsart(unsigned char usartData)
 {
-	data_in[data_count] = data; //UDR0;
+	if (usartData == NULL_CHAR)
+	{
+		return;
+	}
 
-	if (data_in[data_count] == '\n')// End of line!
+	rx_data_in[rx_data_count] = usartData;
+
+	if (rx_data_in[rx_data_count] == NEW_LINE_CHAR) // End of line!
 	{
 		// Command ready to parse
 		command_ready = 1;
 
 		// Reset to 0, ready to go again
-		data_count = 0;
+		rx_data_count = 0;
+		return;
 	}
-	else
+
+	// Buffer overflow.
+	if (rx_data_count + 1 == RX_BUFFER_SIZE)
 	{
-		data_count++;
+		for (unsigned char i = 0; i < RX_BUFFER_SIZE; i++)
+		{
+			rx_data_in[i] = NULL_CHAR;
+		}
+
+		rx_data_count = 0;
+		command_ready = 0;
+		rx_buffer_overflow = 1;
+		return;
 	}
+
+	rx_data_count++;
 }
 
 
-// TODO:
-//interrupt [USART_RXC] void usart_rx_isr(void)
-//{
-//char status,data;
-//status=UCSRA;
-//data=UDR;
-//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
-//   {
-//   character_received=1;//enables parsing only if something is received
-//   rx_buffer[rx_wr_index]=data;
-//   if (++rx_wr_index == RX_BUFFER_SIZE) rx_wr_index=0;
-//   if (++rx_counter == RX_BUFFER_SIZE)
-//      {
-//      rx_counter=0;
-//      rx_buffer_overflow=1;
-//      };
-//   };
-//}
+void GaboCommandPrintTelemetry(void)
+{
 
-#pragma endregion
+}
+
+void GaboCommandHelp(void)
+{
+	// TODO: here push all command info back to the USARD
+	// H=? for help
+}
