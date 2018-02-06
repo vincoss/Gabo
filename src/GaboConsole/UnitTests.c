@@ -192,8 +192,6 @@ char * GaboCommandReadUsartOverflowTest()
 
 #pragma endregion
 
-
-
 // Register all tests in here
 void UnitTestsRunAll()
 {

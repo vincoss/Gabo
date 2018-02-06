@@ -17,45 +17,21 @@
 
 int main(int argc, char *argv[])
 {
-	int a = GABOIO_SPI_DATA;
-	
-	if(a > 0)
-	{
-		
-		
-	}
-	
-	AdcInitialize();
 	UsartInitialize();
 	GaboUsartInterruptInitialize();
-	GaboCommandRead();
 
-	/*char* a = "asd";
-	char b[9];
-*/
-	//GaboCommandCopy(a, b);
-	//GaboCommandCopy(a, b);
-/*
-	int8_t result = GaboCommandParse("A=255", 0);
-	UsartWriteChar(result);*/
-	/*
 	while (1)
 	{
-		UsartWriteChar(powerCommand);
-		UsartWriteChar(powertrainCommand);
-
+		// Each loop attempt to read the input commands.
 		GaboCommandRead();
 
-		UsartWriteChar(powerCommand);
-		UsartWriteChar(powertrainCommand);
-
 		_delay_ms(2000);
-	}*/
+	}
 
 	return 0;
 }
 
-// cardno
+
 #pragma region GaboCommand implementation
 
 void GaboCommandCopy(char * srcData, char * destCommand)
@@ -74,6 +50,18 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 		//// Now clear data_in, the USART can reuse it now
 		memset(srcData, 0, 8);
 	}
+}
+
+void GaboCommandWriteLog(char * message)
+{
+	if (strlen(message) <= 0)
+	{
+		return 0;
+	}
+	
+	char buffer[strlen(message) + 1];
+	itoa(message, buffer, 10);
+	UsartWriteCharString(message);
 }
 
 #pragma endregion GaboCommand implementation

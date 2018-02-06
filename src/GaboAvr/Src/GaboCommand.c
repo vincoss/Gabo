@@ -54,6 +54,7 @@ void GaboCommandRead(void)
 	GaboCommandWriteLog("OK\r\n"); // TODO: does not work, prints some wrong chars
 }
 
+// TODO: refactor this
 void GaboCommandProcess(char * command)
 {
 	if (strlen(command) <= 0)
@@ -67,7 +68,9 @@ void GaboCommandProcess(char * command)
 	{
 		if (command[1] == '?') // Send response back if '?'
 		{
-			GaboCommandPrint('A', powerCommand);
+			// TODO: refactor in to methods so it can be called from telemery method
+			GaboCommandWriteLog("Power");
+			GaboCommandWriteLog(powerCommand);
 		}
 		else if (command[1] == '=')
 		{
@@ -79,7 +82,8 @@ void GaboCommandProcess(char * command)
 	{
 		if (command[1] == '?') // Send response back if '?'
 		{
-			GaboCommandPrint('B', powertrainCommand);
+			GaboCommandWriteLog("Powertrain");
+			GaboCommandWriteLog(powertrainCommand);
 		}
 		else if (command[1] == '=')
 		{
@@ -97,7 +101,7 @@ void GaboCommandProcess(char * command)
 	}
 	default:
 	{
-		GaboCommandWriteLog("Command not recognised.\r\n"); // TODO: no need two parameters
+		GaboCommandWriteLog("Command not recognised. Enter H? for help.\r\n");
 		break;
 	}
 	}
@@ -180,14 +184,21 @@ void GaboCommandReadUsart(unsigned char usartData)
 	rx_data_count++;
 }
 
-
 void GaboCommandPrintTelemetry(void)
 {
+	// TODO: here push out all system variables and values.
 
+	GaboCommandWriteLog("Power");
+	GaboCommandWriteLog(powerCommand);
+
+	GaboCommandWriteLog("Powertrain");
+	GaboCommandWriteLog(powertrainCommand);
 }
 
 void GaboCommandHelp(void)
 {
 	// TODO: here push all command info back to the USARD
-	// H=? for help
+	// H? for help
 }
+
+// TOOD: possible store commands int temp values and then apply those when command apply is send
