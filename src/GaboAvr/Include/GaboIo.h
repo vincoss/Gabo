@@ -35,5 +35,7 @@ volatile unsigned char rx_buffer_overflow;
 volatile uint8_t powerCommand;
 volatile uint8_t powertrainCommand;
 
+volatile int powertrainWorkHours;
+volatile int powertakeoffWorkHours;
 
 #endif

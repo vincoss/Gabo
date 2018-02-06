@@ -97,7 +97,7 @@ char * GaboCommandRead_CommandReadyTest()
 	// Arrange
 	command_ready = 1;
 
-	char data[8] = "A=128";
+	char data[8] = "A=127";
 	strcpy_s(rx_data_in, 8, data);
 	
 	// Act
@@ -106,7 +106,7 @@ char * GaboCommandRead_CommandReadyTest()
 	// Assert
 
 	// Command in shoud contain value from rx buffer
-	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest copy", strcmp("A=128", command_in) == 0);
+	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest copy", strcmp("A=127", command_in) == 0);
 
 	// rx buffer all values should be null
 	for (int i = 0; i <= RX_BUFFER_SIZE; i++)
@@ -192,9 +192,22 @@ char * GaboCommandReadUsartOverflowTest()
 
 #pragma endregion
 
+char * ConvertUInt8Test()
+{
+	char ch[] = "2";
+	uint8_t value = ConvertUInt8(ch);
+
+	MinUnitAssert("Error:, ConvertUInt8Test data in", value == 123);
+
+	return 0;
+}
+
+
 // Register all tests in here
 void UnitTestsRunAll()
 {
+	//MinUnitRun(ConvertUInt8Test);
+
 	MinUnitRun(GaboCommandRead_BufferOverflowTest);
 	MinUnitRun(GaboCommandRead_NotReadyCommandTest);
 	MinUnitRun(GaboCommandRead_CommandReadyTest);

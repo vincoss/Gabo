@@ -1,6 +1,7 @@
 
 #include <string.h>
 #include <util/atomic.h>
+#include <avr/delay.h>
 #include "Usart.h"
 #include "Adc.h"
 #include "GaboIo.h"
@@ -10,15 +11,13 @@
 
 
 
-//Severity	Code	Description	Project	File	Line
-//Warning		ignoring #pragma region GaboCommand [-Wunknown-pragmas]	GaboAvr	C:\_Data\GitHub\Gabo\src\GaboAvr\Src\main.c	56
-// cardno
-
 
 int main(int argc, char *argv[])
 {
 	UsartInitialize();
 	GaboUsartInterruptInitialize();
+
+	powerCommand = 50;
 
 	while (1)
 	{
@@ -62,6 +61,7 @@ void GaboCommandWriteLog(char * message)
 	char buffer[strlen(message) + 1];
 	itoa(message, buffer, 10);
 	UsartWriteCharString(message);
+	UsartWriteChar('\r\n');
 }
 
 #pragma endregion GaboCommand implementation
