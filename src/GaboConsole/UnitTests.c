@@ -115,7 +115,7 @@ char * GaboCommandRead_CommandReadyTest()
 	}
 
 	// Command variable should be set
-	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommand", powerCommand == 128);
+	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommand", powerCommand == 127);
 	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest command_ready", command_ready == 0);
 
 	return 0;
@@ -192,15 +192,15 @@ char * GaboCommandReadUsartOverflowTest()
 
 #pragma endregion
 
-char * ConvertUInt8Test()
-{
-	char ch[] = "2";
-	uint8_t value = ConvertUInt8(ch);
-
-	MinUnitAssert("Error:, ConvertUInt8Test data in", value == 123);
-
-	return 0;
-}
+//char * ConvertUInt8Test()
+//{
+//	char ch[] = "2";
+//	uint8_t value = ConvertUInt8(ch);
+//
+//	MinUnitAssert("Error:, ConvertUInt8Test data in", value == 123);
+//
+//	return 0;
+//}
 
 
 // Register all tests in here

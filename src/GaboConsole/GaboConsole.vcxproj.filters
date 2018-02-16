@@ -38,5 +38,8 @@
     <ClInclude Include="..\GaboAvr\Include\GaboCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\GaboAvr\Include\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

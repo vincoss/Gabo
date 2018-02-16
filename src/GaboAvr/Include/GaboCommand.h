@@ -11,13 +11,23 @@
 
 #include <inttypes.h>
 
+// Command variables
+#define RX_BUFFER_SIZE 8
+volatile unsigned char rx_data_in[RX_BUFFER_SIZE];
+volatile unsigned char command_in[RX_BUFFER_SIZE];
+volatile uint8_t rx_data_count;
+volatile uint8_t command_ready;
+
+// This flag is set on USART Receiver buffer overflow
+volatile unsigned char rx_buffer_overflow;
+
 void GaboCommandRead();
 void GaboCommandProcess(char * command_in);
 uint8_t GaboCommandParse(char * str, uint8_t defaultValue);
 void GaboCommandCopy(char * data, char * command);
 void GaboCommandPrint(char *id, int *value);
 void GaboCommandReadUsart(unsigned char data);
-void CopyString(char *source, char *destination);
+void CopyString(const char *source, char *destination);
 void GaboCommandWriteLog(char * message);
 
 #endif

@@ -7,13 +7,21 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "GaboIo.h"
+#include "GaboCommand.h"
 #include "UnitTests.h"
-
 
 int main()
 {
 	UnitTestsRun();
+
+	//while (1)
+	//{
+	//	// Each loop attempt to read the input commands.
+	//	GaboCommandRead();
+	//	_sleep(1000);
+	//}
 
 	printf("\nDone...");
 	getchar();
@@ -50,6 +58,7 @@ void GaboCommandWriteLog(char * message)
 		return 0;
 	}
 	printf("%s", message);
+	printf("\r\n");
 }
 
 void GaboCommandPrint(char *id, int *value) // TODO:

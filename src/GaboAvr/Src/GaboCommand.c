@@ -7,40 +7,28 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include "Utility.h"
 #include "GaboCommand.h"
 #include "GaboIo.h"
-
 
 
 const unsigned char NULL_CHAR = '\0';
 const unsigned char NEW_LINE_CHAR = '\n';
 
-char * Convert(int value);
 
-uint8_t ConvertUInt8(char * str);
 void GaboCommandPrintTelemetry(void);
 void GaboCommandHelp(void);
 void GaboCommandWriteLog(char * message);
 
 
-
-void SampleLoop()
-{
-	// Example, each cycle check for input command
-	while (1)
-	{
-		GaboCommandRead();
-	}
-}
-
 void GaboCommandRead(void)
 {
 	if (rx_buffer_overflow == 1)
 	{
-		// Command overflow. Each command must end with newline char. Command max length is %d
-		GaboCommandWriteLog("Command overflow\r\n");
+		GaboCommandWriteLog("Command overflow.");
 		rx_buffer_overflow = 0;
 		return;
 	}
@@ -54,10 +42,11 @@ void GaboCommandRead(void)
 	GaboCommandCopy(rx_data_in, command_in);
 	GaboCommandProcess(command_in);
 
+	GaboCommandWriteLog("OK");
 	command_ready = 0;
-	GaboCommandWriteLog("OK\r\n"); // TODO: does not work, prints some wrong chars
 }
 
+// TODO: refactor this to return success or fail on parse check for '='
 uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 {
 	if (strlen(str) <= 0)
@@ -73,45 +62,20 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 	char *pch = NULL;
 	char cmdValue[RX_BUFFER_SIZE];
 	
-	// Find the position the equals sign is
-	// in the string, keep a pointer to it
+	// Find the position the equals sign is in the string, keep a pointer to it
 	pch = strchr(str, '=');
 	
-	// Copy everything after that point into
-	// the buffer variable
-	//strcpy_s(cmdValue, strlen(str), pch + 1); // TODO: fix this
-	CopyString(pch + 1, cmdValue);
+	// Copy everything after that point into the buffer variable.
+	strcpy(cmdValue, pch + 1); // TODO: fix this
+	//strcpy_s(cmdValue, strlen(str), pch + 1);
+	//CopyString(pch + 1, cmdValue);
+
+	int output = ConvertToUInt8(cmdValue);
 	
-	//// TODO:
-	//
-	//char str[] = "12345.56";
-	//double d;
-//
-	//sscanf(str, "%lf", &d);
-//
-	//printf("%lf", d);
-	
-	
-	// Now turn this value into an integer and
-	// return it to the caller.
-	/*uint8_t v = atoi(cmdValue);
-	return v;
-*/
-	uint8_t r = ConvertUInt8(cmdValue);
-	return r;
+	return output;
 }
 
-uint8_t ConvertUInt8(char * str)
-{
-	// TODO: chec for null and empty and throw or return default value
-	
-	uint8_t result;
-	sscanf_s(str, "%d", &result);
-	return result;
-}
-
-
-void CopyString(char *source, char *destination)
+void CopyString(const char *source, char *destination)
 {
 	if (strlen(source) > strlen(destination))
 	{
@@ -148,6 +112,7 @@ void GaboCommandReadUsart(unsigned char usartData)
 	// Buffer overflow.
 	if (rx_data_count + 1 == RX_BUFFER_SIZE)
 	{
+		// Clear all rx buffer
 		for (unsigned char i = 0; i < RX_BUFFER_SIZE; i++)
 		{
 			rx_data_in[i] = NULL_CHAR;
@@ -166,26 +131,33 @@ void GaboCommandPrintTelemetry(void)
 {
 	// TODO: here push out all system variables and values.
 
+	char buffer[5];
+
 	GaboCommandWriteLog("Power");
-	GaboCommandWriteLog(Convert(powerCommand));
+	GaboCommandWriteLog(IntToString(powerCommand, "%d", buffer, sizeof buffer));
+
+	//memset(&buffer[0], 0, sizeof(buffer));
+	//// Now clear data_in, the USART can reuse it now
+	memset(buffer, 0, sizeof(buffer));
 
 	GaboCommandWriteLog("Powertrain");
-	GaboCommandWriteLog(Convert(powertrainCommand));
+	GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
 }
 
+// H? for help.
 void GaboCommandHelp(void)
 {
-	// TODO: here push all command info back to the USARD
-	// H? for help
+	char buffer[5];
+
+	GaboCommandWriteLog("Enter H? for help.");
+	GaboCommandWriteLog("Each command must end with newline char.");
+	GaboCommandWriteLog("Command max size.");
+	GaboCommandWriteLog(IntToString(RX_BUFFER_SIZE, "%d", buffer, sizeof buffer));
+	GaboCommandWriteLog("A={PowerCommand} write value");
+	GaboCommandWriteLog("A? print power command value.");
 }
 
-char * Convert(int value)
-{
-	int length = snprintf( NULL, 0, "%d", value);
-	char* str = malloc(length + 1);
-	snprintf(str, length + 1, "%d", value);
-	return str;
-}
+
 
 // TOOD: possible store commands int temp values and then apply those when command apply is send
 
@@ -243,3 +215,51 @@ void GaboCommandProcess(char * command)
 	}
 	}
 }
+
+// Clear the left and right whitespace
+// e.g. "  123 456  " -> "123 456"
+//char * Trim(const char *str)
+//{
+	//while (*str == ' ' || *str == '\t')
+		//str++;
+//
+	//char *start = str;
+//
+	//if (!(*str))
+		//return str;
+//
+	//char *end = str;
+//
+	//while (*str) {
+		//if (*str != ' ' && *str != '\t')
+			//end = str;
+		//str++;
+	//}
+//
+	//*(end + 1) = 0;
+//
+	//return start;
+//}
+
+
+/*
+Examples
+12.345e3 = 12345
+12e-2=0.12
+-12.34=-12.34
+-12.34e3=-12340
+-12.34e-2=-0.1234
+
+// return 1 on success
+int convertType(const char* value, double *destination) {
+char sentinel;
+return sscanf(value,"%f %c", destination, &sentinel) == 1;
+}
+
+double x;
+if (convertType(some_string, &x)) {
+printf("%.17e\n", x);  // or whatever FP format you like
+} else {
+puts("Failed");
+}
+*/

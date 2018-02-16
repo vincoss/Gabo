@@ -1,3 +1,14 @@
+/*
+ * main.c
+ *
+ * Created: 08/02/2018
+ * Author : Ferdinand Lukasak
+ 
+	 Copy main.hex into Arduino board use this command
+	 1. Open command prompt
+	 2. cd {SolutionDir}\debug
+	 3. avrdude -p atmega328p -c arduino -P COM3 -b 115200 -D -U flash:w:main.hex
+ */ 
 
 #include <string.h>
 #include <util/atomic.h>
@@ -9,27 +20,21 @@
 #include "GaboCommand.h"
 
 
-
-
-
 int main(int argc, char *argv[])
 {
 	UsartInitialize();
 	GaboUsartInterruptInitialize();
-
-	powerCommand = 50;
 
 	while (1)
 	{
 		// Each loop attempt to read the input commands.
 		GaboCommandRead();
 
-		_delay_ms(2000);
+		_delay_ms(1000); // Temp only use timer later
 	}
 
 	return 0;
 }
-
 
 #pragma region GaboCommand implementation
 
@@ -62,6 +67,7 @@ void GaboCommandWriteLog(char * message)
 	itoa(message, buffer, 10);
 	UsartWriteCharString(message);
 	UsartWriteChar('\r\n');
+	// TODO: free(message);
 }
 
 #pragma endregion GaboCommand implementation
