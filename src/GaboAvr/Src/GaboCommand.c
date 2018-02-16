@@ -23,6 +23,8 @@ void GaboCommandPrintTelemetry(void);
 void GaboCommandHelp(void);
 void GaboCommandWriteLog(char * message);
 
+void GaboCommandNotRecognisedMessage(void);
+
 
 void GaboCommandRead(void)
 {
@@ -159,16 +161,23 @@ void GaboCommandHelp(void)
 
 
 
-// TOOD: possible store commands int temp values and then apply those when command apply is send
-
-// TODO: refactor this. This method is Gabo specific possible to refactor into own file.
+/*
+	TODO: refactor this. This method is Gabo specific possible to refactor into own file.
+	Possible store commands int temp values and then apply those when command apply is send.
+*/
 void GaboCommandProcess(char * command)
 {
-	if (strlen(command) <= 0)
+	if (strlen(command) <= 1)
 	{
+		GaboCommandNotRecognisedMessage();
 		return;
 	}
 
+	if (command[1] != '=' || command[1] != '?')
+	{
+		GaboCommandWriteLog("Incomplete command, command must follow with '=' or '?' character.");
+	}
+	
 	char key = command[0];
 
 	switch (toupper(key))
@@ -179,7 +188,8 @@ void GaboCommandProcess(char * command)
 		{
 			// TODO: refactor in to methods so it can be called from telemery method
 			GaboCommandWriteLog("Power");
-			GaboCommandWriteLog(powerCommand);
+			char buffer[5];
+			GaboCommandWriteLog(IntToString(powerCommand, "%d", buffer, sizeof buffer));
 		}
 		else if (command[1] == '=')
 		{
@@ -192,7 +202,8 @@ void GaboCommandProcess(char * command)
 		if (command[1] == '?') // Send response back if '?'
 		{
 			GaboCommandWriteLog("Powertrain");
-			GaboCommandWriteLog(powertrainCommand);
+			char buffer[5];
+			GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
 		}
 		else if (command[1] == '=')
 		{
@@ -208,12 +219,25 @@ void GaboCommandProcess(char * command)
 		}
 		break;
 	}
+	case 'H':
+	{
+		if (command[1] == '?')
+		{
+			GaboCommandHelp();
+		}
+		break;
+	}
 	default:
 	{
-		GaboCommandWriteLog("Command not recognised. Enter H? for help.\r\n");
+		GaboCommandNotRecognisedMessage();
 		break;
 	}
 	}
+}
+
+void GaboCommandNotRecognisedMessage(void)
+{
+	GaboCommandWriteLog("Command not recognised. Enter H? for help.");
 }
 
 // Clear the left and right whitespace
