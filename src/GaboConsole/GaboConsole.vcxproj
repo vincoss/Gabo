@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GaboAvr\Include\GaboCommand.h" />
+    <ClInclude Include="..\GaboAvr\Include\GaboCommandImpl.h" />
     <ClInclude Include="..\GaboAvr\Include\Utility.h" />
     <ClInclude Include="MinUnit.h" />
     <ClInclude Include="UnitTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GaboAvr\Src\GaboCommand.c" />
+    <ClCompile Include="..\GaboAvr\Src\GaboCommandImpl.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="UnitTests.c" />
   </ItemGroup>

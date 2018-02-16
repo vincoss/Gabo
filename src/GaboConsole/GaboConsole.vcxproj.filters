@@ -27,6 +27,9 @@
     <ClCompile Include="..\GaboAvr\Src\GaboCommand.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\GaboAvr\Src\GaboCommandImpl.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitTests.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\GaboAvr\Include\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GaboAvr\Include\GaboCommandImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
