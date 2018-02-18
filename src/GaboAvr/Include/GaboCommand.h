@@ -24,9 +24,7 @@ volatile unsigned char rx_buffer_overflow;
 void GaboCommandRead();
 uint8_t GaboCommandParse(char * str, uint8_t defaultValue);
 void GaboCommandCopy(char * data, char * command);
-void GaboCommandPrint(char *id, int *value);
 void GaboCommandReadUsart(unsigned char data);
-void CopyString(const char *source, char *destination);
 void GaboCommandWriteLog(char * message);
 
 #endif

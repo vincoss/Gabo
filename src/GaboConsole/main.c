@@ -50,7 +50,6 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	memset(srcData, 0, RX_BUFFER_SIZE);
 }
 
-// TODO: platform specific (move to main)
 void GaboCommandWriteLog(char * message)
 {
 	if (strlen(message) <= 0)
@@ -59,17 +58,6 @@ void GaboCommandWriteLog(char * message)
 	}
 	printf("%s", message);
 	printf("\r\n");
-}
-
-void GaboCommandPrint(char *id, int *value) // TODO:
-{
-	printf("%s %d", id, value);
-	//char buffer[8];
-	//itoa(value, buffer, 10);
-	//usart_putc(id);
-	//usart_putc(':');
-	//usart_puts(buffer);
-	//usart_puts(RETURN_NEWLINE);
 }
 
 #pragma endregion

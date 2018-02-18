@@ -34,6 +34,8 @@ void MinUnitInitialize(void)
 	memset(rx_data_in, 0, strlen(rx_data_in));
 }
 
+#pragma region GaboCommandParse
+
 char * GaboCommandParse_Test()
 {
 	uint8_t result = GaboCommandParse("A=255", 0);
@@ -49,13 +51,25 @@ char * GaboCommandParse_DefaultTest()
 	return 0;
 }
 
-char * GaboCommand_CopyTest()
+char * GaboCommandParse_MissingEqualSignTest()
+{
+	char *s = "A";
+	uint8_t result = GaboCommandParse(s, 1);
+	MinUnitAssert("Error:, GaboCommandParse_MissingEqualSignTest", result == 1);
+	return 0;
+}
+
+#pragma endregion
+
+#pragma region GaboCommandCopy
+
+char * GaboCommandCopy_Test()
 {
 	char data[8] = "A=255\n";
 	char command[8];
 
 	GaboCommandCopy(data, command);
-	
+
 	MinUnitAssert("Error:, GaboCommand_CopyTest data", strlen(data) == 0);
 	MinUnitAssert("Error:, GaboCommand_CopyTest command", strcmp("A=255\n", command) == 0);
 
@@ -73,6 +87,8 @@ char * GaboCommandCopy_EmptyTest()
 
 	return 0;
 }
+
+#pragma endregion
 
 #pragma region GaboCommandRead
 
@@ -96,9 +112,10 @@ char * GaboCommandRead_CommandReadyTest()
 {
 	// Arrange
 	command_ready = 1;
+	rx_buffer_overflow = 0;
 
-	char data[8] = "A=127";
-	strcpy_s(rx_data_in, 8, data);
+	char data[RX_BUFFER_SIZE] = "A=127";
+	strcpy_s(rx_data_in, RX_BUFFER_SIZE, data);
 	
 	// Act
 	GaboCommandRead();
@@ -151,6 +168,7 @@ char * GaboCommandReadUsartTest()
 	GaboCommandReadUsart('A');
 	GaboCommandReadUsart('B');
 
+	MinUnitAssert("Error:, GaboCommandReadUsartTest data in", rx_data_in[0] == 'A');
 	MinUnitAssert("Error:, GaboCommandReadUsartTest data in", rx_data_in[1] == 'B');
 	MinUnitAssert("Error:, GaboCommandReadUsartTest data count", rx_data_count == 2);
 	MinUnitAssert("Error:, GaboCommandReadUsartTest command ready", command_ready == 0);
@@ -164,6 +182,7 @@ char * GaboCommandReadUsartNewLineTest()
 	GaboCommandReadUsart('B');
 	GaboCommandReadUsart('\n');
 
+	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data in", rx_data_in[0] == 'A');
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data in", rx_data_in[1] == 'B');
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data count", rx_data_count == 0);
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest command ready", command_ready == 1);
@@ -192,17 +211,6 @@ char * GaboCommandReadUsartOverflowTest()
 
 #pragma endregion
 
-//char * ConvertUInt8Test()
-//{
-//	char ch[] = "2";
-//	uint8_t value = ConvertUInt8(ch);
-//
-//	MinUnitAssert("Error:, ConvertUInt8Test data in", value == 123);
-//
-//	return 0;
-//}
-
-
 // Register all tests in here
 void UnitTestsRunAll()
 {
@@ -214,8 +222,9 @@ void UnitTestsRunAll()
 
 	MinUnitRun(GaboCommandParse_Test);
 	MinUnitRun(GaboCommandParse_DefaultTest);
+	MinUnitRun(GaboCommandParse_MissingEqualSignTest);
 
-	MinUnitRun(GaboCommand_CopyTest);
+	MinUnitRun(GaboCommandCopy_Test);
 	MinUnitRun(GaboCommandCopy_EmptyTest);
 
 	MinUnitRun(GaboCommandReadUsartEmptyCharTest);

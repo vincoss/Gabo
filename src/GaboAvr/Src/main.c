@@ -11,7 +11,7 @@
  */ 
 
 #include <string.h>
-#include <util/atomic.h>
+#include <avr/interrupt.h>
 #include <avr/delay.h>
 #include "Usart.h"
 #include "Adc.h"
@@ -20,17 +20,28 @@
 #include "GaboCommand.h"
 
 
+volatile uint8_t _timerEvent;
+volatile uint8_t _timerEventRunning;
+
 int main(int argc, char *argv[])
 {
 	UsartInitialize();
 	GaboUsartInterruptInitialize();
+	SetupTimer(); // Start last after other sensors and registers are initialized.
 
 	while (1)
 	{
-		// Each loop attempt to read the input commands.
-		GaboCommandRead();
-
-		_delay_ms(1000); // Temp only use timer later
+		if (_timerEvent == 1)
+		{
+			// NOTE: order these by importance. Highest
+			GaboCommandRead(); // Each loop attempt to read the input commands.
+					
+			// Lowest priority
+			
+			
+			_timerEvent = 0;
+			_timerEventRunning = 0;
+		}
 	}
 
 	return 0;
@@ -67,7 +78,45 @@ void GaboCommandWriteLog(char * message)
 	itoa(message, buffer, 10);
 	UsartWriteCharString(message);
 	UsartWriteChar('\r\n');
-	// TODO: free(message);
 }
 
 #pragma endregion GaboCommand implementation
+
+#pragma region Timer methods
+
+void SetupTimer(void)
+{	
+	_timerEvent = 0;
+	_timerEventRunning = 0;
+
+	// TODO: review the timer logic, why timer1 not timer 2???
+	cli();		// Disable global interupts
+
+	TCCR1A = 0;     // set entire TCCR1A register to 0
+	TCCR1B = 0;     // same for TCCR1B
+
+	TCNT1 = 0;		// initialize counter
+	OCR1A = 0x30D3;	// Fire every 50ms, Run at 20Hz
+
+	// Prescaler 64
+	TCCR1B |= (1 << WGM12) | (1 << CS11) | (1 << CS10);
+
+	// enable compare interrupt
+	TIMSK1 |= (1 << OCIE1A);
+
+	sei();	// enable global interrupts
+}
+
+// ISR is fired whenever a match occurs
+ISR(TIMER1_COMPA_vect)
+{
+	if (_timerEventRunning == 1)
+	{
+		return;
+	}
+
+	_timerEvent = 1;
+	_timerEventRunning = 1;
+}
+
+#pragma endregion

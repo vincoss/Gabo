@@ -9,13 +9,13 @@
 #include "GaboCommandImpl.h"
 
 void GaboCommandNotRecognisedMessage(void);
+void GaboCommandPrintTelemetry(void);
+void GaboCommandHelp(void);
 
  /*
  TODO: refactor this. This method is Gabo specific possible to refactor into own file.
  Possible store commands int temp values and then apply those when command apply is send.
 
- GaboCommand.h
- GaboCommandImpl.h
  */
 void GaboCommandProcess(char * command)
 {
@@ -90,4 +90,34 @@ void GaboCommandProcess(char * command)
 void GaboCommandNotRecognisedMessage(void)
 {
 	GaboCommandWriteLog("Command not recognised. Enter H? for help.");
+}
+
+void GaboCommandPrintTelemetry(void)
+{
+	// TODO: here push out all system variables and values.
+
+	char buffer[5]; // TODO: refactor those into single global
+
+	GaboCommandWriteLog("Power");
+	GaboCommandWriteLog(IntToString(powerCommand, "%d", buffer, sizeof buffer));
+
+	//memset(&buffer[0], 0, sizeof(buffer));
+	//// Now clear data_in, the USART can reuse it now
+	memset(buffer, 0, sizeof(buffer));
+
+	GaboCommandWriteLog("Powertrain");
+	GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
+}
+
+// H? for help.
+void GaboCommandHelp(void)
+{
+	char buffer[5];
+
+	GaboCommandWriteLog("Enter H? for help.");
+	GaboCommandWriteLog("Each command must end with newline char.");
+	GaboCommandWriteLog("Command max size.");
+	//GaboCommandWriteLog(IntToString(RX_BUFFER_SIZE, "%d", buffer, sizeof buffer));
+	GaboCommandWriteLog("A={PowerCommand} write value");
+	GaboCommandWriteLog("A? print power command value.");
 }

@@ -22,10 +22,10 @@
 #define POWERTRAIN_COMMAND			0
 #define POWERTRAIN_SPEED_COMMAND	1
 
-volatile uint8_t powerCommand;
+volatile uint8_t powerCommand;		// Powertrain, PowerTakeOff
 volatile uint8_t powertrainCommand;
 
-volatile int powertrainWorkHours;
-volatile int powertakeoffWorkHours;
+volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
+volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log
 
 #endif
