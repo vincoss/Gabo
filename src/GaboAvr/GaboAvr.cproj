@@ -140,6 +140,9 @@
     <Compile Include="Include\GaboIo.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Include\GaboTime.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Include\GaboUsart.h">
       <SubType>compile</SubType>
     </Compile>
