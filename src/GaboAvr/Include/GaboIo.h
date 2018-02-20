@@ -22,10 +22,19 @@
 #define POWERTRAIN_COMMAND			0
 #define POWERTRAIN_SPEED_COMMAND	1
 
-volatile uint8_t powerCommand;		// Powertrain, PowerTakeOff
+volatile uint8_t powerCommand;		// Powertrain, PowerTakeOff 00000011
 volatile uint8_t powertrainCommand;
 
 volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
 volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log
+
+/*
+	TODO: add commands flags, startWriteCommand, endWriteCommand
+	Those flags shall be used when commands are written, it might take few interactions(CPU cycles) 
+	until all commands are written when command write is complete set end writeCommand to true.
+	On this stage commands must be pushed from temp variables to program variables.
+*/
+
+
 
 #endif
