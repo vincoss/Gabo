@@ -13,6 +13,7 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <avr/delay.h>
+#include <util/atomic.h>
 #include "Usart.h"
 #include "Adc.h"
 #include "GaboIo.h"
@@ -40,11 +41,11 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 	// The USART might interrupt this - don't let that happen!
 	ATOMIC_BLOCK(ATOMIC_FORCEON)
 	{
-		// Copy the contents of data_in into command_in
-		memcpy(destCommand, srcData, 8);
-
-		//// Now clear data_in, the USART can reuse it now
-		memset(srcData, 0, 8);
+		//// Copy the contents of data_in into command_in
+		//memcpy(destCommand, srcData, 8);
+//
+		////// Now clear data_in, the USART can reuse it now
+		//memset(srcData, 0, 8);
 	}
 }
 
@@ -52,7 +53,7 @@ void GaboCommandWriteLog(char * message)
 {
 	if (message == NULL || strlen(message) <= 0)
 	{
-		return 0; // Nothing
+		return; // Nothing
 	}
 	
 	char buffer[strlen(message) + 1];
