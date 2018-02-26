@@ -9,14 +9,14 @@
 #ifndef GABOTIME_H_
 #define GABOTIME_H_
 
-volatile unsigned long long GaboTimeTickCount;
+volatile unsigned long long int GaboTimeTickCount;
 
 void GaboTimeIninialize(void);
-unsigned long long GaboTimeGetTickCount(void);
+unsigned long long int GaboTimeGetTickCount(void);
 
-unsigned long long GaboTimeGetTickCount(void)
+unsigned long long int GaboTimeGetTickCount(void)
 {
-	return 0;
+	return GaboTimeTickCount;
 }
 
 #endif /* GABOTIME_H_ */

@@ -9,6 +9,8 @@
 #ifndef UTILITY_H_
 #define UTILITY_H_
 
+#include <inttypes.h>
+
 #define UTILITY_OFF 0
 #define UTILITY_ON	1
 
@@ -56,7 +58,7 @@ int IsNullOrEmpty(const char * str)
 	long long			%lli
 	unsinged long long	%llu
 */
-char * IntToString(long long int value, const char * format, char * buffer, int length)
+char * IntToString(int  value, const char * format, char * buffer, int length)
 {
 	if (strlen((format)) <= 0)
 	{
