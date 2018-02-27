@@ -19,8 +19,8 @@
 #define GABOIO_SPI_SET_LATCH_LOW	(PORTB &= ~(1 << PB2))	// Activate slave
 #define GABOIO_SPI_SET_LATCH_HIGH	(PORTB |= (1 << PB2))	// Deactivate slave
 
-#define POWERTRAIN_COMMAND			0
-#define POWERTRAIN_SPEED_COMMAND	1
+#define POWERTRAIN_COMMAND			0	// TODO: WHat for?
+#define POWERTRAIN_SPEED_COMMAND	1	// TODO: WHat for?
 
 volatile uint8_t powerCommand;		// Powertrain, PowerTakeOff 00000011
 volatile uint8_t powertrainCommand;

@@ -25,7 +25,7 @@
 int main(int argc, char *argv[])
 {
 	UsartInitialize();
-	GaboUsartInterruptInitialize();
+	GaboUsartInterruptInitialize(); // TODO: migrate to Usart.h
 	GaboTimeIninialize();
 
 	MainLoop();
