@@ -14,7 +14,7 @@
 #define UTILITY_OFF 0
 #define UTILITY_ON	1
 
-uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex) // TODO: Also by ref 
+uint8_t UtilityIsBitSet(uint8_t value, uint8_t bitindex)
 {
 	return ((value & (1 << bitindex)) != 0) ? 1 : 0;
 }
@@ -64,6 +64,7 @@ char * IntToString(int  value, const char * format, char * buffer, int length)
 	{
 		return "";
 	}
+	memset(buffer, 0, length); // Clear
 	snprintf(buffer, length, format, value);
 	return buffer;
 }
@@ -80,6 +81,7 @@ char * FloatToStringArray(long double value, const char * format, char * buffer,
 	{
 		return "";
 	}
+	memset(buffer, 0, length); // Clear
 	snprintf(buffer, length, format, value);
 	return buffer;
 }

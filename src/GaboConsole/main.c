@@ -10,11 +10,15 @@
 #include <stdlib.h>
 #include "GaboIo.h"
 #include "GaboCommand.h"
+#include "GaboCommandImpl.h"
 #include "UnitTests.h"
 
 int main()
 {
 	UnitTestsRun();
+
+	char * str = "t;";
+	GaboCommandProcess(str);
 
 	//while (1)
 	//{

@@ -25,9 +25,10 @@ void GaboCommandProcess(char * command)
 		return;
 	}
 
-	if (command[1] != '=' || command[1] != '?')
+	if (command[1] != '=' && command[1] != '?')
 	{
-		GaboCommandWriteLog("Incomplete command, command must follow with '=' or '?' character.");
+		GaboCommandWriteLog("Incomplete command, command must follow with '=' or '?' character. Enter H? for help.");
+		return;
 	}
 
 	char key = command[0];
@@ -107,17 +108,29 @@ void GaboCommandPrintTelemetry(void)
 
 	GaboCommandWriteLog("Powertrain");
 	GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
+	
+	/*
+		memory
+		workhours power-train
+		workhours power-takeOff
+	*/
 }
 
-// H? for help.
+// Displays all available commands.
 void GaboCommandHelp(void)
 {
 	char buffer[5];
 
-	GaboCommandWriteLog("Enter H? for help.");
-	GaboCommandWriteLog("Each command must end with newline char.");
+	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
 	GaboCommandWriteLog("Command max size.");
-	//GaboCommandWriteLog(IntToString(RX_BUFFER_SIZE, "%d", buffer, sizeof buffer));
-	GaboCommandWriteLog("A={PowerCommand} write value");
-	GaboCommandWriteLog("A? print power command value.");
+	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hardcoded value use RX_BUFFER_SIZE instead
+	GaboCommandWriteLog("Use <=,?> sign to write or display value.");
+	
+	GaboCommandWriteLog("Available commands");
+
+	GaboCommandWriteLog("<H?,h?> for help.");
+	GaboCommandWriteLog("<T?,t?> for telemetry.");
+		
+	GaboCommandWriteLog("A={Power} write value");
+	GaboCommandWriteLog("B={Powertrain} write value");
 }
