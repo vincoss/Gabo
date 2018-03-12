@@ -28,6 +28,8 @@ volatile uint8_t powertrainCommand;
 volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
 volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log
 
+volatile uint8_t startWriteCommand;
+
 /*
 	TODO: add commands flags, startWriteCommand, endWriteCommand
 	Those flags shall be used when commands are written, it might take few interactions(CPU cycles) 
@@ -44,11 +46,43 @@ volatile int powertakeoffWorkHours; // TODO: these should be persited every hour
 	{
 		
 	}
+	
+	# Shaft read sensor, current max rpm is 200 then encoder has 50 teeth, the SPI read rate should be high enough to read incoming
+	shaft changes = 200*50 = 10,000 per minute
+	main loop read SPI bus should around 200 per second
+	on/off signals
 */
 
 #define POWERDR   _SFR_IO8(0x31)
 #define DRIVE    _SFR_IO8(0x31)
 #define PTO    _SFR_IO8(0x31)
 
+/*
+	temp
+	run
+
+	Begin update command
+	
+	Z=0	start
+	Z=1	end
+	
+	End update command
+
+*/
+
+// Input
+#define PINI0	0	// Hall left
+#define PINI1	1	// Hall right
+
+// Output
+#define PINO0	0	//  Power A
+#define PINO1	1	//  Power B
+#define PINO2	2	//  Power C
+#define PIN03	3	//  Power D
+// Powertrain
+#define PINO4	4	// On/Off		(left and right)
+#define PINO5	5	// Start/Stop	(left and right)
+#define PINO6	6	// Cv/Ccv		(left)
+#define PINO7	7	// Cv/Ccv		(right)
 
 #endif

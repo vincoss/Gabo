@@ -107,7 +107,7 @@ volatile uint8_t _mainLoopOnUpdateRunning;
 
 void MainLoop(void)
 {
-	const int ticksPerSecond = 25;
+	const int ticksPerSecond = 25; // Run 25 times per second.
 	const int skipTicks = 1000 / ticksPerSecond;
 	const int maxFrameSkip = 5;
 
@@ -144,13 +144,21 @@ void MainLoopOnUpdate(void)
 		
 		Highest priority
 		
-		*Read sensors
 		*Read commands
+		*Read sensors
 		*Calculate
 		*Push commands and calc values
 	*/
 	
 	GaboCommandRead();
+	
+	// Not to execute if commands are processing.
+	if(startWriteCommand == 0)
+	{
+		
+		
+	}
+	
 	
 	/*
 		Lowest priority.
@@ -165,3 +173,27 @@ void MainLoopOnRender(float interpolation)
 }
 
 #pragma endregion MainLoop implementation
+
+uint8_t ReadInputBus()
+{
+	
+	
+}
+
+void ProcessInputBus()
+{
+	uint8_t value = ReadInputBus();	
+}
+
+void PushOutputIntoBus()
+{
+	uint8_t previous = 0x00000000;
+	uint8_t current = 0x00000000;
+	
+	if(previous != current)
+	{
+		// push into bus, only if changed or first time
+		
+	}
+	
+}

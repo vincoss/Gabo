@@ -15,9 +15,9 @@
 
 int main()
 {
-	UnitTestsRun();
+	//UnitTestsRun();
 
-	char * str = "t;";
+	char * str = "a=20\nb=30\n";
 	GaboCommandProcess(str);
 
 	//while (1)
