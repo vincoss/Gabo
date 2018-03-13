@@ -20,10 +20,11 @@
 #include "GaboUsart.h"
 #include "GaboCommand.h"
 #include "GaboTime.h"
-
+#include "GaboSpi.h"
 
 int main(int argc, char *argv[])
 {
+	InitializeDefaults();
 	UsartInitialize();
 	GaboUsartInterruptInitialize(); // TODO: migrate to Usart.h
 	GaboTimeIninialize();
@@ -193,7 +194,30 @@ void PushOutputIntoBus()
 	if(previous != current)
 	{
 		// push into bus, only if changed or first time
+		GABOIO_SPI_SET_OUTPUT_LATCH_LOW;
 		
+		GaboSpi_Send(0); // Power
+		GaboSpi_Send(1); // Powertrain
+		// Other
+		
+		GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
 	}
 	
+	// power 0000-1111
+	// drive 
+	
+	//const prog_uint8_t BitMap[5] = {   // store in program memory to save RAM
+	//	B1100011,
+	//	B0010100,
+	//	B0001000,
+	//	B0010100,
+	//	B1100011
+	//};
+	
+}
+
+void InitializeDefaults()
+{
+	GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
+	GABOIO_SPI_SET_INPUT_LATCH_HIGH;
 }
