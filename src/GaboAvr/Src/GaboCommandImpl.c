@@ -42,11 +42,11 @@ void GaboCommandProcess(char * command)
 			// TODO: refactor in to methods so it can be called from telemery method
 			GaboCommandWriteLog("Power");
 			char buffer[5];
-			GaboCommandWriteLog(IntToString(powerCommand, "%d", buffer, sizeof buffer));
+			GaboCommandWriteLog(IntToString(powerCommandTemp, "%d", buffer, sizeof buffer));
 		}
 		else if (command[1] == '=')
 		{
-			powerCommand = GaboCommandParse(command, 0);
+			powerCommandTemp = GaboCommandParse(command, 0);
 		}
 		break;
 	}
@@ -56,11 +56,11 @@ void GaboCommandProcess(char * command)
 		{
 			GaboCommandWriteLog("Powertrain");
 			char buffer[5];
-			GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
+			GaboCommandWriteLog(IntToString(powertrainCommandTemp, "%d", buffer, sizeof buffer));
 		}
 		else if (command[1] == '=')
 		{
-			powertrainCommand = GaboCommandParse(command, 0);
+			powertrainCommandTemp = GaboCommandParse(command, 0);
 		}
 		break;
 	}
@@ -72,11 +72,19 @@ void GaboCommandProcess(char * command)
 		}
 		break;
 	}
-	case 'H':
+	case 'H':	// Help
 	{
 		if (command[1] == '?')
 		{
 			GaboCommandHelp();
+		}
+		break;
+	}
+	case 'Z': // Begin/End command write
+	{
+		if (command[1] == '=')
+		{
+			startWriteCommand = GaboCommandParse(command, 0);
 		}
 		break;
 	}
@@ -100,14 +108,14 @@ void GaboCommandPrintTelemetry(void)
 	char buffer[5]; // TODO: refactor those into single global
 
 	GaboCommandWriteLog("Power");
-	GaboCommandWriteLog(IntToString(powerCommand, "%d", buffer, sizeof buffer));
+	GaboCommandWriteLog(IntToString(powerCommandTemp, "%d", buffer, sizeof buffer));
 
 	//memset(&buffer[0], 0, sizeof(buffer));
 	//// Now clear data_in, the USART can reuse it now
 	memset(buffer, 0, sizeof(buffer));
 
 	GaboCommandWriteLog("Powertrain");
-	GaboCommandWriteLog(IntToString(powertrainCommand, "%d", buffer, sizeof buffer));
+	GaboCommandWriteLog(IntToString(powertrainCommandTemp, "%d", buffer, sizeof buffer));
 	
 	/*
 		memory
@@ -121,6 +129,7 @@ void GaboCommandHelp(void)
 {
 	char buffer[5];
 
+	GaboCommandWriteLog("Command(s) write must start with Z=1\n and end with Z=0\n command.");
 	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
 	GaboCommandWriteLog("Command max size.");
 	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hardcoded value use RX_BUFFER_SIZE instead

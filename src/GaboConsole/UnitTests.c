@@ -132,7 +132,7 @@ char * GaboCommandRead_CommandReadyTest()
 	}
 
 	// Command variable should be set
-	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommand", powerCommand == 127);
+	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommand", powerCommandTemp == 127);
 	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest command_ready", command_ready == 0);
 
 	return 0;

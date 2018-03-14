@@ -20,14 +20,16 @@
 #define GABOIO_SPI_INPUT_LATCH_PINB4	PB4	// Input
 #define GABOIO_SPI_SET_OUTPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_OUTPUT_LATCH_PINB2))	// Activate slave
 #define GABOIO_SPI_SET_OUTPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_OUTPUT_LATCH_PINB2))		// Deactivate slave
-#define GABOIO_SPI_SET_INPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_INPUT_LATCH_PINB4))	// Activate slave
-#define GABOIO_SPI_SET_INPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_INPUT_LATCH_PINB4))		// Deactivate slave
+#define GABOIO_SPI_SET_INPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_INPUT_LATCH_PINB4))		// Activate slave
+#define GABOIO_SPI_SET_INPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_INPUT_LATCH_PINB4))			// Deactivate slave
 
-#define POWERTRAIN_COMMAND			0	// TODO: WHat for? Index?
-#define POWERTRAIN_SPEED_COMMAND	1	// TODO: WHat for? Index?
+volatile uint8_t IsInitialized;
 
-volatile uint8_t powerCommand;		// =Powertrain, PowerTakeOff 00000011
-volatile uint8_t powertrainCommand;
+volatile uint8_t powerCommandTemp;		// =Powertrain, PowerTakeOff 00000011
+volatile uint8_t powertrainCommandTemp;
+
+volatile uint8_t PowerCommand;
+volatile uint8_t PowertrainCommand;
 
 volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
 volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log

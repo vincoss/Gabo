@@ -19,7 +19,6 @@
 #include "GaboIo.h"
 #include "GaboUsart.h"
 #include "GaboCommand.h"
-#include "GaboTime.h"
 #include "GaboSpi.h"
 
 int main(int argc, char *argv[])
@@ -67,48 +66,14 @@ void GaboCommandWriteLog(const char * message)
 
 #pragma endregion GaboCommand implementation
 
-#pragma region GaboTime (timer) implementation
-
-void GaboTimeIninialize(void)
-{
-	// Reset ticks
-	GaboTimeTickCount = 0;
-	
-	cli();	// Disable global interrupts
-
-	TCCR1A = 0;     // set entire TCCR1A register to 0
-	TCCR1B = 0;     // same for TCCR1B
-
-	TCNT1 = 0;		// initialize counter
-	OCR1A = 0x3E7F;	// Fire every 1ms, run at 1000Hz
-
-	// Reset, waveform and prescaler
-	TCCR1B &= ~(WGM12 | CS12 | CS11 | CS10);
-	
-	// Set waveform and prescaler to 1
-	TCCR1B |= (1 << WGM12) | (1 << CS10);
-
-	// enable compare interrupt
-	TIMSK1 |= (1 << OCIE1A);
-
-	sei();	// enable global interrupts
-}
-
-// ISR is fired whenever a match occurs
-ISR(TIMER1_COMPA_vect)
-{
-	GaboTimeTickCount++;
-}
-
-#pragma endregion
-
 #pragma region MainLoop implementation
 
 volatile uint8_t _mainLoopOnUpdateRunning;
 
 void MainLoop(void)
 {
-	const int ticksPerSecond = 25; // Run 25 times per second.
+	const int ticksPerSecondMs = 1;	// Run very fast, every 1ms
+	const int ticksPerSecond = 25;	// Run 25 times per second.
 	const int skipTicks = 1000 / ticksPerSecond;
 	const int maxFrameSkip = 5;
 
@@ -153,19 +118,23 @@ void MainLoopOnUpdate(void)
 	
 	GaboCommandRead();
 	
-	// Not to execute if commands are processing.
+	// Do not execute inf input commands are incomming or processing.
 	if(startWriteCommand == 0)
 	{
-		
-		
+		ProcessOutputBus();
 	}
-	
 	
 	/*
 		Lowest priority.
 	*/
 	
 	_mainLoopOnUpdateRunning = 0;
+}
+
+void MainLoopOnUpdateMs(void)
+{
+	// TODO: check if can already read
+	ProcessInputBus();
 }
 
 void MainLoopOnRender(float interpolation)
@@ -186,34 +155,31 @@ void ProcessInputBus()
 	uint8_t value = ReadInputBus();	
 }
 
-void PushOutputIntoBus()
+void ProcessOutputBus()
 {
-	uint8_t previous = 0x00000000;
-	uint8_t current = 0x00000000;
+	uint8_t flag = 0;
 	
-	if(previous != current)
+	if(PowerCommand != powerCommandTemp)
 	{
-		// push into bus, only if changed or first time
+		PowerCommand = powerCommandTemp;
+		flag = 1;
+	}
+	
+	if(PowertrainCommand != powertrainCommandTemp)
+	{
+		PowertrainCommand = powertrainCommandTemp;
+		flag = 1;
+	}
+	// TODO: must push initial IsInitialized
+	if(flag) // Push into bus, only if changed or if is the first time.
+	{
 		GABOIO_SPI_SET_OUTPUT_LATCH_LOW;
 		
-		GaboSpi_Send(0); // Power
-		GaboSpi_Send(1); // Powertrain
-		// Other
+		GaboSpi_Send(PowerCommand);
+		GaboSpi_Send(PowertrainCommand);
 		
 		GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
 	}
-	
-	// power 0000-1111
-	// drive 
-	
-	//const prog_uint8_t BitMap[5] = {   // store in program memory to save RAM
-	//	B1100011,
-	//	B0010100,
-	//	B0001000,
-	//	B0010100,
-	//	B1100011
-	//};
-	
 }
 
 void InitializeDefaults()

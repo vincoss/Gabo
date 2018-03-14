@@ -178,6 +178,9 @@
     <Compile Include="Src\GaboCommandImpl.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Src\GaboTime.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Src\main.c">
       <SubType>compile</SubType>
     </Compile>
