@@ -21,7 +21,7 @@ void UsartInitialize(void)
 	UCSR0C = ((1 << UCSZ00) | (1 << UCSZ01));
 }
 
-void UsartWriteChar(unsigned char data)
+void UsartWriteChar(const unsigned char data)
 {
 	while (!(UCSR0A & (1 << UDRE0))); // wait while register is free
 	UDR0 = data; // load data in the register
@@ -33,7 +33,7 @@ unsigned char UsartReadChar(void)
 	return UDR0; // return 8-bit data
 }
 
-void UsartWriteCharString(unsigned char* stringPtr)
+void UsartWriteCharString(const unsigned char* stringPtr)
 {
 	// Here we check if there is still more chars to send, this is done checking the actual char and see if it is different from the null '\n' char
 	while (*stringPtr != 0x00)

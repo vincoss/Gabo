@@ -20,8 +20,8 @@
 #define USART_BAUD_PRESCALLER (((( F_CPU / 16UL) + ( USART_BAUDRATE / 2)) / ( USART_BAUDRATE )) - 1)
 
 void UsartInitialize(void);
-void UsartWriteChar(unsigned char data);
+void UsartWriteChar(const unsigned char data);
 unsigned char UsartReadChar(void);
-void UsartWriteCharString(unsigned char* StringPtr);
+void UsartWriteCharString(const unsigned char* StringPtr);
 
 #endif /* USART_H_ */

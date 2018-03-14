@@ -23,13 +23,13 @@
 #define GABOIO_SPI_SET_INPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_INPUT_LATCH_PINB4))		// Activate slave
 #define GABOIO_SPI_SET_INPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_INPUT_LATCH_PINB4))			// Deactivate slave
 
-volatile uint8_t IsInitialized;
+volatile uint8_t IsOutputInitialized;	// Indicates that output was already set at least one time.
 
 volatile uint8_t powerCommandTemp;		// =Powertrain, PowerTakeOff 00000011
 volatile uint8_t powertrainCommandTemp;
 
-volatile uint8_t PowerCommand;
-volatile uint8_t PowertrainCommand;
+volatile uint8_t PowerCommand;		// Store power on/off value
+volatile uint8_t PowertrainCommand; // Store powertrain on/off values left and right
 
 volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
 volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log

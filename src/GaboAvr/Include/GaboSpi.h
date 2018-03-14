@@ -9,23 +9,17 @@
 #ifndef GABOSPI_H_
 #define GABOSPI_H_
 
-void GaboSpi_LatchHigh(uint8_t address);
+void GaboSpiInitialize(void);
+uint8_t GaboSpiSend(uint8_t data);
 
-void GaboSpi_LatchLow(uint8_t address);
-
-
-void GaboSpi_LatchHigh(uint8_t address)
+void GaboSpiInitialize(void)
 {
-	
 	
 }
 
-uint8_t GaboSpi_Send(uint8_t data);
-
-
-uint8_t GaboSpi_Send(uint8_t data)
+uint8_t GaboSpiSend(uint8_t data)
 {
-	
+	return 0;
 }
 
 #endif /* GABOSPI_H_ */

@@ -20,6 +20,7 @@
 #include "GaboUsart.h"
 #include "GaboCommand.h"
 #include "GaboSpi.h"
+#include "GaboLoop.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,8 +28,9 @@ int main(int argc, char *argv[])
 	UsartInitialize();
 	GaboUsartInterruptInitialize(); // TODO: migrate to Usart.h
 	GaboTimeIninialize();
+	GaboSpiInitialize();
 
-	MainLoop();
+	GaboLoopMain();
 
 	return 0;
 }
@@ -66,11 +68,11 @@ void GaboCommandWriteLog(const char * message)
 
 #pragma endregion GaboCommand implementation
 
-#pragma region MainLoop implementation
+#pragma region GaboLoop implementation
 
-volatile uint8_t _mainLoopOnUpdateRunning;
+volatile uint8_t _gaboLoopOnUpdateRunning;
 
-void MainLoop(void)
+void GaboLoopMain(void)
 {
 	const int ticksPerSecondMs = 1;	// Run very fast, every 1ms
 	const int ticksPerSecond = 25;	// Run 25 times per second.
@@ -85,7 +87,7 @@ void MainLoop(void)
 
 		while (GaboTimeGetTickCount() > nextGameTick && loops < maxFrameSkip)
 		{
-			MainLoopOnUpdate();
+			GaboLoopOnUpdate();
 
 			nextGameTick += skipTicks;
 			loops++;
@@ -93,17 +95,17 @@ void MainLoop(void)
 
 		// Usage view_position = position + (speed * interpolation)
 		float interpolation = (GaboTimeGetTickCount() + skipTicks - nextGameTick) / (float)skipTicks;
-		MainLoopOnRender(interpolation);
+		GaboLoopOnRender(interpolation);
 	}
 }
 
-void MainLoopOnUpdate(void)
+void GaboLoopOnUpdate(void)
 {
-	if(_mainLoopOnUpdateRunning == 1)
+	if(_gaboLoopOnUpdateRunning == 1)
 	{
 		return;
 	}
-	_mainLoopOnUpdateRunning = 1;
+	_gaboLoopOnUpdateRunning = 1;
 	
 	/*
 		NOTE: Order is important.
@@ -128,21 +130,21 @@ void MainLoopOnUpdate(void)
 		Lowest priority.
 	*/
 	
-	_mainLoopOnUpdateRunning = 0;
+	_gaboLoopOnUpdateRunning = 0;
 }
 
-void MainLoopOnUpdateMs(void)
+void GaboLoopOnUpdateMs(void)
 {
 	// TODO: check if can already read
 	ProcessInputBus();
 }
 
-void MainLoopOnRender(float interpolation)
+void GaboLoopOnRender(float interpolation)
 {
 	// TODO: here possible read sensors or other, but it might run too fast.
 }
 
-#pragma endregion MainLoop implementation
+#pragma endregion GaboLoop implementation
 
 uint8_t ReadInputBus()
 {
@@ -170,20 +172,24 @@ void ProcessOutputBus()
 		PowertrainCommand = powertrainCommandTemp;
 		flag = 1;
 	}
-	// TODO: must push initial IsInitialized
-	if(flag) // Push into bus, only if changed or if is the first time.
+	
+	if(flag || (IsOutputInitialized == 0)) // Push into bus, only if changed or if is the first time.
 	{
 		GABOIO_SPI_SET_OUTPUT_LATCH_LOW;
 		
 		GaboSpi_Send(PowerCommand);
 		GaboSpi_Send(PowertrainCommand);
+		// More commands here
 		
 		GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
+		
+		IsOutputInitialized = 1;
 	}
 }
 
 void InitializeDefaults()
 {
+	IsOutputInitialized = 0;
 	GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
 	GABOIO_SPI_SET_INPUT_LATCH_HIGH;
 }

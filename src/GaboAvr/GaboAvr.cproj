@@ -154,6 +154,9 @@
     <Compile Include="Include\GaboIo.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Include\GaboLoop.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Include\GaboSpi.h">
       <SubType>compile</SubType>
     </Compile>
