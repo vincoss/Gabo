@@ -35,6 +35,11 @@ void GaboTimeIninialize(void)
 	sei();	// enable global interrupts
 }
 
+unsigned long long int GaboTimeGetTickCount(void)
+{
+	return GaboTimeTickCount;
+}
+
 // ISR is fired whenever a match occurs
 ISR(TIMER1_COMPA_vect)
 {

@@ -21,6 +21,7 @@
 #include "GaboCommand.h"
 #include "GaboSpi.h"
 #include "GaboLoop.h"
+#include "GaboTime.h"
 
 int main(int argc, char *argv[])
 {
@@ -70,43 +71,36 @@ void GaboCommandWriteLog(const char * message)
 
 #pragma region GaboLoop implementation
 
-volatile uint8_t _gaboLoopOnUpdateRunning;
-
 void GaboLoopMain(void)
 {
-	const int ticksPerSecondMs = 1;	// Run very fast, every 1ms
-	const int ticksPerSecond = 25;	// Run 25 times per second.
-	const int skipTicks = 1000 / ticksPerSecond;
-	const int maxFrameSkip = 5;
+	const int eventOneMilliseconds = 1;
+	const int eventTwoMilliseconds = 1000 / 20; // Run every 50 millisecond.
 
-	unsigned long long int nextGameTick = GaboTimeGetTickCount();
+	volatile unsigned long long int eventOneTicks = GaboTimeGetTickCount();
+	volatile unsigned long long int eventTwoTicks = GaboTimeGetTickCount();
 
 	while (1)
 	{
-		int loops = 0;
-
-		while (GaboTimeGetTickCount() > nextGameTick && loops < maxFrameSkip)
+		if((GaboTimeGetTickCount() - eventOneTicks) >= eventOneMilliseconds) // Every 1ms
+		{
+			GaboLoopOnUpdateMs();
+			
+			eventOneTicks = GaboTimeGetTickCount();
+		}
+		
+		if((GaboTimeGetTickCount() - eventTwoTicks) >= eventTwoMilliseconds) // Every 50ms
 		{
 			GaboLoopOnUpdate();
-
-			nextGameTick += skipTicks;
-			loops++;
+			
+			eventTwoTicks = GaboTimeGetTickCount();
 		}
-
-		// Usage view_position = position + (speed * interpolation)
-		float interpolation = (GaboTimeGetTickCount() + skipTicks - nextGameTick) / (float)skipTicks;
-		GaboLoopOnRender(interpolation);
+		
+		GaboLoopOnRender();
 	}
 }
 
 void GaboLoopOnUpdate(void)
 {
-	if(_gaboLoopOnUpdateRunning == 1)
-	{
-		return;
-	}
-	_gaboLoopOnUpdateRunning = 1;
-	
 	/*
 		NOTE: Order is important.
 		
@@ -118,28 +112,26 @@ void GaboLoopOnUpdate(void)
 		*Push commands and calc values
 	*/
 	
-	GaboCommandRead();
-	
-	// Do not execute inf input commands are incomming or processing.
-	if(startWriteCommand == 0)
-	{
-		ProcessOutputBus();
-	}
+	//GaboCommandRead();
+	//
+	//// Do not execute if input commands are incoming or processing.
+	//if(startWriteCommand == 0)
+	//{
+		//ProcessOutputBus();
+	//}
 	
 	/*
 		Lowest priority.
 	*/
-	
-	_gaboLoopOnUpdateRunning = 0;
 }
 
 void GaboLoopOnUpdateMs(void)
 {
 	// TODO: check if can already read
-	ProcessInputBus();
+	//ProcessInputBus();
 }
 
-void GaboLoopOnRender(float interpolation)
+void GaboLoopOnRender()
 {
 	// TODO: here possible read sensors or other, but it might run too fast.
 }
@@ -177,8 +169,8 @@ void ProcessOutputBus()
 	{
 		GABOIO_SPI_SET_OUTPUT_LATCH_LOW;
 		
-		GaboSpi_Send(PowerCommand);
-		GaboSpi_Send(PowertrainCommand);
+		GaboSpiSend(PowerCommand);
+		GaboSpiSend(PowertrainCommand);
 		// More commands here
 		
 		GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;

@@ -58,7 +58,18 @@ int IsNullOrEmpty(const char * str)
 	long long			%lli
 	unsinged long long	%llu
 */
-char * IntToString(int  value, const char * format, char * buffer, int length)
+char * IntToString(long long int value, const char * format, char * buffer, int length)
+{
+	if (strlen((format)) <= 0)
+	{
+		return "";
+	}
+	memset(buffer, 0, length); // Clear
+	snprintf(buffer, length, format, value);
+	return buffer;
+}
+
+char * IntToStringUnsigned(long long int value, const char * format, char * buffer, int length)
 {
 	if (strlen((format)) <= 0)
 	{

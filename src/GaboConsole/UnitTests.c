@@ -132,8 +132,8 @@ char * GaboCommandRead_CommandReadyTest()
 	}
 
 	// Command variable should be set
-	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommand", powerCommandTemp == 127);
-	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest command_ready", command_ready == 0);
+	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest powerCommandTemp == 127", powerCommandTemp == 127);
+	MinUnitAssert("Error: GaboCommandRead_CommandReadyTest command_ready == 0", command_ready == 0);
 
 	return 0;
 }
@@ -211,11 +211,74 @@ char * GaboCommandReadUsartOverflowTest()
 
 #pragma endregion
 
+#pragma region Utility.h tests
+
+char * UtilityIsBitSetTest()
+{
+	uint8_t value = 0b00000010;
+
+	MinUnitAssert("Error:, UtilityIsBitSetTest data true", UtilityIsBitSet(value, 1) == 1);
+	MinUnitAssert("Error:, UtilityIsBitSetTest data false", UtilityIsBitSet(value, 0) == 0);
+
+	return 0;
+}
+
+char * UtilitySetBitAsUsedTest()
+{
+	uint8_t value = 0b00000000;
+	UtilitySetBitAsUsed(&value, 1);
+
+	MinUnitAssert("Error:, UtilitySetBitAsUsedTest", UtilityIsBitSet(value, 1) == 1);
+
+	return 0;
+}
+
+char * UtilitySetBitAsUnUsedTest()
+{
+	uint8_t value = 0b00000010;
+	UtilitySetBitAsUnUsed(&value, 1);
+
+	MinUnitAssert("Error:, UtilitySetBitAsUnUsedTest", UtilityIsBitSet(value, 1) == 0);
+
+	return 0;
+}
+
+char * UtilityFlipBitTest()
+{
+	uint8_t value = 0b00000000;
+	UtilityFlipBit(&value, 1);
+
+	MinUnitAssert("Error:, UtilityFlipBitTest", UtilityIsBitSet(value, 1) == 1);
+
+	return 0;
+}
+
+char * IsNullOrEmptyTest()
+{
+	MinUnitAssert("Error:, IsNullOrEmptyTest null", IsNullOrEmpty(NULL) == 1);
+	MinUnitAssert("Error:, IsNullOrEmptyTest empty", IsNullOrEmpty("") == 1);
+	MinUnitAssert("Error:, IsNullOrEmptyTest not empty", IsNullOrEmpty("test") == 0);
+
+	return 0;
+}
+
+char * IntToStringTest()
+{
+	char buffer[10];
+	IntToString(1, "%d", buffer, sizeof(buffer));
+
+	MinUnitAssert("Error:, IntToStringTest", IsNullOrEmpty(NULL) == 1);
+
+	return 0;
+}
+
+
+#pragma endregion
+
+
 // Register all tests in here
 void UnitTestsRunAll()
 {
-	//MinUnitRun(ConvertUInt8Test);
-
 	MinUnitRun(GaboCommandRead_BufferOverflowTest);
 	MinUnitRun(GaboCommandRead_NotReadyCommandTest);
 	MinUnitRun(GaboCommandRead_CommandReadyTest);
@@ -232,4 +295,11 @@ void UnitTestsRunAll()
 	MinUnitRun(GaboCommandReadUsartTest);
 	MinUnitRun(GaboCommandReadUsartNewLineTest);
 	MinUnitRun(GaboCommandReadUsartOverflowTest);
+
+	// Utility.h
+	MinUnitRun(UtilityIsBitSetTest);
+	MinUnitRun(UtilitySetBitAsUsedTest);
+	MinUnitRun(UtilitySetBitAsUnUsedTest);
+	MinUnitRun(UtilityFlipBitTest);
+	MinUnitRun(IsNullOrEmptyTest);
 }

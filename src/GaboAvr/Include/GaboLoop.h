@@ -15,6 +15,6 @@ void GaboLoopMain(void);
 
 void GaboLoopOnUpdate(void);
 void GaboLoopOnUpdateMs(void);
-void GaboLoopOnRender(float interpolation);
+void GaboLoopOnRender(void);
 
 #endif /* GABOLOOP_H_ */

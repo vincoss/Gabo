@@ -14,9 +14,4 @@ volatile unsigned long long int GaboTimeTickCount;
 void GaboTimeIninialize(void);
 unsigned long long int GaboTimeGetTickCount(void);
 
-unsigned long long int GaboTimeGetTickCount(void)
-{
-	return GaboTimeTickCount;
-}
-
 #endif /* GABOTIME_H_ */

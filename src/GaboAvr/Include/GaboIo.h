@@ -14,6 +14,10 @@
 #define TRUE 1
 #define FALSE 0
 
+
+#define GABOIO_SPI_REGISTER_DDRB	DDRB
+#define GABOIO_SPI_PORT_PORTB		PORTB
+
 #define GABOIO_SPI_DATA					(1<<PB3)	// MOSI (SI)
 #define GABOIO_SPI_CLOCK				(1<<PB5)	//SCK  (SCK)
 #define GABOIO_SPI_OUTPUT_LATCH_PINB2	PB2	// Output
