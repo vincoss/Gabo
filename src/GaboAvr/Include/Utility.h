@@ -97,7 +97,7 @@ char * FloatToStringArray(long double value, const char * format, char * buffer,
 	return buffer;
 }
 
-long long int ConvertToInt64(const unsigned char * str, const char * format)
+long long int ConvertToInt64(const char * str, const char * format)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
@@ -108,7 +108,7 @@ long long int ConvertToInt64(const unsigned char * str, const char * format)
 	return v;
 }
 
-uint8_t ConvertToUInt8(const unsigned char * str)
+uint8_t ConvertToUInt8(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
@@ -120,7 +120,7 @@ uint8_t ConvertToUInt8(const unsigned char * str)
 	return v;
 }
 
-float ConvertToFloat(const unsigned char * str)
+float ConvertToFloat(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
@@ -133,7 +133,7 @@ float ConvertToFloat(const unsigned char * str)
 	return v;
 }
 
-double ConvertToDouble(const unsigned char * str)
+double ConvertToDouble(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{

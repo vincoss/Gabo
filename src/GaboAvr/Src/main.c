@@ -112,13 +112,13 @@ void GaboLoopOnUpdate(void)
 		*Push commands and calc values
 	*/
 	
-	//GaboCommandRead();
-	//
-	//// Do not execute if input commands are incoming or processing.
-	//if(startWriteCommand == 0)
-	//{
-		//ProcessOutputBus();
-	//}
+	GaboCommandRead();
+	
+	// Do not execute if input commands are incoming or processing.
+	if(startWriteCommand == 0)
+	{
+		ProcessOutputBus();
+	}
 	
 	/*
 		Lowest priority.
