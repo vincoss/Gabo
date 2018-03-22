@@ -5,7 +5,7 @@
 *	Author: Ferdinand Lukasak
 */
 
-
+#include <stdint.h>
 #include "MinUnit.h"
 #include "UnitTests.h"
 #include "GaboCommand.h"
@@ -262,16 +262,19 @@ char * IsNullOrEmptyTest()
 	return 0;
 }
 
-char * IntToStringTest()
+char * IntToStringAndConvertToInt64Test()
 {
-	char buffer[10];
-	IntToString(1, "%d", buffer, sizeof(buffer));
+	char buffer[30];
+	long long int expected = INT64_MAX;
+	char * format = "%lld";
 
-	MinUnitAssert("Error:, IntToStringTest", IsNullOrEmpty(NULL) == 1);
+	IntToString(expected, format, buffer, sizeof(buffer));
+	long long int actual = ConvertToInt64(buffer, format);
+
+	MinUnitAssert("Error:, IntToStringAndConvertToInt64Test", expected == actual);
 
 	return 0;
 }
-
 
 #pragma endregion
 
@@ -302,4 +305,5 @@ void UnitTestsRunAll()
 	MinUnitRun(UtilitySetBitAsUnUsedTest);
 	MinUnitRun(UtilityFlipBitTest);
 	MinUnitRun(IsNullOrEmptyTest);
+	MinUnitRun(IntToStringAndConvertToInt64Test);
 }

@@ -69,7 +69,7 @@ char * IntToString(long long int value, const char * format, char * buffer, int 
 	return buffer;
 }
 
-char * IntToStringUnsigned(long long int value, const char * format, char * buffer, int length)
+char * IntToStringUnsigned(unsigned long long int value, const char * format, char * buffer, int length)
 {
 	if (strlen((format)) <= 0)
 	{
@@ -95,6 +95,17 @@ char * FloatToStringArray(long double value, const char * format, char * buffer,
 	memset(buffer, 0, length); // Clear
 	snprintf(buffer, length, format, value);
 	return buffer;
+}
+
+long long int ConvertToInt64(const unsigned char * str, const char * format)
+{
+	if (IsNullOrEmpty(str) == 1)
+	{
+		return 0;
+	}
+	long long int v;
+	sscanf(str, format, &v);
+	return v;
 }
 
 uint8_t ConvertToUInt8(const unsigned char * str)
