@@ -58,9 +58,9 @@ int IsNullOrEmpty(const char * str)
 	long long			%lli
 	unsinged long long	%llu
 */
-char * IntToString(long long int value, const char * format, char * buffer, int length)
+char * IntToString(int value, const char * format, char * buffer, int length)
 {
-	if (strlen((format)) <= 0)
+	if (IsNullOrEmpty(format) == 1)
 	{
 		return "";
 	}
@@ -69,9 +69,9 @@ char * IntToString(long long int value, const char * format, char * buffer, int 
 	return buffer;
 }
 
-char * IntToStringUnsigned(unsigned long long int value, const char * format, char * buffer, int length)
+char * UnsignedIntToString(unsigned int value, const char * format, char * buffer, int length)
 {
-	if (strlen((format)) <= 0)
+	if (IsNullOrEmpty(format) == 1)
 	{
 		return "";
 	}
@@ -80,31 +80,27 @@ char * IntToStringUnsigned(unsigned long long int value, const char * format, ch
 	return buffer;
 }
 
-/*
-	Formats
-	float			%f, %g, %e, %a
-	double			%lf, %lg, %le, %la
-	long double		%Lf, %Lg, %Le, %La
-*/
-char * FloatToStringArray(long double value, const char * format, char * buffer, int length)
-{
-	if (strlen((format)) <= 0)
-	{
-		return "";
-	}
-	memset(buffer, 0, length); // Clear
-	snprintf(buffer, length, format, value);
-	return buffer;
-}
-
-long long int ConvertToInt64(const char * str, const char * format)
+int ConvertToInt32(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
 		return 0;
 	}
+
 	long long int v;
-	sscanf(str, format, &v);
+	sscanf(str, "%ld", &v);
+	return v;
+}
+
+unsigned int ConvertToUnsignedInt32(const char * str)
+{
+	if (IsNullOrEmpty(str) == 1)
+	{
+		return 0;
+	}
+
+	unsigned int v;
+	sscanf(str, "%lu", &v);
 	return v;
 }
 
@@ -120,29 +116,53 @@ uint8_t ConvertToUInt8(const char * str)
 	return v;
 }
 
-float ConvertToFloat(const char * str)
-{
-	if (IsNullOrEmpty(str) == 1)
-	{
-		return 0;
-	}
+/*
+	TOOD: Not tested
+*/
 
-	//return atof(str);
-	float v;
-	sscanf(str, "%f", &v);
-	return v;
-}
+///*
+//Formats
+//float			%f, %g, %e, %a
+//double			%lf, %lg, %le, %la
+//long double		%Lf, %Lg, %Le, %La
+//*/
+//char * FloatToString(long double value, const char * format, char * buffer, int length)
+//{
+//	if (IsNullOrEmpty(format) == 1)
+//	{
+//		return "";
+//	}
+//	memset(buffer, 0, length); // Clear
+//	snprintf(buffer, length, format, value);
+//	return buffer;
+//}
+//
+//
+//float ConvertToFloat(const char * str)
+//{
+//	if (IsNullOrEmpty(str) == 1)
+//	{
+//		return 0;
+//	}
+//
+//	//return atof(str);
+//	float v;
+//	sscanf(str, "%f", &v);
+//	return v;
+//}
+//
+//double ConvertToDouble(const char * str)
+//{
+//	if (IsNullOrEmpty(str) == 1)
+//	{
+//		return 0;
+//	}
+//
+//	double v;
+//	sscanf(str, "%lf", &v);
+//	return v;
+//}
 
-double ConvertToDouble(const char * str)
-{
-	if (IsNullOrEmpty(str) == 1)
-	{
-		return 0;
-	}
 
-	double v;
-	sscanf(str, "%lf", &v);
-	return v;
-}
 
 #endif

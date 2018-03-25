@@ -9,6 +9,7 @@
 	 2. cd {SolutionDir}\debug
 	 3. avrdude -p atmega328p -c arduino -P COM3 -b 115200 -D -U flash:w:main.hex
 	 4. avrdude -p atmega328p -c arduino -P COM6 -b 57600 -D -U flash:w:main.hex
+	 5. avrdude -p atmega328p -c arduino -P COM4 -b 57600 -D -U flash:w:main.hex
  */ 
 
 #include <string.h>
@@ -74,7 +75,7 @@ void GaboCommandWriteLog(const char * message)
 void GaboLoopMain(void)
 {
 	const int eventOneMilliseconds = 1;
-	const int eventTwoMilliseconds = 1000 / 20; // Run every 50 millisecond.
+	const int eventTwoMilliseconds = 1000 / 1; // Run every 50 millisecond.
 
 	volatile unsigned long long int eventOneTicks = GaboTimeGetTickCount();
 	volatile unsigned long long int eventTwoTicks = GaboTimeGetTickCount();
@@ -113,6 +114,8 @@ void GaboLoopOnUpdate(void)
 	*/
 	
 	GaboCommandRead();
+	char buffer[8];
+	UsartWriteChar(IntToString(8, "%d", buffer, sizeof(buffer)));
 	
 	// Do not execute if input commands are incoming or processing.
 	if(startWriteCommand == 0)

@@ -262,16 +262,44 @@ char * IsNullOrEmptyTest()
 	return 0;
 }
 
-char * IntToStringAndConvertToInt64Test()
+char * IntToStringAndConvertToInt32Test()
 {
-	char buffer[30];
-	long long int expected = INT64_MAX;
-	char * format = "%lld";
+	char buffer[12];
+	int expected = INT32_MAX;
+	char * format = "%ld"; 
 
 	IntToString(expected, format, buffer, sizeof(buffer));
-	long long int actual = ConvertToInt64(buffer, format);
+	int actual = ConvertToInt32(buffer, format);
 
-	MinUnitAssert("Error:, IntToStringAndConvertToInt64Test", expected == actual);
+	MinUnitAssert("Error:, IntToStringAndConvertToInt32Test", expected == actual);
+
+	return 0;
+}
+
+char * UnsignedIntToStringUnsignedAndConvertToInt32Test()
+{
+	char buffer[12];
+	unsigned int expected = UINT32_MAX;
+	char * format = "%lu";
+
+	UnsignedIntToString(expected, format, buffer, sizeof(buffer));
+	unsigned int actual = ConvertToUnsignedInt32(buffer, format);
+
+	MinUnitAssert("Error:, UnsignedIntToStringUnsignedAndConvertToInt32Test", expected == actual);
+
+	return 0;
+}
+
+char * ConvertToUInt8Test()
+{
+	char buffer[8];
+	int expected = UINT8_MAX;
+	char * format = "%hhu";
+
+	UnsignedIntToString(expected, format, buffer, sizeof(buffer));
+	uint8_t actual = ConvertToUInt8(buffer, format);
+
+	MinUnitAssert("Error:, UnsignedIntToStringUnsignedAndConvertToInt32Test", expected == actual);
 
 	return 0;
 }
@@ -305,5 +333,7 @@ void UnitTestsRunAll()
 	MinUnitRun(UtilitySetBitAsUnUsedTest);
 	MinUnitRun(UtilityFlipBitTest);
 	MinUnitRun(IsNullOrEmptyTest);
-	MinUnitRun(IntToStringAndConvertToInt64Test);
+	MinUnitRun(IntToStringAndConvertToInt32Test);
+	MinUnitRun(UnsignedIntToStringUnsignedAndConvertToInt32Test);
+	MinUnitRun(ConvertToUInt8Test);
 }

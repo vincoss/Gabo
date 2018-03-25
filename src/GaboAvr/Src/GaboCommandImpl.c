@@ -127,7 +127,7 @@ void GaboCommandPrintTelemetry(void)
 // Displays all available commands.
 void GaboCommandHelp(void)
 {
-	char buffer[5];
+	char buffer[8];
 
 	GaboCommandWriteLog("Command(s) write must start with Z=1\n and end with Z=0\n command.");
 	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
@@ -142,4 +142,7 @@ void GaboCommandHelp(void)
 		
 	GaboCommandWriteLog("A={Power} write value");
 	GaboCommandWriteLog("B={Powertrain} write value");
+		
+	GaboCommandWriteLog("Running time.");
+	//GaboCommandWriteLog(IntToStringUnsigned(GaboTimeGetTickCount(), "%llu", buffer, sizeof(buffer)));
 }
