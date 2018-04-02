@@ -7,6 +7,7 @@
 
 #include "GaboIo.h"
 #include "GaboCommandImpl.h"
+#include <string.h>
 
 void GaboCommandNotRecognisedMessage(void);
 void GaboCommandPrintTelemetry(void);
@@ -132,8 +133,8 @@ void GaboCommandHelp(void)
 	GaboCommandWriteLog("Command(s) write must start with Z=1\n and end with Z=0\n command.");
 	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
 	GaboCommandWriteLog("Command max size.");
-	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hardcoded value use RX_BUFFER_SIZE instead
-	GaboCommandWriteLog("Use <=,?> sign to write or display value.");
+	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hard coded value use RX_BUFFER_SIZE instead
+	GaboCommandWriteLog("Use =,? signs to write or display value.");
 	
 	GaboCommandWriteLog("Available commands");
 

@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
 	GaboUsartInterruptInitialize(); // TODO: migrate to Usart.h
 	GaboTimeIninialize();
 	GaboSpiInitialize();
+	GaboSpiIoInitialize();
 
 	GaboLoopMain();
 
@@ -75,7 +76,7 @@ void GaboCommandWriteLog(const char * message)
 void GaboLoopMain(void)
 {
 	const int eventOneMilliseconds = 1;
-	const int eventTwoMilliseconds = 1000 / 1; // Run every 50 millisecond.
+	const int eventTwoMilliseconds = 1000 / 25; // Run every 50 millisecond.
 
 	volatile unsigned long long int eventOneTicks = GaboTimeGetTickCount();
 	volatile unsigned long long int eventTwoTicks = GaboTimeGetTickCount();
@@ -114,8 +115,6 @@ void GaboLoopOnUpdate(void)
 	*/
 	
 	GaboCommandRead();
-	char buffer[8];
-	UsartWriteChar(IntToString(8, "%d", buffer, sizeof(buffer)));
 	
 	// Do not execute if input commands are incoming or processing.
 	if(startWriteCommand == 0)
@@ -185,6 +184,4 @@ void ProcessOutputBus()
 void InitializeDefaults()
 {
 	IsOutputInitialized = 0;
-	GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
-	GABOIO_SPI_SET_INPUT_LATCH_HIGH;
 }

@@ -11,9 +11,6 @@
 
 #include <inttypes.h>
 
-#define UTILITY_OFF 0
-#define UTILITY_ON	1
-
 uint8_t UtilityIsBitSet(uint8_t address, uint8_t bitindex)
 {
 	return ((address & (1 << bitindex)) != 0) ? 1 : 0;
@@ -87,7 +84,7 @@ int ConvertToInt32(const char * str)
 		return 0;
 	}
 
-	long long int v;
+	long int v;
 	sscanf(str, "%ld", &v);
 	return v;
 }
@@ -99,7 +96,7 @@ unsigned int ConvertToUnsignedInt32(const char * str)
 		return 0;
 	}
 
-	unsigned int v;
+	unsigned long int v;
 	sscanf(str, "%lu", &v);
 	return v;
 }

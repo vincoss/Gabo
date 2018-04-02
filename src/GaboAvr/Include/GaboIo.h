@@ -25,7 +25,7 @@
 #define GABOIO_SPI_SET_OUTPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_OUTPUT_LATCH_PINB2))	// Activate slave
 #define GABOIO_SPI_SET_OUTPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_OUTPUT_LATCH_PINB2))		// Deactivate slave
 #define GABOIO_SPI_SET_INPUT_LATCH_LOW		(PORTB &= ~(1 << GABOIO_SPI_INPUT_LATCH_PINB4))		// Activate slave
-#define GABOIO_SPI_SET_INPUT_LATCH_HIGH	(PORTB |= (1 << GABOIO_SPI_INPUT_LATCH_PINB4))			// Deactivate slave
+#define GABOIO_SPI_SET_INPUT_LATCH_HIGH		(PORTB |= (1 << GABOIO_SPI_INPUT_LATCH_PINB4))		// Deactivate slave
 
 volatile uint8_t IsOutputInitialized;	// Indicates that output was already set at least one time.
 
