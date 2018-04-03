@@ -1,15 +1,15 @@
 /*
- * Adc.c
+ * GaboAdc.c
  *
  * Created: 29/01/2018 10:10:12 PM
  *  Author: Ferdinand Lukasak
  */ 
 
 #include <avr/io.h>
-#include "Adc.h"
+#include "GaboAdc.h"
 
 // Initialize the ADC Module
-void AdcInitialize(void)
+void GaboAdcInitialize(void)
 {
 	ADCSRA |= ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0)); // 16Mhz/128 = 125Khz the ADC reference clock
 	ADMUX |= (1 << REFS0); // Voltage reference from Vref=AVcc
@@ -18,7 +18,7 @@ void AdcInitialize(void)
 }
 
 // Read ADC value
-uint16_t AdcRead(uint8_t channel)
+uint16_t GaboAdcRead(uint8_t channel)
 {
 	// Select ADC Channel ch must be 0-7
 	channel = channel & 0b00000111;

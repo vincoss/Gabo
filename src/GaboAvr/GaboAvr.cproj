@@ -142,7 +142,7 @@
     <Folder Include="Src" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Include\Adc.h">
+    <Compile Include="Include\GaboAdc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Include\GaboCommand.h">
@@ -166,13 +166,10 @@
     <Compile Include="Include\GaboUsart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Include\Usart.h">
+    <Compile Include="Include\GaboUtility.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Include\Utility.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Src\Adc.c">
+    <Compile Include="Src\GaboAdc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\GaboCommand.c">
@@ -185,9 +182,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Src\Usart.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

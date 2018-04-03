@@ -11,9 +11,8 @@
 
 #include <inttypes.h>
 
-#define TRUE 1
-#define FALSE 0
-
+//#define TRUE	1 // TODO: remove is not used
+//#define FALSE	0
 
 #define GABOIO_SPI_REGISTER	DDRB
 #define GABOIO_SPI_PORT		PORTB

@@ -1,24 +1,24 @@
 /*
- * Adc.h
+ * GaboAdc.h
  *
  * Created: 29/01/2018 10:09:16 PM
  *  Author: Ferdinand Lukasak
  */ 
 
 
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef GABO_ADC_H_
+#define GABO_ADC_H_
 
 
 #include <avr/io.h>
 
 /// Initialize Adc channel
-void AdcInitialize(void);
+void GaboAdcInitialize(void);
 
 /// Read ADC channel.
 /// Channel number between 0-7
 /// Return value between 0-1023
-uint16_t AdcRead(uint8_t channel);
+uint16_t GaboAdcRead(uint8_t channel);
 
 
-#endif /* ADC_H_ */
+#endif /* GABO_ADC_H_ */

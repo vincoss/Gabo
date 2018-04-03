@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
-#include "Utility.h"
+#include "GaboUtility.h"
 #include "GaboCommand.h"
 #include "GaboCommandImpl.h"
 
@@ -70,20 +70,20 @@ void GaboCommandReadUsart(const unsigned char usartData)
 		return;
 	}
 
-	rx_data_in[rx_data_count] = usartData;
+	rx_data_in[rx_data_index] = usartData;
 
-	if (rx_data_in[rx_data_count] == NEW_LINE_CHAR) // End of line!
+	if (rx_data_in[rx_data_index] == NEW_LINE_CHAR) // End of line!
 	{
 		// Command ready to parse
 		command_ready = 1;
 
 		// Reset to 0, ready to go again
-		rx_data_count = 0;
+		rx_data_index = 0;
 		return;
 	}
 
 	// Buffer overflow.
-	if (rx_data_count + 1 == RX_BUFFER_SIZE)
+	if (rx_data_index + 1 == RX_BUFFER_SIZE)
 	{
 		// Clear all rx buffer
 		for (unsigned char i = 0; i < RX_BUFFER_SIZE; i++)
@@ -91,11 +91,11 @@ void GaboCommandReadUsart(const unsigned char usartData)
 			rx_data_in[i] = NULL_CHAR;
 		}
 
-		rx_data_count = 0;
+		rx_data_index = 0;
 		command_ready = 0;
 		rx_buffer_overflow = 1;
 		return;
 	}
 
-	rx_data_count++;
+	rx_data_index++;
 }

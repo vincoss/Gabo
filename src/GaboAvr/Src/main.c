@@ -15,8 +15,7 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "Usart.h"
-#include "Adc.h"
+#include "GaboAdc.h"
 #include "GaboIo.h"
 #include "GaboUsart.h"
 #include "GaboCommand.h"
@@ -27,8 +26,8 @@
 int main(int argc, char *argv[])
 {
 	InitializeDefaults();
-	UsartInitialize();
-	GaboUsartInterruptInitialize(); // TODO: migrate to Usart.h
+	GaboUsartInitialize();
+	GaboUsartInterruptInitialize();
 	GaboTimeIninialize();
 	GaboSpiInitialize();
 	GaboSpiIoInitialize();
@@ -65,8 +64,8 @@ void GaboCommandWriteLog(const char * message)
 		return; // Nothing
 	}
 	
-	UsartWriteCharString(message);
-	UsartWriteChar('\r\n');
+	GaboUsartWriteCharString(message);
+	GaboUsartWriteChar('\r\n');
 }
 
 #pragma endregion GaboCommand implementation
@@ -184,4 +183,22 @@ void ProcessOutputBus()
 void InitializeDefaults()
 {
 	IsOutputInitialized = 0;
+}
+
+
+// TODO: move int main.c
+
+ISR(USART_RX_vect)
+{
+	char status, data;
+
+	status = UCSR0A;
+	data = UDR0;
+
+	if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) != 0)
+	{
+		return;
+	};
+
+	GaboCommandReadUsart(data);
 }

@@ -9,7 +9,7 @@
 #ifndef GABO_COMMANDIMPL_H_
 #define GABO_COMMANDIMPL_H_
 
-void GaboCommandProcess(char * command_in);
-//uint8_t GaboCommandParse(char * str, uint8_t defaultValue);
+void GaboCommandProcess(const char * command_in);
+//uint8_t GaboCommandParse(char * str, uint8_t defaultValue); // TODO: remove
 
 #endif /* GABOCOMMANDIMPL_H_ */

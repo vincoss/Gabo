@@ -18,7 +18,7 @@ void GaboCommandHelp(void);
  Possible store commands int temp values and then apply those when command apply is send.
 
  */
-void GaboCommandProcess(char * command)
+void GaboCommandProcess(const char * command)
 {
 	if (strlen(command) <= 1)
 	{
@@ -145,5 +145,5 @@ void GaboCommandHelp(void)
 	GaboCommandWriteLog("B={Powertrain} write value");
 		
 	GaboCommandWriteLog("Running time in milliseconds.");
-	GaboCommandWriteLog(IntToString(GaboTimeGetTickCount(), "%d", buffer, sizeof(buffer)));
+	//GaboCommandWriteLog(IntToString(GaboTimeGetTickCount(), "%d", buffer, sizeof(buffer))); // nresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
 }

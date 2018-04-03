@@ -29,7 +29,7 @@ int UnitTestsRun(void)
 // Initialize or reset values, called for each test
 void MinUnitInitialize(void)
 {
-	rx_data_count = 0;
+	rx_data_index = 0;
 	command_ready = 0;
 	memset(rx_data_in, 0, strlen(rx_data_in));
 }
@@ -147,7 +147,7 @@ char * GaboCommandReadUsartEmptyCharTest()
 	GaboCommandReadUsart('\0');
 
 	MinUnitAssert("Error:, GaboCommandReadUsartEmptyCharTest data in", rx_data_in[0] == '\0');
-	MinUnitAssert("Error:, GaboCommandReadUsartEmptyCharTest data count", rx_data_count == 0);
+	MinUnitAssert("Error:, GaboCommandReadUsartEmptyCharTest data count", rx_data_index == 0);
 
 	return 0;
 }
@@ -157,7 +157,7 @@ char * GaboCommandReadUsartNewLineCharTest()
 	GaboCommandReadUsart('\n');
 
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineCharTest data in", rx_data_in[0] == '\n');
-	MinUnitAssert("Error:, GaboCommandReadUsartNewLineCharTest data count", rx_data_count == 0);
+	MinUnitAssert("Error:, GaboCommandReadUsartNewLineCharTest data count", rx_data_index == 0);
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineCharTest command ready", command_ready == 1);
 	
 	return 0;
@@ -170,7 +170,7 @@ char * GaboCommandReadUsartTest()
 
 	MinUnitAssert("Error:, GaboCommandReadUsartTest data in", rx_data_in[0] == 'A');
 	MinUnitAssert("Error:, GaboCommandReadUsartTest data in", rx_data_in[1] == 'B');
-	MinUnitAssert("Error:, GaboCommandReadUsartTest data count", rx_data_count == 2);
+	MinUnitAssert("Error:, GaboCommandReadUsartTest data count", rx_data_index == 2);
 	MinUnitAssert("Error:, GaboCommandReadUsartTest command ready", command_ready == 0);
 
 	return 0;
@@ -184,7 +184,7 @@ char * GaboCommandReadUsartNewLineTest()
 
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data in", rx_data_in[0] == 'A');
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data in", rx_data_in[1] == 'B');
-	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data count", rx_data_count == 0);
+	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest data count", rx_data_index == 0);
 	MinUnitAssert("Error:, GaboCommandReadUsartNewLineTest command ready", command_ready == 1);
 
 	return 0;
@@ -197,7 +197,7 @@ char * GaboCommandReadUsartOverflowTest()
 		GaboCommandReadUsart(i);
 	}
 
-	MinUnitAssert("Error:, GaboCommandReadUsartOverflowTest data count", rx_data_count == 0);
+	MinUnitAssert("Error:, GaboCommandReadUsartOverflowTest data count", rx_data_index == 0);
 	MinUnitAssert("Error:, GaboCommandReadUsartOverflowTest command ready", command_ready == 0);
 	MinUnitAssert("Error:, GaboCommandReadUsartOverflowTest buffer overflow", rx_buffer_overflow == 1);
 

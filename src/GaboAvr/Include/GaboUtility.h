@@ -1,13 +1,13 @@
 /*
- * Utility.h
+ * GaboUtility.h
  *
  * Created: 29/01/2018 10:09:16 PM
  *  Author: Ferdinand Lukasak
  */ 
 
 
-#ifndef UTILITY_H_
-#define UTILITY_H_
+#ifndef GABO_UTILITY_H_
+#define GABO_UTILITY_H_
 
 #include <inttypes.h>
 
@@ -162,4 +162,4 @@ uint8_t ConvertToUInt8(const char * str)
 
 
 
-#endif
+#endif /* GABO_UTILITY_H_ */

@@ -15,7 +15,8 @@
 #define RX_BUFFER_SIZE 8
 volatile unsigned char rx_data_in[RX_BUFFER_SIZE];
 volatile unsigned char command_in[RX_BUFFER_SIZE];
-volatile uint8_t rx_data_count;
+volatile uint8_t rx_data_index;
+// Command ready to parse into a variable.
 volatile uint8_t command_ready;
 
 // This flag is set on USART Receiver buffer overflow
