@@ -10,6 +10,6 @@
 #define GABO_COMMANDIMPL_H_
 
 void GaboCommandProcess(char * command_in);
-uint8_t GaboCommandParse(char * str, uint8_t defaultValue);
+//uint8_t GaboCommandParse(char * str, uint8_t defaultValue);
 
 #endif /* GABOCOMMANDIMPL_H_ */

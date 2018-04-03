@@ -53,7 +53,7 @@ void GaboCommandCopy(char * srcData, char * destCommand)
 		// Copy the contents of data_in into command_in
 		memcpy(destCommand, srcData, 8);
 
-		//// Now clear data_in, the USART can reuse it now
+		// Now clear data_in, the USART can reuse it now
 		memset(srcData, 0, 8);
 	}
 }

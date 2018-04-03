@@ -144,6 +144,6 @@ void GaboCommandHelp(void)
 	GaboCommandWriteLog("A={Power} write value");
 	GaboCommandWriteLog("B={Powertrain} write value");
 		
-	GaboCommandWriteLog("Running time.");
-	//GaboCommandWriteLog(IntToStringUnsigned(GaboTimeGetTickCount(), "%llu", buffer, sizeof(buffer)));
+	GaboCommandWriteLog("Running time in milliseconds.");
+	GaboCommandWriteLog(IntToString(GaboTimeGetTickCount(), "%d", buffer, sizeof(buffer)));
 }

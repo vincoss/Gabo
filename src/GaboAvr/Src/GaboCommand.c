@@ -37,7 +37,7 @@ void GaboCommandRead(void)
 	command_ready = 0;
 }
 
-uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
+uint8_t GaboCommandParse(const char * str, uint8_t defaultValue)
 {
 	if (strlen(str) <= 0)
 	{
@@ -63,7 +63,7 @@ uint8_t GaboCommandParse(char * str, uint8_t defaultValue)
 	return output;
 }
 
-void GaboCommandReadUsart(unsigned char usartData)
+void GaboCommandReadUsart(const unsigned char usartData)
 {
 	if (usartData == NULL_CHAR)
 	{
