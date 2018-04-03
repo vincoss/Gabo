@@ -10,6 +10,7 @@
 #define GABOSPI_H_
 
 void GaboSpiInitialize(void);
+void GaboSpiIoInitialize(void);
 uint8_t GaboSpiSend(uint8_t data);
 
 void GaboSpiInitialize(void)
@@ -22,10 +23,10 @@ void GaboSpiInitialize(void)
 void GaboSpiIoInitialize()
 {
 	// Set control pins as outputs
-	GABOIO_SPI_REGISTER_DDRB |= (GABOIO_SPI_DATA | GABOIO_SPI_OUTPUT_LATCH_PINB2 | GABOIO_SPI_CLOCK);	
+	GABOIO_SPI_REGISTER |= (GABOIO_SPI_DATA | GABOIO_SPI_OUTPUT_LATCH | GABOIO_SPI_CLOCK);	
 	
 	// Set control pins low
-	GABOIO_SPI_PORT_PORTB &= ~(GABOIO_SPI_DATA | GABOIO_SPI_OUTPUT_LATCH_PINB2 | GABOIO_SPI_CLOCK);
+	GABOIO_SPI_PORT &= ~(GABOIO_SPI_DATA | GABOIO_SPI_OUTPUT_LATCH | GABOIO_SPI_CLOCK);
 	
 	// Set to high to not transmit
 	GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
