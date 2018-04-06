@@ -91,6 +91,8 @@
         </avrgcc.assembler.general.IncludePaths>
       </AvrGcc>
     </ToolchainSettings>
+    <OutputFileName>main</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -155,6 +157,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Include\GaboLoop.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Include\GaboPot.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Include\GaboSpi.h">

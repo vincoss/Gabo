@@ -15,6 +15,7 @@
 const unsigned char NULL_CHAR = '\0';
 const unsigned char NEW_LINE_CHAR = '\n';
 
+// Call this method from main loop to process any incoming commands.
 void GaboCommandRead(void)
 {
 	if (rx_buffer_overflow == 1)
@@ -72,7 +73,7 @@ void GaboCommandReadUsart(const unsigned char usartData)
 
 	rx_data_in[rx_data_index] = usartData;
 
-	if (rx_data_in[rx_data_index] == NEW_LINE_CHAR) // End of line!
+	if (rx_data_in[rx_data_index] == NEW_LINE_CHAR) // End of line! Command ready to be processed.
 	{
 		// Command ready to parse
 		command_ready = 1;

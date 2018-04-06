@@ -52,10 +52,12 @@ int IsNullOrEmpty(const char * str)
 	unsigned int		%u
 	signed long			%li
 	unsigned long		%lu
-	long long			%lli
-	unsinged long long	%llu
+	
+	# These formats might not work on 8 bits
+	long long			%lli or %lld
+	unsigned long long	%llu
 */
-char * IntToString(int value, const char * format, char * buffer, int length)
+char * IntToString(long int value, const char * format, char * buffer, int length)
 {
 	if (IsNullOrEmpty(format) == 1)
 	{
@@ -66,7 +68,7 @@ char * IntToString(int value, const char * format, char * buffer, int length)
 	return buffer;
 }
 
-char * UnsignedIntToString(unsigned int value, const char * format, char * buffer, int length)
+char * UnsignedIntToString(unsigned long long int value, const char * format, char * buffer, int length)
 {
 	if (IsNullOrEmpty(format) == 1)
 	{

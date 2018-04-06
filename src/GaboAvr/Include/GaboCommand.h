@@ -19,7 +19,7 @@ volatile uint8_t rx_data_index;
 // Command ready to parse into a variable.
 volatile uint8_t command_ready;
 
-// This flag is set on USART Receiver buffer overflow
+// This flag is set on USART Receiver buffer overflows.
 volatile unsigned char rx_buffer_overflow;
 
 void GaboCommandRead();

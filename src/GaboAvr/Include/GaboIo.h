@@ -60,6 +60,10 @@ volatile uint8_t startWriteCommand;
 	shaft changes = 200*50 = 10,000 per minute
 	main loop read SPI bus should around 200 per second
 	on/off signals
+	
+	# SPI or outupt register
+	TODO: at first you must reset the register to zero, that should hapend dring start-up. That ensure that all register are empty
+	and processing or moving.
 */
 
 #define POWERDR   _SFR_IO8(0x31)

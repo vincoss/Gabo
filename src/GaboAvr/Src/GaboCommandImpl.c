@@ -17,6 +17,7 @@ void GaboCommandHelp(void);
  TODO: refactor this. This method is Gabo specific possible to refactor into own file.
  Possible store commands int temp values and then apply those when command apply is send.
 
+z=1\na=20\nb=40\nz=0\n
  */
 void GaboCommandProcess(const char * command)
 {
@@ -106,7 +107,7 @@ void GaboCommandPrintTelemetry(void)
 {
 	// TODO: here push out all system variables and values.
 
-	char buffer[5]; // TODO: refactor those into single global
+	char buffer[10]; // TODO: refactor those into single global
 
 	GaboCommandWriteLog("Power");
 	GaboCommandWriteLog(IntToString(powerCommandTemp, "%d", buffer, sizeof buffer));
@@ -123,6 +124,11 @@ void GaboCommandPrintTelemetry(void)
 		workhours power-train
 		workhours power-takeOff
 	*/
+			
+	GaboCommandWriteLog("Running time in milliseconds.");
+	int t = GaboTimeGetTickCount() / 1000;
+	GaboCommandWriteLog(IntToString(t, "%d", buffer, sizeof(buffer))); // unresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
+
 }
 
 // Displays all available commands.
@@ -130,11 +136,11 @@ void GaboCommandHelp(void)
 {
 	char buffer[8];
 
-	GaboCommandWriteLog("Command(s) write must start with Z=1\n and end with Z=0\n command.");
+	GaboCommandWriteLog("Commands write must start with Z=1 and end with Z=0 command.");
 	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
 	GaboCommandWriteLog("Command max size.");
 	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hard coded value use RX_BUFFER_SIZE instead
-	GaboCommandWriteLog("Use =,? signs to write or display value.");
+	GaboCommandWriteLog("Use = sign to write command and ? sign to display command value.");
 	
 	GaboCommandWriteLog("Available commands");
 
@@ -143,7 +149,4 @@ void GaboCommandHelp(void)
 		
 	GaboCommandWriteLog("A={Power} write value");
 	GaboCommandWriteLog("B={Powertrain} write value");
-		
-	GaboCommandWriteLog("Running time in milliseconds.");
-	//GaboCommandWriteLog(IntToString(GaboTimeGetTickCount(), "%d", buffer, sizeof(buffer))); // nresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
 }

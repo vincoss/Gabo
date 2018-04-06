@@ -10,8 +10,6 @@
 #define GABO_ADC_H_
 
 
-#include <avr/io.h>
-
 /// Initialize Adc channel
 void GaboAdcInitialize(void);
 

@@ -75,7 +75,7 @@ void GaboCommandWriteLog(const char * message)
 void GaboLoopMain(void)
 {
 	const int eventOneMilliseconds = 1;
-	const int eventTwoMilliseconds = 1000 / 25; // Run every 50 millisecond.
+	const int eventTwoMilliseconds = 1000 / 20; // Run every 50 millisecond.
 
 	volatile unsigned long long int eventOneTicks = GaboTimeGetTickCount();
 	volatile unsigned long long int eventTwoTicks = GaboTimeGetTickCount();
@@ -96,7 +96,7 @@ void GaboLoopMain(void)
 			eventTwoTicks = GaboTimeGetTickCount();
 		}
 		
-		GaboLoopOnRender();
+		GaboLoopOnRender(); // Max
 	}
 }
 
@@ -113,12 +113,12 @@ void GaboLoopOnUpdate(void)
 		*Push commands and calc values
 	*/
 	
-	GaboCommandRead();
+	GaboCommandRead(); // TODO: need to test wheter this place is fast enough to process incomming commands in batch.
 	
 	// Do not execute if input commands are incoming or processing.
 	if(startWriteCommand == 0)
 	{
-		ProcessOutputBus();
+		//ProcessOutputBus();
 	}
 	
 	/*
@@ -128,12 +128,19 @@ void GaboLoopOnUpdate(void)
 
 void GaboLoopOnUpdateMs(void)
 {
+	
+	
 	// TODO: check if can already read
 	//ProcessInputBus();
 }
 
+
+char localBuffer[8];
 void GaboLoopOnRender()
 {
+	unsigned long long int t = GaboTimeGetTickCount();
+	GaboCommandWriteLog(UnsignedIntToString(t, "%lu", localBuffer, sizeof(localBuffer)));
+	
 	// TODO: here possible read sensors or other, but it might run too fast.
 }
 
@@ -141,8 +148,7 @@ void GaboLoopOnRender()
 
 uint8_t ReadInputBus()
 {
-	
-	
+	return 0;
 }
 
 void ProcessInputBus()
@@ -185,8 +191,7 @@ void InitializeDefaults()
 	IsOutputInitialized = 0;
 }
 
-
-// TODO: move int main.c
+#pragma region Usart interrupt
 
 ISR(USART_RX_vect)
 {
@@ -202,3 +207,5 @@ ISR(USART_RX_vect)
 
 	GaboCommandReadUsart(data);
 }
+
+#pragma endregion Usart interrupt

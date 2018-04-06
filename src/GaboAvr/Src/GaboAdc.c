@@ -20,7 +20,7 @@ void GaboAdcInitialize(void)
 // Read ADC value
 uint16_t GaboAdcRead(uint8_t channel)
 {
-	// Select ADC Channel ch must be 0-7
+	// Select ADC Channel ch must be 0-7, basic validation.
 	channel = channel & 0b00000111;
 
 	ADMUX &= 0xF0;                  // Clear the older channel that was read
