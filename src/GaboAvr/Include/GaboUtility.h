@@ -57,6 +57,9 @@ int IsNullOrEmpty(const char * str)
 	long long			%lli or %lld
 	unsigned long long	%llu
 */
+
+
+
 char * IntToString(long int value, const char * format, char * buffer, int length)
 {
 	if (IsNullOrEmpty(format) == 1)

@@ -31,13 +31,51 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 volatile uint8_t powerCommandTemp;		// =Powertrain, PowerTakeOff 00000011
 volatile uint8_t powertrainCommandTemp;
 
-volatile uint8_t PowerCommand;		// Store power on/off value
-volatile uint8_t PowertrainCommand; // Store powertrain on/off values left and right
+volatile uint8_t PowerCommand;			// Store power on/off value
+volatile uint8_t PowertrainCommand;		// Store powertrain on/off values left and right
+volatile uint8_t PowerTakeOffCommand;	// Store Power takeOff values
 
 volatile int powertrainWorkHours;	// TODO: these should be persited every hour write increment log
 volatile int powertakeoffWorkHours; // TODO: these should be persited every hour write increment log
 
 volatile uint8_t startWriteCommand;
+
+void PowertrainLeftStop();
+void PowetrainRightStart();
+
+void PowertrainLeftStop()
+{
+	UtilitySetBitAsUnUsed(PowertrainCommand, 0);
+}
+
+/*
+	# Powertrain Right and Left
+	BLHD30K DC24V
+
+	BLH230
+	
+	1	Alarm (output)	Brown
+	2	Speed (output)	Red
+	3	GND				Orange
+	4	VRH POT			Yellow
+	5	VRH POT			Green
+	6	VRH POT			Blue
+	7	Alarm-Reset (input)	Purple
+	8	INT.VR/EXT	POT internal or external	Brown
+	9	CW/CCW		(input)	Gray
+	10	Run/Brake	(input)	White
+	11	Start/Stop	(input)	Black
+	
+	#Index
+	0	left	start/stop
+	1	right	start/stop
+	2	left	run/brake
+	3	right	run/brake
+	4	left	cw/ccw
+	5	right	cw/ccw
+	6	left&right	int.vr/ext
+	7	left&right	alarm-reset
+*/
 
 /*
 	TODO: add commands flags, startWriteCommand, endWriteCommand

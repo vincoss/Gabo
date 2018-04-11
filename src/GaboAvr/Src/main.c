@@ -15,6 +15,7 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include "GaboUtility.h"
 #include "GaboAdc.h"
 #include "GaboIo.h"
 #include "GaboUsart.h"
@@ -134,13 +135,8 @@ void GaboLoopOnUpdateMs(void)
 	//ProcessInputBus();
 }
 
-
-char localBuffer[8];
 void GaboLoopOnRender()
 {
-	unsigned long long int t = GaboTimeGetTickCount();
-	GaboCommandWriteLog(UnsignedIntToString(t, "%lu", localBuffer, sizeof(localBuffer)));
-	
 	// TODO: here possible read sensors or other, but it might run too fast.
 }
 
@@ -178,6 +174,7 @@ void ProcessOutputBus()
 		
 		GaboSpiSend(PowerCommand);
 		GaboSpiSend(PowertrainCommand);
+		GaboSpiSend(PowerTakeOffCommand);
 		// More commands here
 		
 		GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
