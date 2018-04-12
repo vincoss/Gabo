@@ -43,39 +43,12 @@ volatile uint8_t startWriteCommand;
 void PowertrainLeftStop();
 void PowetrainRightStart();
 
-void PowertrainLeftStop()
-{
-	UtilitySetBitAsUnUsed(PowertrainCommand, 0);
-}
+//void PowertrainLeftStop()
+//{
+	//UtilitySetBitAsUnUsed(PowertrainCommand, 0);
+//}
 
-/*
-	# Powertrain Right and Left
-	BLHD30K DC24V
 
-	BLH230
-	
-	1	Alarm (output)	Brown
-	2	Speed (output)	Red
-	3	GND				Orange
-	4	VRH POT			Yellow
-	5	VRH POT			Green
-	6	VRH POT			Blue
-	7	Alarm-Reset (input)	Purple
-	8	INT.VR/EXT	POT internal or external	Brown
-	9	CW/CCW		(input)	Gray
-	10	Run/Brake	(input)	White
-	11	Start/Stop	(input)	Black
-	
-	#Index
-	0	left	start/stop
-	1	right	start/stop
-	2	left	run/brake
-	3	right	run/brake
-	4	left	cw/ccw
-	5	right	cw/ccw
-	6	left&right	int.vr/ext
-	7	left&right	alarm-reset
-*/
 
 /*
 	TODO: add commands flags, startWriteCommand, endWriteCommand
@@ -137,3 +110,64 @@ void PowertrainLeftStop()
 #define PINO7	7	// Cv/Ccv		(right)
 
 #endif
+
+/*
+	#Example commands
+	
+	#Power
+	1 or 00000001	power the controller
+	2 or 00000010	power the powertrain
+	3
+	4
+	
+	Complete command
+	A=2
+	
+	#Powertrain
+	1 
+	
+	
+*/
+
+/*
+	I/O Registers
+*/
+
+// A=Power	(output)
+#define PINA0	0
+#define PINA1	1
+#define PINA3	2
+#define PINA3	3
+
+// B=Powertrain	(output)
+#define PINB0	0	// left		start/stop
+#define PINB1	1	// right	start/stop
+#define PINB2	2	// left		run/brake
+#define PINB3	3	// right	run/brake
+#define PINB4	4	// left		cw/ccw
+#define PINB5	5	// right	cw/ccw
+#define PINB6	6	// left&right	int.vr/ext
+#define PINB7	7	// left&right	alarm-reset
+
+// C=PowerTakeOff (output)
+
+/*
+	# Powertrain Right and Left, input and output signals. JST 12 pin connector.
+	
+	Oriental Motor
+	BLHD30K DC24V
+	BLH230
+	
+	1	Alarm (output)	Brown
+	2	Speed (output)	Red
+	3	GND				Orange
+	4	VRH POT			Yellow
+	5	VRH POT			Green
+	6	VRH POT			Blue
+	7	Alarm-Reset (input)	Purple
+	8	INT.VR/EXT	POT internal or external	Brown
+	9	CW/CCW		(input)	Gray
+	10	Run/Brake	(input)	White
+	11	Start/Stop	(input)	Black
+	
+*/

@@ -8,7 +8,9 @@
 #include <avr/interrupt.h>
 #include "GaboTime.h"
 
-#pragma region GaboTime (timer) implementation
+/*
+	Fire every 1ms.
+*/
 
 void GaboTimeIninialize(void)
 {
@@ -45,5 +47,3 @@ ISR(TIMER1_COMPA_vect)
 {
 	GaboTimeTickCount++;
 }
-
-#pragma endregion

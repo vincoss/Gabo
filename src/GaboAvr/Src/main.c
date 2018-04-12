@@ -26,12 +26,12 @@
 
 int main(int argc, char *argv[])
 {
+	GaboTimeIninialize();
 	InitializeDefaults();
 	GaboUsartInitialize();
 	GaboUsartInterruptInitialize();
-	GaboTimeIninialize();
-	GaboSpiInitialize();
 	GaboSpiIoInitialize();
+	GaboSpiInitialize();
 
 	GaboLoopMain();
 
@@ -75,6 +75,8 @@ void GaboCommandWriteLog(const char * message)
 
 void GaboLoopMain(void)
 {
+	// TODO: Review this with game loop and multiple while
+	
 	const int eventOneMilliseconds = 1;
 	const int eventTwoMilliseconds = 1000 / 20; // Run every 50 millisecond.
 
@@ -129,8 +131,6 @@ void GaboLoopOnUpdate(void)
 
 void GaboLoopOnUpdateMs(void)
 {
-	
-	
 	// TODO: check if can already read
 	//ProcessInputBus();
 }
