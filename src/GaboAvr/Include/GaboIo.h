@@ -151,6 +151,10 @@ void PowetrainRightStart();
 
 // C=PowerTakeOff (output)
 
+// D=Hall sensor (input)
+#define PIND0	0	// left
+#define PIND1	1	// righ
+
 /*
 	# Powertrain Right and Left, input and output signals. JST 12 pin connector.
 	
