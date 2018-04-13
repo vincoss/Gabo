@@ -125,9 +125,9 @@ void GaboCommandPrintTelemetry(void)
 		workhours power-takeOff
 	*/
 			
-	GaboCommandWriteLog("Running time in milliseconds.");
-	int t = GaboTimeGetTickCount() / 1000;
-	GaboCommandWriteLog(IntToString(t, "%d", buffer, sizeof(buffer))); // unresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
+	//GaboCommandWriteLog("Running time in milliseconds.");
+	//int t = GaboTimeGetTickCount() / 1000;
+	//GaboCommandWriteLog(IntToString(t, "%d", buffer, sizeof(buffer))); // unresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
 
 }
 

@@ -27,11 +27,11 @@
 int main(int argc, char *argv[])
 {
 	GaboTimeIninialize();
-	InitializeDefaults();
 	GaboUsartInitialize();
 	GaboUsartInterruptInitialize();
 	GaboSpiIoInitialize();
 	GaboSpiInitialize();
+	InitializeDefaults();
 
 	GaboLoopMain();
 
@@ -186,6 +186,34 @@ void ProcessOutputBus()
 void InitializeDefaults()
 {
 	IsOutputInitialized = 0;
+	
+	ResetOutputToZero();
+}
+
+void ResetOutputToZero(void)
+{
+	/*
+		// 	# SPI or outupt register
+		// 	TODO: at first you must reset the register to zero, that should happen during start-up. That ensure that all register are empty
+		// 	and processing or moving. The SPI must be already initialized to reset the register. Also watchdog must be able to call the reset method.
+
+	*/
+	GABOIO_SPI_SET_OUTPUT_LATCH_LOW;
+	
+	GaboSpiSend(0b00000000); // power
+	GaboSpiSend(0b00000000); // powertrain
+	GaboSpiSend(0b00000000); // pto
+	// More commands here
+	
+	GABOIO_SPI_SET_OUTPUT_LATCH_HIGH;
+}
+
+void WriteWorkHours(void)
+{
+	// NOTE: Work-Hours just use as ticks, then always add, let say every 1 minute write to storage
+	// Update work hours periodically and then store when required.
+	// Power, Powertrain, Pto These actually must be running not just loop is on
+	// Just collect current running time and then update with persisted one. 
 }
 
 #pragma region Usart interrupt

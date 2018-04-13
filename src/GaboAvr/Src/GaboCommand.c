@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
+#include "GaboUtility.h"
 #include "GaboCommand.h"
 #include "GaboCommandImpl.h"
 
