@@ -15,7 +15,6 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "GaboUtility.h"
 #include "GaboAdc.h"
 #include "GaboIo.h"
 #include "GaboUsart.h"
@@ -23,6 +22,17 @@
 #include "GaboSpi.h"
 #include "GaboLoop.h"
 #include "GaboTime.h"
+
+char * IntToStringLocal(long long int value, const char * format, char * buffer, int length)
+{
+	if (IsNullOrEmpty(format) == 1)
+	{
+		return "";
+	}
+	memset(buffer, 0, length); // Clear
+	snprintf(buffer, length, format, value);
+	return buffer;
+}
 
 int main(int argc, char *argv[])
 {
@@ -78,7 +88,7 @@ void GaboLoopMain(void)
 	// TODO: Review this with game loop and multiple while
 	
 	const int eventOneMilliseconds = 1;
-	const int eventTwoMilliseconds = 1000 / 20; // Run every 50 millisecond.
+	const int eventTwoMilliseconds = 1000 / 1; // Run every 50 millisecond.
 
 	volatile unsigned long long int eventOneTicks = GaboTimeGetTickCount();
 	volatile unsigned long long int eventTwoTicks = GaboTimeGetTickCount();
@@ -212,7 +222,7 @@ void WriteWorkHours(void)
 {
 	// NOTE: Work-Hours just use as ticks, then always add, let say every 1 minute write to storage
 	// Update work hours periodically and then store when required.
-	// Power, Powertrain, Pto These actually must be running not just loop is on
+	// Power, Powertrain, Pto These actually must be running not just loop is on.
 	// Just collect current running time and then update with persisted one. 
 }
 

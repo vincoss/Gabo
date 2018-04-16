@@ -8,6 +8,8 @@
 #include "GaboIo.h"
 #include "GaboCommandImpl.h"
 #include <string.h>
+#include "GaboUtility.h"
+#include "GaboTime.h"
 
 void GaboCommandNotRecognisedMessage(void);
 void GaboCommandPrintTelemetry(void);
@@ -107,7 +109,7 @@ void GaboCommandPrintTelemetry(void)
 {
 	// TODO: here push out all system variables and values.
 
-	char buffer[10]; // TODO: refactor those into single global
+	char buffer[16]; // TODO: refactor those into single global
 
 	GaboCommandWriteLog("Power");
 	GaboCommandWriteLog(IntToString(powerCommandTemp, "%d", buffer, sizeof buffer));
@@ -125,21 +127,20 @@ void GaboCommandPrintTelemetry(void)
 		workhours power-takeOff
 	*/
 			
-	//GaboCommandWriteLog("Running time in milliseconds.");
-	//int t = GaboTimeGetTickCount() / 1000;
-	//GaboCommandWriteLog(IntToString(t, "%d", buffer, sizeof(buffer))); // unresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
+	GaboCommandWriteLog("Running time in milliseconds.");
+	GaboCommandWriteLog(IntToString(GaboTimeGetTickCount(), "%ld", buffer, sizeof(buffer))); // unresolved external symbol GaboTimeGetTickCount referenced in function GaboCommandHelp
 
 }
 
 // Displays all available commands.
 void GaboCommandHelp(void)
 {
-	char buffer[8];
+	char buffer[16];
 
 	GaboCommandWriteLog("Commands write must start with Z=1 and end with Z=0 command.");
 	GaboCommandWriteLog("Each command must start with A-Z character and end with newline character.");
 	GaboCommandWriteLog("Command max size.");
-	GaboCommandWriteLog(IntToString(8, "%d", buffer, sizeof(buffer))); // TODO: remove the hard coded value use RX_BUFFER_SIZE instead
+	GaboCommandWriteLog(IntToString(8, "%ld", buffer, sizeof(buffer))); // TODO: remove the hard coded value use RX_BUFFER_SIZE instead
 	GaboCommandWriteLog("Use = sign to write command and ? sign to display command value.");
 	
 	GaboCommandWriteLog("Available commands");

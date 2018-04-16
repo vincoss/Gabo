@@ -58,9 +58,7 @@ int IsNullOrEmpty(const char * str)
 	unsigned long long	%llu
 */
 
-
-
-char * IntToString(long int value, const char * format, char * buffer, int length)
+char * IntToString(long long int value, const char * format, char * buffer, int length)
 {
 	if (IsNullOrEmpty(format) == 1)
 	{
@@ -82,7 +80,7 @@ char * UnsignedIntToString(unsigned long long int value, const char * format, ch
 	return buffer;
 }
 
-int ConvertToInt32(const char * str)
+long int ConvertToInt32(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
@@ -94,7 +92,7 @@ int ConvertToInt32(const char * str)
 	return v;
 }
 
-unsigned int ConvertToUnsignedInt32(const char * str)
+unsigned long int ConvertToUnsignedInt32(const char * str)
 {
 	if (IsNullOrEmpty(str) == 1)
 	{
