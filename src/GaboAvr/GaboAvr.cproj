@@ -162,6 +162,9 @@
     <Compile Include="Include\GaboPot.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Include\GaboPowertrain.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Include\GaboSpi.h">
       <SubType>compile</SubType>
     </Compile>
@@ -181,6 +184,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\GaboCommandImpl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Src\GaboPowertrain.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\GaboTime.c">

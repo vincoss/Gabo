@@ -62,6 +62,10 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 
 /*
 	I/O Registers
+	
+	A	Power
+	B	Powertrain
+	C	PowerTakeOff
 */
 
 // A=Power	(output)
@@ -77,7 +81,7 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 #define PINB3	3	// right	run/brake
 #define PINB4	4	// left		cw/ccw
 #define PINB5	5	// right	cw/ccw
-#define PINB6	6	// left&right	int.vr/ext
+#define PINB6	6	// left&right	int.vr/ext (set POT Internal)
 #define PINB7	7	// left&right	alarm-reset
 
 // C=PowerTakeOff (output)
@@ -105,4 +109,10 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 	10	Run/Brake	(input)	White
 	11	Start/Stop	(input)	Black
 	
+*/
+
+/*
+	# Example input command
+	A=3	On power controller and powertrain
+	B=159	start,run,cw,pot internal,alarm off
 */
