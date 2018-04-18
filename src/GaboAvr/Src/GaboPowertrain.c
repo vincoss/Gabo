@@ -8,7 +8,6 @@
 #include "GaboIo.h"
 #include "GaboPowertrain.h"
 
-
 void PowertrainStop()
 {
 	PowertrainLeftStop();
@@ -23,4 +22,14 @@ void PowertrainLeftStop()
 void PowertrainRightStop()
 {
 	UtilitySetBitAsUnUsed(&PowertrainCommand, PINB1);
+}
+
+void PowertrainLeftStart()
+{
+	UtilitySetBitAsUsed(&PowertrainCommand, PINB0);
+}
+
+void PowertrainRightStart()
+{
+	UtilitySetBitAsUsed(&PowertrainCommand, PINB1);
 }

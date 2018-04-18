@@ -66,6 +66,7 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 	A	Power
 	B	Powertrain
 	C	PowerTakeOff
+	D	
 */
 
 // A=Power	(output)
