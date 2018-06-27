@@ -61,6 +61,8 @@ volatile uint8_t IsOutputInitialized;	// Indicates that output was already set a
 #endif
 
 /*
+	TODO: See this regitster definition as a example. io43u32x.h
+
 	I/O Registers
 	
 	A	Power
