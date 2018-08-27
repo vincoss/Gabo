@@ -15,6 +15,7 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include "Main.h"
 #include "GaboAdc.h"
 #include "GaboIo.h"
 #include "GaboUsart.h"
@@ -217,6 +218,7 @@ void WriteWorkHours(void)
 
 #pragma region Usart interrupt
 
+// Remember, inside an ISR interrupts are disabled. Thus hoping that the time returned by millis() function calls will change, will lead to disappointment. 
 ISR(USART_RX_vect)
 {
 	char status, data;
@@ -229,7 +231,19 @@ ISR(USART_RX_vect)
 		return;
 	};
 
+	/* 
+		TODO: this is not good, just put the data into buffer and then have another process to handle processing and buffer clear.
+		interrupt should not block for too long.
+	*/
+
 	GaboCommandReadUsart(data);
 }
 
 #pragma endregion Usart interrupt
+
+ISR(BADISR_vect)
+{
+	// Catch all interrupt.
+	
+	// TODO: here have a flag that indectes an error, then wirte from main to usart or set alert led ON. reset the flag then
+}

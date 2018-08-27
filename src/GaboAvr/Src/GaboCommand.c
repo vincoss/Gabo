@@ -64,6 +64,8 @@ uint8_t GaboCommandParse(const char * str, uint8_t defaultValue)
 	return output;
 }
 
+// TODO: this might take too long
+// Remember, inside an ISR interrupts are disabled. Thus hoping that the time returned by millis() function calls will change, will lead to disappointment. 
 void GaboCommandReadUsart(const unsigned char usartData)
 {
 	if (usartData == NULL_CHAR)

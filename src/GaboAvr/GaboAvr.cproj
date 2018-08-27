@@ -177,6 +177,9 @@
     <Compile Include="Include\GaboUtility.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Include\Main.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Src\GaboAdc.c">
       <SubType>compile</SubType>
     </Compile>
@@ -193,6 +196,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Src\Robot.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

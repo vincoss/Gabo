@@ -31,7 +31,7 @@
 
 /*
 */
-volatile uint8_t powerCommandTemp;		// 00000111, controller, powertrain, pto
+extern volatile uint8_t powerCommandTemp;		// 00000111, controller, powertrain, pto
 volatile uint8_t powertrainCommandTemp;
 
 volatile uint8_t PowerCommand;			// Store power on/off value
